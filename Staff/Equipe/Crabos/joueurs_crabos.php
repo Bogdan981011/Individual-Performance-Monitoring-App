@@ -51,7 +51,7 @@
 
     try {
         $stmt = $pdo->prepare("
-          SELECT nom, prenom 
+          SELECT nom, prenom, id_joueur
           FROM joueurs
           JOIN equipe ON joueurs.id_equipe = equipe.id_equipe
           WHERE equipe.nom_equipe = :nom_equipe

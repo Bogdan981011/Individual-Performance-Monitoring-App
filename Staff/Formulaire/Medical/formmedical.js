@@ -15,8 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Validation des champs
         const dureeOk = /(jour|semaine|mois|année)s?/.test(duree);
-        const dateOk = /^(0[1-9]|[12][0-9]|3[01])\/(0[1-9]|1[0-2])\/\d{4}$/.test(date); // format JJ/MM/AAAA
-        const graviteOk = /^\d+$/.test(gravite) && gravite >= 1 && gravite <= 10;;
+        const graviteOk = /^\d+$/.test(gravite) && gravite >= 1 && gravite <= 10;
         const champsNonVides = type && gravite && date && duree;
 
         // Vérification des champs vides (excepté observation)
@@ -26,13 +25,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Validation durée
         if (!dureeOk) {
-            return afficherErreur("La durée doit mentionner 'jour', 'semaine', 'mois' ou 'année'.");
+            return afficherErreur("La durée doit mentionner <br> 'jour', 'semaine', 'mois' ou 'année'.");
         }
 
         // Validation format date
-        if (!dateOk) {
+        if (!dateOk(date)) {
             return afficherErreur("Le format de la date est invalide.");
         }
+
         // Validation date (doit être au plus tard aujourd'hui)
         const dateEntree = new Date(date.split('/').reverse().join('/')); // Convertit la date du format JJ/MM/AAAA en objet Date
         const today = new Date();
@@ -70,12 +70,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Fonction pour afficher les erreurs
         function afficherErreur(message) {
-            resultat.innerHTML = `<p style="color: red;">${message}</p>`;
+            resultat.innerHTML = `
+                <p style="
+                    color: white; 
+                    text-align: center; 
+                    font-weight: bold;
+                    border: 1px solid white">${message}</p>`;
         }
 
         // Fonction pour afficher le succès
         function afficherSuccès(message) {
             resultat.innerHTML = `<p style="color: green;">${message}</p>`;
+        }
+
+        // Fonction de validation de la date
+        function dateOk(dateString) {
+            const dateParts = dateString.split('-');
+            const day = parseInt(dateParts[2], 10);
+            const month = parseInt(dateParts[1], 10) - 1; // Les mois sont indexés à partir de 0
+            const year = parseInt(dateParts[0], 10);
+
+            const date = new Date(year, month, day);
+            console.log(date);
+            return date.getDate() === day && date.getMonth() === month && date.getFullYear() === year;
         }
     });
 });
