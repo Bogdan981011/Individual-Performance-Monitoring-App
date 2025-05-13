@@ -1,0 +1,252 @@
+/* Styles généraux pour la page */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2f1f87;
+    color: white;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Conteneur principal du formulaire */
+.form-container {
+    width: 90vw;
+    max-width: 600px;
+    margin: 5vh auto;
+    background-color: #190C63;
+    padding: 5vw;
+    border-radius: 2vw;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    margin-top: 0vh;
+}
+
+/* Style pour le logo ASBH dans le titre */
+h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    gap: 10px;
+}
+
+/* Style pour le logo ASBH */
+.logo-asbh {
+    width: 40px; /* Ajuste la taille de l'image */
+    height: auto;
+}
+
+/* Style des champs de formulaire */
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.1em;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%; /* Assurer que tous les champs ont la même largeur */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+    background-color: #f5f5f5;
+    box-sizing: border-box; /* Assure que padding et border sont inclus dans la largeur */
+}
+
+textarea {
+    resize: vertical;
+}
+
+/* Forcer la largeur des éléments select */
+select {
+    width: 100%; /* Assurer que les champs select prennent la largeur complète */
+    box-sizing: border-box; /* Inclut le padding et la bordure dans la largeur totale */
+}
+
+/* Barre de range */
+input[type="range"] {
+    width: 100%;
+    height: 10px;
+    background: transparent;
+    margin-bottom: 5px;
+}
+
+/* Piste (track) */
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(to right, green,yellow,orange, red);
+}
+
+input[type="range"]::-moz-range-track {
+    height: 10px;
+    border-radius: 5px;
+    background: linear-gradient(to right, green,yellow,orange, red);
+}
+
+/* Curseur (thumb) */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #190C63;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -5px;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 2px solid #190C63;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Affichage valeur difficulté */
+output {
+    display: inline-block;
+    font-size: 1.2em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+/* Container pour la barre de range et labels */
+.range-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+.range-labels {
+    position: relative;
+    height: 1em;
+    margin-top: 5px;
+}
+
+.range-labels span {
+    position: absolute;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+/* Style pour les labels de difficulté */
+.difficulty-labels {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 1.1em;
+    color: #ccc;
+    margin-bottom: 10px; /* Espace entre les labels et la barre */
+}
+
+/* Facile */
+.facile {
+    text-align: left;
+    margin-left: 0;
+}
+
+/* Difficile */
+.difficile {
+    text-align: right;
+    margin-right: 0;
+}
+
+/* Bouton Submit */
+button {
+    background-color: #CC0A0A;
+    color: white;
+    font-size: 1.2em;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #d93e00;
+}
+.btn-retour {
+    background-color: #190C63;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: fixed;
+    top: 20px; /* Positionne-le un peu en bas de l'écran */
+    right: 20px; /* Positionne-le à droite de l'écran */
+    z-index: 100; /* Assure qu'il soit au-dessus des autres éléments */
+}
+
+.btn-retour:hover {
+    background-color: #d93e00;
+    transform: scale(1.05);
+}
+
+/* Styles spécifiques à la barre de sommeil */
+input.range-sommeil::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, red, orange,yellow, green); /* Dégradé rouge -> jaune -> vert */
+}
+
+input.range-sommeil::-moz-range-track {
+    background: linear-gradient(to right, red, orange,yellow, green);
+}
+
+input.range-sommeil::-webkit-slider-thumb {
+    background: #fff;
+    border: 2px solid #FFB703; /* couleur différente pour le curseur sommeil */
+}
+
+input.range-sommeil::-moz-range-thumb {
+    background: #fff;
+    border: 2px solid #FFB703;
+}
+
+
+/* Responsive : petit écran */
+@media screen and (max-width: 480px) {
+    h1 {
+        font-size: 6vw;
+    }
+
+    label, 
+    input[type="text"], 
+    select, 
+    textarea, 
+    output, 
+    button {
+        font-size: 4vw;
+    }
+
+    .range-labels {
+        font-size: 3.5vw;
+    }
+
+    button {
+        padding: 3vw;
+    }
+
+    .difficulty-labels {
+        font-size: 3.5vw; /* Taille adaptée pour les petits écrans */
+        margin-bottom: 4vw; /* Marge ajustée */
+    }
+    .facile,
+    .difficile {
+        font-size: 3.5vw; /* Ajustement de la taille des labels sur petits écrans */
+    }
+}

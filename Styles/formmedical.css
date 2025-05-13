@@ -1,0 +1,262 @@
+/* Appliquer box-sizing à tous les éléments */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Fond général */
+body {
+  background-color: #FBEAEA;
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+/* Conteneur formulaire */
+.form-container {
+  max-width: 500px;
+  margin: 5vh auto;
+  padding: 30px;
+  background-color: #CC0A0A;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+/* En-tête avec logo + titre */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  width: 50px;
+  height: auto;
+}
+
+h1 {
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+
+/* Champs formulaire */
+label {
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+select,
+textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 1em;
+  background-color: #f3f3f3;
+  color: #333;
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* Style de l'échelle */
+.range-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.range-texts {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  margin-bottom: 5px;
+  color: #eee;
+}
+
+input[type="range"] {
+  width: 100%;
+  background: transparent;
+  appearance: none;
+  height: 8px;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  background: linear-gradient(to right,  green, yellow, orange, red);
+  height: 8px;
+  border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  border-radius: 50%;
+  border: 2px solid #CC0A0A;
+  cursor: pointer;
+  margin-top: -6px;
+}
+
+input[type="range"]::-moz-range-track {
+  background: linear-gradient(to right, green, yellow, orange, red);
+  height: 8px;
+  border-radius: 5px;
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  background: #fff;
+  border-radius: 50%;
+  border: 2px solid #CC0A0A;
+  cursor: pointer;
+}
+
+/* Affichage des chiffres sous l'échelle */
+.range-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9em;
+  margin-top: 5px;
+  color: #eee;
+  width: 100%;
+}
+
+/* Output de la gravité */
+output {
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  margin-top: 5px;
+}
+
+.btn-retour {
+    background-color: #CC0A0A;
+    color: white;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    position: fixed;
+    top: 20px; /* Positionne-le un peu en bas de l'écran */
+    right: 20px; /* Positionne-le à droite de l'écran */
+    z-index: 100; /* Assure qu'il soit au-dessus des autres éléments */
+}
+
+.btn-retour:hover {
+    background-color: #d93e00;
+    transform: scale(1.05);
+}
+
+
+
+button {
+  width: 200px;
+  margin-top: 20px;
+  margin-left: auto;
+  margin-right: 0;
+  display: block;
+  background-color: white;
+  color: #CC0A0A;
+  border: none;
+  padding: 12px;
+  font-size: 1em;
+  font-weight: bold;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button:hover {
+  background-color: #f2f2f2;
+}
+
+/* Media Queries pour adapter le formulaire aux petits écrans */
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+    width: 90vw; /* Adapter à la largeur de l'écran */
+  }
+
+  h1 {
+    font-size: 1.2em; /* Réduire légèrement la taille du titre */
+  }
+
+  label {
+    font-size: 1.1em;
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 8px; /* Adapter le padding des champs */
+    font-size: 1.2em; /* Augmenter la taille de la police pour mieux s'adapter */
+  }
+
+  .range-texts {
+    font-size: 0.8em;
+  }
+
+  .range-labels {
+    font-size: 0.8em;
+  }
+
+  output {
+    font-size: 1.1em;
+  }
+
+  button {
+    width: 90%; /* Largeur du bouton adaptée à l'écran */
+    padding: 10px;
+    font-size: 1.1em;
+  }
+}
+
+@media (max-width: 480px) {
+  .form-container {
+    padding: 15px;
+    width: 90vw;
+  }
+
+  h1 {
+    font-size: 1em; /* Réduire la taille du titre pour les très petits écrans */
+  }
+
+  input[type="text"],
+  input[type="date"],
+  select,
+  textarea {
+    padding: 6px; /* Réduire le padding pour mieux s'adapter à l'écran */
+    font-size: 1.1em;
+  }
+
+  .range-texts {
+    font-size: 0.7em;
+  }
+
+  .range-labels {
+    font-size: 0.7em;
+  }
+
+  output {
+    font-size: 1em;
+  }
+
+  button {
+    width: 90%; /* Adapter la taille du bouton pour les petits écrans */
+    padding: 8px;
+    font-size: 1.2em;
+  }
+}

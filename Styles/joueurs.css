@@ -1,0 +1,235 @@
+/* ============================ Style général ============================ */
+.page-title {
+    text-align: center;
+    margin-top: 10vh;
+    font-size: 2rem;
+    color: #CC0A0A;
+    font-weight: bold;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #fbe3e3, #f6d4d4);
+    background-repeat: no-repeat;
+    background-size: cover; /* Couvre l'intégralité de la page */
+    background-attachment: fixed; /* Empêche le fond de se déplacer */
+    width: 100%; /* Assure que le body prend toute la largeur */
+    overflow: hidden;
+}
+
+
+
+
+.joueurs-container {
+    width: 90vw;
+    max-width: 800px;
+    margin: 5vh auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+.joueur-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 2vh 2vw;
+    border-radius: 1vw;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nom-joueur {
+    font-size: 1.2rem;
+    color: #333;
+    flex: 1 1 100%;
+    margin-bottom: 1vh;
+}
+
+/* Groupe de boutons alignés à droite */
+.joueur-card a.btn-formulaire:first-of-type {
+    margin-left: auto; /* pousse ce bouton vers la droite */
+}
+
+.btn-formulaire {
+    background-color: #CC0A0A;
+    color: white;
+    padding: 1.5vh 2vw;
+    border-radius: 0.5vw;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+    margin-left: 1vw;
+}
+
+.btn-formulaire:hover {
+    background-color: #d93e00;
+    transform: scale(1.05);
+}
+
+/* ============================ Bouton retour ============================ */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 2vh 2vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: #fff;
+    
+    
+}
+
+
+/* Ruban fixe en haut */
+.header-ruban {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    background: linear-gradient(to right, #CC0A0A, #a40808);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+}
+
+/* Section du ruban pour les liens */
+.ruban-section {
+    display: flex;
+    justify-content: space-around; /* Espacement uniforme entre les sections */
+    width: 80%; /* Largeur du ruban */
+}
+
+/* Style des liens du ruban */
+.ruban-link {
+    font-family: 'Bebas Neue', sans-serif;
+    color: rgba(255, 255, 255, 0.666);
+    text-decoration: none;
+    padding: 10px 20px;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ruban-link:hover {
+    background-color: #a40808;
+    transform: scale(1.05);
+}
+
+/* Style pour la section active (grisée) */
+.ruban-link.active {
+    background-color: rgba(0, 0, 0, 0.5); /* Fond gris */
+    color: #aaa; /* Texte plus clair */
+    cursor: not-allowed; /* Change le curseur pour indiquer l'inactivité */
+}
+
+
+
+.btn-retour {
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* plus petit */
+    font-weight: normal; /* pas en gras */
+    background-color: #CC0A0A;
+    color: #f9f9f9; /* blanc légèrement adouci */
+    padding: 10px 20px; /* légèrement réduit */
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.btn-retour:hover {
+    background-color: #d93e00;
+    transform: scale(1.05);
+}
+
+
+/* ============================ Barre de recherche ============================ */
+.search-container {
+    width: 90%; /* Utilise 90% de la largeur */
+    max-width: 500px; /* Limite la largeur à 500px sur mobile */
+    margin: 3vh auto;
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    padding: 0.5vh 1vw;
+}
+
+.search-bar {
+    width: 80%;  /* Réduit la largeur pour le champ de recherche */
+    padding: 1vh 1.5vw;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+}
+
+.search-btn {
+    background-color: transparent;
+    border: none;
+    padding: 1.5vh 1vw;
+    cursor: pointer;
+    color: #CC0A0A;
+    font-size: 1.2rem;
+}
+
+.search-btn:hover {
+    color: #d93e00;
+}
+
+.search-btn i {
+    font-size: 1.5rem; /* Taille de l'icône loupe */
+}
+
+/* ============================ Responsive pour mobile ============================ */
+@media (max-width: 600px) {
+    /* Ajustement des cards de joueurs */
+    .joueur-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2vh 3vw;  /* Un peu plus d'espace pour les éléments */
+        width: 100%;  /* S'assure que la carte prend toute la largeur */
+    }
+
+    /* Boutons qui occupent toute la largeur sur mobile */
+    .btn-formulaire {
+        width: 100%;  /* Les boutons prennent toute la largeur */
+        margin-left: 0;
+        margin-top: 1vh;
+        text-align: center;
+    }
+
+    .joueur-card a.btn-formulaire:first-of-type {
+        margin-left: 0; /* Réinitialise le push vers la droite */
+    }
+
+    /* Ajustement du header et du bouton retour */
+    .header {
+        justify-content: center; /* Centrer le bouton retour */
+        padding: 2vh;  /* Ajuste l'espacement du bouton */
+    }
+
+    .btn-retour {
+        margin-right: 0;  /* Supprime la marge à droite */
+        padding: 1vh 2vw;
+        font-size: 1rem;
+    }
+
+    /* Barre de recherche sur mobile */
+    .search-container {
+        width: 90%;  /* La barre de recherche occupe 90% de la largeur */
+        max-width: 350px;  /* Limite la largeur sur mobile */
+    }
+}
