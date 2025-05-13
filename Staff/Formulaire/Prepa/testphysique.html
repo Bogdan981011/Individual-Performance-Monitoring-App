@@ -96,6 +96,7 @@
     .btn-option:hover {
       background-color: #0e0640;
     }
+
     .return-btn {
       position: absolute;
       top: 20px;
@@ -118,6 +119,24 @@
     .date-section {
       text-align: center;
       margin-bottom: 20px;
+    }
+
+    .save-button {
+      display: block;
+      margin: 30px auto;
+      padding: 12px 24px;
+      background-color: var(--bleu);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .save-button:hover {
+      background-color: #a10808;
     }
 
     @media (max-width: 768px) {
@@ -191,6 +210,9 @@
       </tr>
     </tbody>
   </table>
+
+  <!-- ✅ BOUTON ENREGISTRER -->
+  <button class="save-button">Enregistrer</button>
 </div>
 
 <div class="sidebar">
