@@ -25,11 +25,10 @@
 
   <!-- Barre de recherche -->
   <div class="search-container">
-    <input type="text" id="search-bar" class="search-bar" placeholder="Rechercher un joueur..." />
-    <button class="search-btn">
-      <i class="fa fa-search"></i>
-    </button>
+    <input type="text" class="search-bar" placeholder="Rechercher..." />
+    <button class="search-btn">🔍</button>
   </div>
+
 
   <!-- Liste des joueurs -->
   <div class="joueurs-container">
@@ -64,7 +63,7 @@
           ?>
           <div class="joueur-card">
             <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
-            <a href="../../../Joueur/Fiche_joueur/performance.html" class="btn-formulaire">Tests et Performance</a>
+            <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
             <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>" class="btn-formulaire">Formulaire médical</a>
           </div>
           <?php

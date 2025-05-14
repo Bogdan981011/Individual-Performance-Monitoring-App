@@ -157,29 +157,35 @@ html, body {
 
 /* ============================ Barre de recherche ============================ */
 .search-container {
-    width: 90%; /* Utilise 90% de la largeur */
-    max-width: 500px; /* Limite la largeur à 500px sur mobile */
+    width: 90%;
+    max-width: 500px;
     margin: 3vh auto;
     display: flex;
     align-items: center;
-    border: 1px solid #ccc;
+    border: none; 
     border-radius: 25px;
-    padding: 0.5vh 1vw;
+    padding: 0.5vh;
+    background-color: white; /* ✅ Tout blanc à l’intérieur */
+    box-sizing: border-box;
 }
 
+
+
 .search-bar {
-    width: 80%;  /* Réduit la largeur pour le champ de recherche */
-    padding: 1vh 1.5vw;
+    flex: 1; /* prend tout l’espace disponible */
+    padding: 1vh 1vw;
     border: none;
     border-radius: 25px;
     font-size: 1rem;
     outline: none;
+    width: 100%;
+    box-sizing: border-box; /* évite que le padding agrandisse l'élément */
 }
 
 .search-btn {
     background-color: transparent;
     border: none;
-    padding: 1.5vh 1vw;
+    padding: 1vh 1vw;
     cursor: pointer;
     color: #CC0A0A;
     font-size: 1.2rem;
@@ -190,7 +196,7 @@ html, body {
 }
 
 .search-btn i {
-    font-size: 1.5rem; /* Taille de l'icône loupe */
+    font-size: 1.5rem;
 }
 
 /* ============================ Responsive pour mobile ============================ */

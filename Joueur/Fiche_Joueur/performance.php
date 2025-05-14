@@ -1,3 +1,26 @@
+<?php
+session_start();
+$_SESSION['user_id'] = 1;
+
+$userData = [
+    'nom' => 'Jean Dupont',
+    'poste' => 'Défenseur',
+    'date_naissance' => '1998-07-15',
+    'age' => 26,
+    'poids' => 78,
+    'taille' => 1.82,
+    'img' => 14.5,
+    'gmc' => 'Bonne'
+];
+
+$medicalData = [
+    'date_examen' => '2025-04-12',
+    'blessure' => 'Entorse cheville',
+    'duree' => 3,
+    'recommandation' => 'Repos complet + kiné'
+];
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -29,12 +52,9 @@
         box-sizing: border-box;
     }
 
-
     .main-container {
         margin: 0 20px;
     }
-
-
 
     .container {
       display: flex;
@@ -134,6 +154,7 @@
       flex-wrap: wrap;
       gap: 20px;
     }
+
     .btn-retour {
       position: fixed;
       top: 20px;
@@ -154,80 +175,77 @@
     .btn-retour:hover {
       background-color: #002766;
     }
-
   </style>
 </head>
 <body>
 
-    <!-- Header ASBH -->
-    <div class="header">
-        <div class="header-box">
-        <div class="container">
-            <img src="player.jpg" alt="Photo du joueur" />
-            <div>
-            <p class="player-name">Julien Durant</p>
-            <p><strong>ASBH</strong> - Équipe</p>
-            <p><strong>Flanker</strong> - Poste</p>
-            <p><strong>01/01/1999</strong> - Naissance</p>
-            </div>
+  <!-- Header ASBH -->
+  <div class="header">
+    <div class="header-box">
+      <div class="container">
+        <img src="player.jpg" alt="Photo du joueur" />
+        <div>
+          <p class="player-name"><?php echo $userData['nom']; ?></p>
+          <p><strong>ASBH</strong> - Équipe</p>
+          <p><strong><?php echo $userData['poste']; ?></strong> - Poste</p>
+          <p><strong><?php echo $userData['date_naissance']; ?></strong> - Naissance</p>
         </div>
-        </div>
-    </div>
-  
-  <a id="btn-retour" class="btn-retour">Accueil</a>
-
-
-
-  <!-- Section Infos Générales -->
-  <div id="infos" class="section active">
-    <div class="card">
-      <h3>Profil Physique</h3>
-      <div class="physique-row">
-        <p><strong>Âge :</strong> 25 ans</p>
-        <p><strong>Poids :</strong> 88 kg</p>
-        <p><strong>Taille :</strong> 1.88 m</p>
-        <p><strong>IMG :</strong> 12%</p>
-        <p><strong>GMC :</strong> 34</p>
       </div>
     </div>
-    <div class="card">
-      <h3>Temps de jeu</h3>
-      <p><strong>Dernier match :</strong> 45 min</p>
-      <p><strong>Moyenne :</strong> 53 min</p>
-    </div>
-      <!-- Section Graphes -->
-    <div class="card">
-        <h3>Graphiques</h3>
-        <p>Graphiques des performances à venir...</p>
-    </div>
-  </div>
-  
-
-  <!-- Section Fiche Médicale -->
-  <div id="medical" class="section">
-    <div class="card">
-      <h3>Suivi Médical</h3>
-      <p><strong>Dernier examen :</strong> 05/03/2025</p>
-      <p><strong>Blessure :</strong> Déchirure musculaire</p>
-      <p><strong>Durée :</strong> 2 semaines</p>
-      <p><strong>Recommandation :</strong> Repos et reprise progressive</p>
-    </div>
   </div>
 
-  <!-- Section Tests -->
-  <div id="tests" class="section">
-    <div class="card">
-      <h3>Tests Fonctionnels</h3>
-      <p>Squat sur une jambe : OK</p>
-      <p>Équilibre dynamique : OK</p>
-    </div>
-    <div class="card">
-      <h3>Tests Physiques</h3>
-      <p>VMA : 19 km/h</p>
-      <p>Test Yo-Yo : Niveau 14</p>
-    </div>
-  </div>
+ <?php
+  $retourLink = ($_SESSION['user_id'] == 1) ? '../accueil_joueur.html' : '../../Staff/acceuil-staff.html';
+?>
+<a href="<?php echo $retourLink; ?>" class="btn-retour">Accueil</a>
 
+
+  <!-- Sections -->
+  <div class="main-container">
+    <div id="infos" class="section active">
+      <div class="card">
+        <h3>Profil Physique</h3>
+        <div class="physique-row">
+          <p><strong>Âge :</strong> <?php echo $userData['age']; ?> ans</p>
+          <p><strong>Poids :</strong> <?php echo $userData['poids']; ?> kg</p>
+          <p><strong>Taille :</strong> <?php echo $userData['taille']; ?> m</p>
+          <p><strong>IMG :</strong> <?php echo $userData['img']; ?>%</p>
+          <p><strong>GMC :</strong> <?php echo $userData['gmc']; ?></p>
+        </div>
+      </div>
+    </div>
+
+    <div id="medical" class="section">
+      <div class="card">
+        <h3>Suivi Médical</h3>
+        <p><strong>Dernier examen :</strong> <?php echo $medicalData['date_examen']; ?></p>
+        <p><strong>Blessure :</strong> <?php echo $medicalData['blessure']; ?></p>
+        <p><strong>Durée :</strong> <?php echo $medicalData['duree']; ?> semaines</p>
+        <p><strong>Recommandation :</strong> <?php echo $medicalData['recommandation']; ?></p>
+      </div>
+    </div>
+    <div id="tests" class="section">
+        <div class="card">
+            <h3>Tests Physiques</h3>
+            <p><strong>Test de vitesse :</strong> 30m en 4.2s</p>
+            <p><strong>Test d’endurance :</strong> VMA 17 km/h</p>
+            <p><strong>Souplesse :</strong> Toucher 12cm au-delà des pieds</p>
+            <p><strong>Force :</strong> Squat max 120kg</p>
+        </div>
+    </div>
+    <div id="graphes" class="section">
+        <div class="card">
+            <h3>Visualisation des Données</h3>
+            <p>Graphiques de performance en cours de développement.</p>
+            <!-- Tu pourras plus tard insérer un graphique avec Chart.js ou autre ici -->
+            <div style="text-align:center; margin-top:20px;">
+            <img src="graph-placeholder.png" alt="Graphique exemple" style="max-width:100%; border-radius:10px;" />
+            </div>
+        </div>
+    </div>
+
+
+  </div>
 
 
   <!-- Navigation -->
@@ -238,7 +256,6 @@
     <button onclick="showSection('graphes')"><span>📊</span>Visualiser</button>
   </div>
 
-  <!-- JS -->
   <script>
     function showSection(id) {
       document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
@@ -246,25 +263,7 @@
       document.getElementById(id).classList.add('active');
       document.querySelector(`.nav button[onclick="showSection('${id}')"]`).classList.add('active');
     }
-    // Fonction pour récupérer les paramètres URL
-    function getQueryParam(param) {
-      const urlParams = new URLSearchParams(window.location.search);
-      return urlParams.get(param);
-    }
-
-    const source = getQueryParam('source');
-    const equipe = getQueryParam('equipe');
-
-    let retourURL = '../accueil_joueur.html'; // Par défaut pour les joueurs
-
-    if (source === 'staff' && equipe) {
-     retourURL = `../../Staff/Equipe/${equipe}/joueurs_${equipe.toLowerCase()}.php`;
-    }
-
-    document.getElementById('btn-retour').href = retourURL;
-      
   </script>
-
 
 </body>
 </html>
