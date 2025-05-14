@@ -117,6 +117,7 @@
       .error-message { font-size: 10px; }
     }
   </style>
+  <script src="testfonctionnel.js"></script>
 </head>
 <body>
 
@@ -145,8 +146,9 @@
     </thead>
     <tbody>
       <tr>
-        <td><input type="text" name="nom1" class="name" required><div class="error-message"></div></td>
-        <td><input type="text" name="prenom1" class="name" required><div class="error-message"></div></td>
+        <input type="hidden" class="id_joueur" value="???">
+        <td><input type="text" name="nom1" class="name"><div class="error-message"></div></td>
+        <td><input type="text" name="prenom1" class="name"><div class="error-message"></div></td>
         <td><input type="text" name="squat1" class="note"><div class="error-message"></div></td>
         <td><input type="text" name="iso1" class="note"><div class="error-message"></div></td>
         <td><input type="text" name="souplesse1" class="note"><div class="error-message"></div></td>
@@ -160,53 +162,6 @@
     <button type="submit">Enregistrer</button>
   </div>
 </form>
-
-<script>
-  function updateColor(input) {
-    input.classList.remove("A", "EA", "NA");
-    const value = input.value.trim().toUpperCase();
-    if (value === "A") input.classList.add("A");
-    else if (value === "EA") input.classList.add("EA");
-    else if (value === "NA") input.classList.add("NA");
-  }
-
-  function showError(input, message) {
-    const errorDiv = input.parentElement.querySelector(".error-message");
-    errorDiv.textContent = message;
-  }
-
-  function clearError(input) {
-    const errorDiv = input.parentElement.querySelector(".error-message");
-    errorDiv.textContent = "";
-  }
-
-  function validateNote(input) {
-    const value = input.value.trim().toUpperCase();
-    updateColor(input);
-    if (value && !["A", "EA", "NA"].includes(value)) {
-      showError(input, "A, EA ou NA uniquement");
-    } else {
-      clearError(input);
-    }
-  }
-
-  function validateName(input) {
-    const value = input.value.trim();
-    if (/\d/.test(value)) {
-      showError(input, "Pas de chiffres dans ce champ");
-    } else {
-      clearError(input);
-    }
-  }
-
-  document.querySelectorAll("input.note").forEach(input => {
-    input.addEventListener("input", () => validateNote(input));
-  });
-
-  document.querySelectorAll("input.name").forEach(input => {
-    input.addEventListener("input", () => validateName(input));
-  });
-</script>
 
 </body>
 </html>
