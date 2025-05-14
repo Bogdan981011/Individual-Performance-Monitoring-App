@@ -11,10 +11,10 @@
 <body>
     <div class="header-ruban">
         <div class="ruban-section">
-            <a href="Equipe/Crabos/crabos.html" class="ruban-link" id="crabos">CRABOS</a>
-            <a href="Equipe/CadetA/cadetA.html" class="ruban-link" id="cadetsA">CADETS A</a>
-            <a href="Equipe/CadetB/cadetB.html" class="ruban-link" id="cadetsB">CADETS B</a>
-            <a href="Equipe/Espoirs/espoirs.html" class="ruban-link" id="espoirs">ESPOIRS</a>
+            <a href="Equipe/Crabos/crabos.php" class="ruban-link" id="crabos">CRABOS</a>
+            <a href="Equipe/CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
+            <a href="Equipe/CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
+            <a href="Equipe/Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
 
     <div class="option-section">
         <a href="Formulaire/Prepa/testfonctionnel.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Fonctionnels</a>
-        <a href="Formulaire/Prepa/testphysique.html" class="btn-option">Tests Physiques</a>
+        <a href="Formulaire/Prepa/testphysique.php" class="btn-option">Tests Physiques</a>
         <a href="importation.php" class="btn-option">Importer des fichiers</a>
     </div>
     

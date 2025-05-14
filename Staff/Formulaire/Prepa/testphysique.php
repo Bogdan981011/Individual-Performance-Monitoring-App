@@ -73,14 +73,6 @@
       font-size: 12px;
     }
 
-    .sidebar {
-      width: 200px;
-      background-color: white;
-      border-left: 1px solid #ddd;
-      padding: 20px;
-      box-shadow: -2px 0 5px rgba(0,0,0,0.1);
-    }
-
     .btn-option {
       display: block;
       background-color: var(--bleu);
@@ -116,9 +108,26 @@
       background-color: #0e0640;
     }
 
-    .date-section {
-      text-align: center;
+    .date-section-flex {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
       margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .date-field, .select-test {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .select-test select {
+      padding: 6px;
+      font-size: 14px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
     }
 
     .save-button {
@@ -176,61 +185,71 @@
 <div class="main-container">
   <h1>Test Physique</h1>
 
-  <div class="search-bar">
-    <input type="text" placeholder="Rechercher un nom ou prénom...">
+    <form>
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher un nom ou prénom...">
+    </div>
+
+  <div class="date-section-flex">
+    <div class="date-field">
+      <label for="date1">Date :</label>
+      <input type="date" id="date1" name="date1">
+    </div>
+
+    <div class="select-test">
+      <label for="testType">Test :</label>
+      <select id="testType" name="testType" required>
+        <option value="" disabled selected>─── Choisir un test ───</option>
+        <option value="pesee">Pesée</option>
+        <option value="squat">Squat Nuque</option>
+        <option value="broadjump">BROADJUMP</option>
+        <option value="dc">DC</option>
+        <option value="tp">TP</option>
+        <option value="10m">10m</option>
+        <option value="20m">20m</option>
+        <option value="bronco">BRONCO</option>
+        <option value="yoyo">YOYO</option>
+        <option value="rfu">RFU Test Avant</option>
+        <option value="cmg">CMG</option>
+        <option value="img">IMG</option>
+        <option value="taille">Taille</option>
+        <option value="poids">Poids</option>
+      </select>
+    </div>
   </div>
 
-  <div class="date-section">
-    <label for="date1">Date :</label>
-    <input type="date" id="date1" name="date1">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <input type="text" name="nom1" class="name">
+            <div class="error-message" id="error-nom1"></div>
+          </td>
+          <td>
+            <input type="text" name="prenom1" class="name">
+            <div class="error-message" id="error-prenom1"></div>
+          </td>
+          <td>
+            <input type="number" name="note1" class="note" min="0" step="0.01">
+            <div class="error-message"></div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--  BOUTON ENREGISTRER -->
+    <button class="save-button">Enregistrer</button>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Note</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-          <input type="text" name="nom1" class="name">
-          <div class="error-message" id="error-nom1"></div>
-        </td>
-        <td>
-          <input type="text" name="prenom1" class="name">
-          <div class="error-message" id="error-prenom1"></div>
-        </td>
-        <td>
-          <input type="number" name="note1" class="note" min="0" step="0.01">
-          <div class="error-message"></div>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- ✅ BOUTON ENREGISTRER -->
-  <button class="save-button">Enregistrer</button>
-</div>
-
-<div class="sidebar">
-  <a href="testphysique.html" class="btn-option">Pesée</a>
-  <a href="testphysique.html" class="btn-option">Squat Nuque</a>
-  <a href="testphysique.html" class="btn-option">BROADJUMP</a>
-  <a href="testphysique.html" class="btn-option">DC</a>
-  <a href="testphysique.html" class="btn-option">TP</a>
-  <a href="testphysique.html" class="btn-option">10m</a>
-  <a href="testphysique.html" class="btn-option">20m</a>
-  <a href="testphysique.html" class="btn-option">BRONCO</a>
-  <a href="testphysique.html" class="btn-option">YOYO</a>
-  <a href="testphysique.html" class="btn-option">RFU Test Avant</a>
-  <a href="testphysique.html" class="btn-option">CMG</a>
-  <a href="testphysique.html" class="btn-option">IMG</a>
-  <a href="testphysique.html" class="btn-option">Taille</a>
-  <a href="testphysique.html" class="btn-option">Poids</a>
-</div>
+</form>
 
 <script>
   function showError(input, message) {

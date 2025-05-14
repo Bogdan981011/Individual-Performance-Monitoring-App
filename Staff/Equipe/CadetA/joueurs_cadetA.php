@@ -12,10 +12,10 @@
   <!-- Ruban de navigation -->
   <div class="header-ruban">
     <div class="ruban-section">
-      <a href="../Crabos/crabos.html" class="ruban-link" id="crabos">CRABOS</a>
-      <a href="cadetA.html" class="ruban-link" id="cadetsA">CADETS A</a>
-      <a href="../CadetB/cadetB.html" class="ruban-link" id="cadetsB">CADETS B</a>
-      <a href="../Espoirs/espoirs.html" class="ruban-link" id="espoirs">ESPOIRS</a>
+      <a href="../Crabos/crabos.php" class="ruban-link" id="crabos">CRABOS</a>
+      <a href="cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
+      <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
+      <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
     </div>
     <a href="../../accueil_staff.html" class="btn-retour">Retour à la section</a>
   </div>
