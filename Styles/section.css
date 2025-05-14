@@ -75,9 +75,9 @@ body {
 
 /* Style pour la section active (grisée) */
 .ruban-link.active {
-    background-color: rgba(0, 0, 0, 0.5); /* Fond gris */
+    text-decoration: underline;
     color: #aaa; /* Texte plus clair */
-    cursor: not-allowed; /* Change le curseur pour indiquer l'inactivité */
+    pointer-events: none;
 }
 
 /* Déconnexion */

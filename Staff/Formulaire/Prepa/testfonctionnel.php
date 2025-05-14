@@ -128,8 +128,8 @@
 <form method="post" action="enregistrer_fonctionnel.php">
 
   <div class="date-section">
-    <label for="date1">Date :</label>
-    <input type="date" id="date1" name="date1" required>
+    <label for="date">Date :</label>
+    <input type="date" id="date" name="date" required>
   </div>
 
   <table>
@@ -146,15 +146,75 @@
     </thead>
     <tbody>
       <tr>
-        <input type="hidden" class="id_joueur" value="???">
-        <td><input type="text" name="nom1" class="name"><div class="error-message"></div></td>
-        <td><input type="text" name="prenom1" class="name"><div class="error-message"></div></td>
-        <td><input type="text" name="squat1" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="iso1" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="souplesse1" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="flamant1" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="haut1" class="note"><div class="error-message"></div></td>
+        <td style="display: none;"><input type="hidden" class="id_joueur" name="id_joueur" value="???"></td>
+        <td><input type="text" name="nom" class="name"><div class="error-message"></div></td>
+        <td><input type="text" name="prenom" class="name"><div class="error-message"></div></td>
+        <td><input type="text" name="squat" class="note"><div class="error-message"></div></td>
+        <td><input type="text" name="iso" class="note"><div class="error-message"></div></td>
+        <td><input type="text" name="souplesse" class="note"><div class="error-message"></div></td>
+        <td><input type="text" name="flamant" class="note"><div class="error-message"></div></td>
+        <td><input type="text" name="haut" class="note"><div class="error-message"></div></td>
       </tr>
+
+      <?php
+      require_once '/../../../bd.php';
+
+      try {
+          $id_equipe = $_GET['id_eq'];
+
+          $stmt = $pdo->prepare("
+              SELECT nom, prenom, id_joueur
+              FROM joueurs
+              WHERE id_equipe = :id_equipe
+          ");
+
+          $stmt->execute(['id_equipe' => $id_equipe]);
+          $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          foreach ($joueurs as $joueur) {
+              ?>
+              <tr>
+                <td style="display: none;">
+                  <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+                </td>
+
+                <td>
+                  <input type="text" name="nom" class="name" value="<?= htmlspecialchars($joueur['nom']) ?>">
+                </td>
+
+                <td>
+                  <input type="text" name="prenom" class="name" value="<?= htmlspecialchars($joueur['prenom']) ?>">
+                </td>
+
+                <td>
+                  <input type="text" name="squat" class="note">
+                </td>
+
+                <td>
+                  <input type="text" name="iso" class="note">
+                </td>
+
+                <td>
+                  <input type="text" name="souplesse" class="note">
+                </td>
+
+                <td>
+                  <input type="text" name="flamant" class="note">
+                </td>
+
+                <td>
+                  <input type="text" name="haut" class="note">
+                </td>
+              </tr>
+              <?php
+          }
+
+      } catch (PDOException $e) {
+          echo "Erreur : " . $e->getMessage();
+      }
+      ?>
+
+
     </tbody>
   </table>
 

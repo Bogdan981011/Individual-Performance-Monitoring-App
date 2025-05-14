@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); // Empêche l'envoi du formulaire classique
         
         // Récupérer la valeur du champ date
-        const date = form.date1.value.trim();
+        const date = form.date.value.trim();
         
         // Validation du format de la date
         if (!dateOk(date)) {
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const lignes = document.querySelectorAll('tbody tr');
 
         lignes.forEach((ligne, index) => {
-            const id = ligne.querySelector('.id_joueur')?.value;
+            const id = ligne.querySelector('input[name^=".id_joueur"]')?.value;
 
             const squat = ligne.querySelector('input[name^="squat"]')?.value || '';
             const iso = ligne.querySelector('input[name^="iso"]')?.value || '';

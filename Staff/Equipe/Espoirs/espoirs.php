@@ -11,10 +11,10 @@
     <!-- Ruban fixe en haut -->
     <div class="header-ruban">
         <div class="ruban-section">
-            <a href="../Crabos/crabos.html" class="ruban-link" id="crabos">CRABOS</a>
-            <a href="../CadetA/cadetA.html" class="ruban-link" id="cadetsA">CADETS A</a>
-            <a href="../CadetB/cadetB.html" class="ruban-link" id="cadetsB">CADETS B</a>
-            <a href="espoirs.html" class="ruban-link" id="espoirs">ESPOIRS</a>
+            <a href="../Crabos/crabos.php" class="ruban-link" id="crabos">CRABOS</a>
+            <a href="../CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
+            <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
+            <a href="espoirs.php" class="ruban-link active" id="espoirs">ESPOIRS</a>
         </div>
     </div>
 
@@ -29,24 +29,32 @@
         </div>
     
         <!-- Section des options -->
+        <?php
+        require_once '/../../../bd.php'; 
+
+        $nomEquipe = 'espoirs';
+        $sql = "SELECT id_equipe FROM Equipe WHERE nom_equipe COLLATE utf8_general_ci = :nom";
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':nom', $nomEquipe, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if ($result) {
+            $idEquipe = $result['id_equipe'];
+            echo "L'ID de l'équipe '$nomEquipe' est : $idEquipe";
+        } else {
+            echo "Équipe '$nomEquipe' non trouvée.";
+        }
+        ?>
+
+        <!-- Section des options -->
         <div class="option-section">
             <a href="" class="btn-option">Performance Globale</a>
             <a href="joueurs_espoirs.php" class="btn-option">Liste des joueurs</a>
-            <a href="../../sectiontests.html" class="btn-option">Tests</a>
+            <a href="../../sectiontests.php?id_eq=<?= $idEquipe ?>.php" class="btn-option">Tests</a>
             <a href="" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
-
-    <script>
-        // JavaScript pour griser la section active
-        const sections = document.querySelectorAll('.ruban-link');
-
-        sections.forEach(section => {
-            section.addEventListener('click', function() {
-                sections.forEach(s => s.classList.remove('active')); // Supprime la classe 'active' de toutes les sections
-                section.classList.add('active'); // Ajoute la classe 'active' à la section cliquée
-            });
-        });
-    </script>
 </body>
 </html>

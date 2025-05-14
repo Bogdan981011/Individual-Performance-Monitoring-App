@@ -29,15 +29,14 @@
     </div>
     
     <!-- Section des options -->
+    <?php $id_equipe = $_GET['id_eq'] ?>
+
     <div class="option-section">
-        <a href="Formulaire/Prepa/testfonctionnel.php" class="btn-option">Tests Fonctionnels</a>
+        <a href="Formulaire/Prepa/testfonctionnel.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Fonctionnels</a>
         <a href="Formulaire/Prepa/testphysique.html" class="btn-option">Tests Physiques</a>
         <a href="importation.php" class="btn-option">Importer des fichiers</a>
     </div>
     
-
-
-
 
 </body>
 </html>
