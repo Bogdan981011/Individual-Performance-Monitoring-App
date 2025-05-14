@@ -41,6 +41,7 @@ $medicalData = [
         display: flex;
         justify-content: center;
     }
+
     .header-box {
         background: linear-gradient(to right, #002766, #d72638);
         color: white;
@@ -52,14 +53,9 @@ $medicalData = [
         box-sizing: border-box;
     }
 
-    .main-container {
-        margin: 0 20px;
-    }
-
     .container {
       display: flex;
       align-items: center;
-      margin: 0 20px;
     }
 
     .container img {
@@ -81,11 +77,18 @@ $medicalData = [
       flex: 1;
     }
 
+    .main-wrapper {
+      max-width: 1480px;
+      margin: 0 auto;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
     .fixed-info {
       display: flex;
       justify-content: space-between;
       padding: 15px;
-      margin: 10px 20px;
+      margin: 10px 0;
       border-radius: 15px;
       background-color: #fff;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -108,7 +111,7 @@ $medicalData = [
     .card {
       background-color: #fff;
       border-radius: 20px;
-      margin: 10px 20px;
+      margin: 10px 0;
       padding: 15px;
       box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
@@ -199,9 +202,8 @@ $medicalData = [
 ?>
 <a href="<?php echo $retourLink; ?>" class="btn-retour">Accueil</a>
 
-
   <!-- Sections -->
-  <div class="main-container">
+  <div class="main-wrapper">
     <div id="infos" class="section active">
       <div class="card">
         <h3>Profil Physique</h3>
@@ -237,16 +239,12 @@ $medicalData = [
         <div class="card">
             <h3>Visualisation des Données</h3>
             <p>Graphiques de performance en cours de développement.</p>
-            <!-- Tu pourras plus tard insérer un graphique avec Chart.js ou autre ici -->
             <div style="text-align:center; margin-top:20px;">
             <img src="graph-placeholder.png" alt="Graphique exemple" style="max-width:100%; border-radius:10px;" />
             </div>
         </div>
     </div>
-
-
   </div>
-
 
   <!-- Navigation -->
   <div class="nav">
