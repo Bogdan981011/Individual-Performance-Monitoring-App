@@ -156,7 +156,7 @@
         <td><input type="text" name="haut" class="note"><div class="error-message"></div></td>
       </tr>
 
-      <!-- <?php
+      <?php
       require_once '/../../../bd.php';
 
       try {
@@ -212,7 +212,7 @@
       } catch (PDOException $e) {
           echo "Erreur : " . $e->getMessage();
       }
-      ?> -->
+      ?>
 
 
     </tbody>
