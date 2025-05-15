@@ -110,13 +110,13 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Fonction pour afficher le succès
         function afficherSuccès(message) {
-            resultat.innerHTML = `<p style="color: green;">${message}</p>`;
+            resultat.innerHTML = `<p style="color: green; text-align: center; font-weight: bold; border: 1px solid green">${message}</p>`;
         }
-
 
         // Si tout est OK, on envoie les données par AJAX
         const formData = new URLSearchParams();
         const lignes = document.querySelectorAll('tbody tr');
+        const dateGlobale = dateInput.value.trim();
 
         lignes.forEach((ligne, index) => {
             const id = ligne.querySelector('input[name^=".id_joueur"]')?.value;

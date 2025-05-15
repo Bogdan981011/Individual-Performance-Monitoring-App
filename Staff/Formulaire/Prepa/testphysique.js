@@ -88,4 +88,65 @@ document.addEventListener('DOMContentLoaded', function() {
         input.addEventListener("input", () => validateNote(input));
     });
 
+    const form = document.querySelector('form');
+    const resultat = document.createElement('div');
+    form.appendChild(resultat);  // Ajoute la zone d'erreur ou de succès sous le formulaire
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault(); // Empêche l'envoi du formulaire classique
+
+        // Vérifie qu'aucun message d'erreur n'est affiché
+        const hasVisibleErrors = Array.from(document.querySelectorAll('.error-message'))
+            .some(div => div.textContent.trim() !== '');
+
+        if (hasVisibleErrors) {
+            return afficherErreur("Veuillez corriger toutes les erreurs avant d'envoyer.");
+        }
+
+        // Fonction pour afficher les erreurs
+        function afficherErreur(message) {
+            resultat.innerHTML = `
+                <p style="color: red; text-align: center; font-weight: bold; border: 1px solid red">${message}</p>
+            `;
+        }
+        
+        // Fonction pour afficher le succès
+        function afficherSuccès(message) {
+            resultat.innerHTML = `<p style="color: green; text-align: center; font-weight: bold; border: 1px solid green">${message}</p>`;
+        }
+
+        // Si tout est OK, on envoie les données par AJAX
+        const formData = new URLSearchParams();
+        const lignes = document.querySelectorAll('tbody tr');
+        const dateGlobale = dateInput.value.trim();
+        const testType = document.querySelector('#testType').value;
+
+        if (!testType) {
+            afficherErreur("Veuillez choisir un test dans la liste déroulante.");
+            return;
+        }
+
+        lignes.forEach((ligne, index) => {
+            const id = ligne.querySelector('input[name^=".id_joueur"]')?.value;
+            const note = ligne.querySelector('input[name^="note"]')?.value || '';
+
+            formData.append(`joueurs[${index}][id_joueur]`, id);
+            formData.append(`joueurs[${index}][date]`, dateGlobale);
+            formData.append(`joueurs[${index}][test]`, testType);
+            formData.append(`joueurs[${index}][note]`, note);
+        });
+
+        fetch('???.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: formData
+        })
+        .then(() => {
+            afficherSuccès("Réponses envoyés avec succès.");
+        })
+        .catch(() => {
+            afficherErreur("Erreur serveur ou réseau.");
+        });
+    });
+
 });
