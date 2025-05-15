@@ -33,7 +33,7 @@
 
     <div class="option-section">
         <a href="Formulaire/Prepa/testfonctionnel.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Fonctionnels</a>
-        <a href="Formulaire/Prepa/testphysique.php" class="btn-option">Tests Physiques</a>
+        <a href="Formulaire/Prepa/testphysique.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Physiques</a>
         <a href="importation.php" class="btn-option">Importer des fichiers</a>
     </div>
     

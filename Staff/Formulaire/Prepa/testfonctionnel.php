@@ -129,7 +129,7 @@
 
   <div class="date-section">
     <label for="date">Date :</label>
-    <input type="date" id="date" name="date" required>
+    <input type="date" id="date" name="date" required><div class="error-message"></div>
   </div>
 
   <table>
@@ -156,7 +156,7 @@
         <td><input type="text" name="haut" class="note"><div class="error-message"></div></td>
       </tr>
 
-      <?php
+      <!-- <?php
       require_once '/../../../bd.php';
 
       try {
@@ -212,7 +212,7 @@
       } catch (PDOException $e) {
           echo "Erreur : " . $e->getMessage();
       }
-      ?>
+      ?> -->
 
 
     </tbody>

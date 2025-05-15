@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Test Physique - ASBH</title>
-  <style>
+  <style> 
     :root {
       --bleu: #190C63;
       --rouge: #CC0A0A;
@@ -116,18 +116,34 @@
       margin-bottom: 20px;
       flex-wrap: wrap;
     }
+    .select-test select {
+      width: 100%;
+      padding: 6px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+      text-align: center;
+      font-size: 16px;
+      background-color: white;
+      appearance: none; 
+      box-sizing: border-box;
+      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath fill='none' stroke='%23190C63' stroke-width='2' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+      background-size: 14px 10px;
+      }
 
     .date-field, .select-test {
       display: flex;
+      align-items: center; 
       flex-direction: column;
-      align-items: flex-start;
+      flex: 1;
+      min-width: 250px;
     }
 
-    .select-test select {
-      padding: 6px;
-      font-size: 14px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
+    .date-field input, .select-test select {
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
     }
 
     .save-button {
@@ -179,102 +195,80 @@
       }
     }
   </style>
+  <script src="testphysique.js"></script>
 </head>
-<body>
-<a href="../../accueil_staff.html" class="return-btn">Retour à l’accueil</a>
-<div class="main-container">
-  <h1>Test Physique</h1>
+  <body>
+  <a href="../../accueil_staff.html" class="return-btn">Retour à l’accueil</a>
+  <div class="main-container">
+    <h1>Test Physique</h1>
 
-    <form>
-    <div class="search-bar">
-      <input type="text" placeholder="Rechercher un nom ou prénom...">
+      <form>
+      <div class="search-bar">
+        <input type="text" placeholder="Rechercher un nom ou prénom...">
+      </div>
+
+    <div class="date-section-flex">
+      <div class="date-field">
+        <label for="date1">Date :</label>
+        <input type="date" id="date" name="date"><span class="error-message"></span>
+      </div>
+
+      <div class="select-test">
+        <label for="testType">Test :</label>
+        <select id="testType" name="testType" required>
+          <option value="" disabled selected>─── Choisir un test ───</option>
+          <option value="pesee">Pesée</option>
+          <option value="squat">Squat Nuque</option>
+          <option value="broadjump">BROADJUMP</option>
+          <option value="dc">DC</option>
+          <option value="tp">TP</option>
+          <option value="10m">10m</option>
+          <option value="20m">20m</option>
+          <option value="bronco">BRONCO</option>
+          <option value="yoyo">YOYO</option>
+          <option value="rfu">RFU Test Avant</option>
+          <option value="cmg">CMG</option>
+          <option value="img">IMG</option>
+          <option value="taille">Taille</option>
+          <option value="poids">Poids</option>
+        </select>
+      </div>
     </div>
 
-  <div class="date-section-flex">
-    <div class="date-field">
-      <label for="date1">Date :</label>
-      <input type="date" id="date1" name="date1">
+
+      <table>
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Note</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <input type="text" name="nom" class="name">
+            </td>
+            <td>
+              <input type="text" name="prenom" class="name">
+            </td>
+            <td>
+              <input type="number" name="note" class="note" min="0" step="0.01">
+              <div class="error-message"></div>
+            </td>
+          </tr>
+
+          <!-- <?php
+
+          ?>
+        </tbody>
+      </table>
+
+      <!--  BOUTON ENREGISTRER -->
+      <button class="save-button">Enregistrer</button>
     </div>
 
-    <div class="select-test">
-      <label for="testType">Test :</label>
-      <select id="testType" name="testType" required>
-        <option value="" disabled selected>─── Choisir un test ───</option>
-        <option value="pesee">Pesée</option>
-        <option value="squat">Squat Nuque</option>
-        <option value="broadjump">BROADJUMP</option>
-        <option value="dc">DC</option>
-        <option value="tp">TP</option>
-        <option value="10m">10m</option>
-        <option value="20m">20m</option>
-        <option value="bronco">BRONCO</option>
-        <option value="yoyo">YOYO</option>
-        <option value="rfu">RFU Test Avant</option>
-        <option value="cmg">CMG</option>
-        <option value="img">IMG</option>
-        <option value="taille">Taille</option>
-        <option value="poids">Poids</option>
-      </select>
-    </div>
-  </div>
-
-
-    <table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Note</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <input type="text" name="nom1" class="name">
-            <div class="error-message" id="error-nom1"></div>
-          </td>
-          <td>
-            <input type="text" name="prenom1" class="name">
-            <div class="error-message" id="error-prenom1"></div>
-          </td>
-          <td>
-            <input type="number" name="note1" class="note" min="0" step="0.01">
-            <div class="error-message"></div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!--  BOUTON ENREGISTRER -->
-    <button class="save-button">Enregistrer</button>
-  </div>
-
-</form>
-
-<script>
-  function showError(input, message) {
-    const errorDiv = input.parentElement.querySelector(".error-message");
-    errorDiv.textContent = message;
-  }
-
-  function clearError(input) {
-    const errorDiv = input.parentElement.querySelector(".error-message");
-    errorDiv.textContent = "";
-  }
-
-  function validateName(input) {
-    const value = input.value.trim();
-    if (/\d/.test(value)) {
-      showError(input, "Pas de chiffres dans ce champ");
-    } else {
-      clearError(input);
-    }
-  }
-
-  document.querySelectorAll("input.name").forEach(input => {
-    input.addEventListener("input", () => validateName(input));
-  });
-</script>
+  </form>
 
 </body>
 </html>
