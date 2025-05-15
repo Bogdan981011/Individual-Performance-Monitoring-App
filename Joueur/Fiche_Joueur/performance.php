@@ -179,6 +179,8 @@ $medicalData = [
       background-color: #002766;
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 
@@ -216,6 +218,11 @@ $medicalData = [
         </div>
       </div>
     </div>
+    <div class="card">
+        <h3>Visualisation des Données</h3>
+        <canvas id="testChart" style="max-width: 100%;"></canvas>
+    </div>
+
 
     <div id="medical" class="section">
       <div class="card">
@@ -262,6 +269,62 @@ $medicalData = [
       document.querySelector(`.nav button[onclick="showSection('${id}')"]`).classList.add('active');
     }
   </script>
+  <?php
+    // Connexion
+    $pdo = new PDO('mysql:host=localhost;dbname=vizia', 'root', '');
+
+    // Récupérer les données
+    $user_id = $_SESSION['user_id'];
+    $stmt = $pdo->prepare("SELECT test_type, note, date_test FROM tests WHERE joueur_id = ? ORDER BY test_type, date_test");
+    $stmt->execute([$user_id]);
+    $tests = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    $labels = [];
+    $data = [];
+
+    foreach ($tests as $test) {
+        $labels[] = $test['test_type'];
+        $data[] = $test['note'];
+    }
+    // Regroupement des données par type de test
+    $testData = [];
+
+    foreach ($tests as $test) {
+        $type = $test['test_type'];
+        $date = $test['date_test'];
+        $note = $test['note'];
+
+        if (!isset($testData[$type])) {
+            $testData[$type] = ['dates' => [], 'notes' => []];
+        }
+
+        $testData[$type]['dates'][] = $date;
+        $testData[$type]['notes'][] = $note;
+    }
+    ?>
+    <script>
+    const ctx = document.getElementById('testChart').getContext('2d');
+    const testChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: <?= json_encode($labels) ?>,
+            datasets: [{
+                label: 'Notes des tests',
+                data: <?= json_encode($data) ?>,
+                backgroundColor: '#002766'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+</script>
+
 
 </body>
 </html>

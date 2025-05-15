@@ -202,7 +202,7 @@
   <div class="main-container">
     <h1>Test Physique</h1>
 
-      <form>
+      <form action="enregistrer_test.php" method="POST">
       <div class="search-bar">
         <input type="text" placeholder="Rechercher un nom ou prénom...">
       </div>

@@ -65,6 +65,7 @@
       <textarea id="observations" name="observations" rows="4" placeholder="Notes, douleurs, émotions..."></textarea>
 
       <button type="submit">Submit</button>
+      <?php $id_joueur = $_GET['id'] ?>
     </form>
   </div>
 </body>

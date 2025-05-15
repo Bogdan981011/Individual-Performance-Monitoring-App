@@ -15,7 +15,7 @@
         <h1>
             <img src="../../Images/asbh.svg" alt="Logo ASBH" class="logo-asbh"> Formulaire RPE
         </h1>
-        <form action="#" method="POST">
+        <form action="reponse_rpe.php?id=<?= $id_joueur ?>" method="POST">
 
             <!-- Type d'entraînement -->
             <label for="type-entrainement">Type d’entraînement</label>

@@ -53,7 +53,7 @@
             <a href="" class="btn-option">Performance Globale</a>
             <a href="joueurs_espoirs.php" class="btn-option">Liste des joueurs</a>
             <a href="../../sectiontests.php?id_eq=<?= $idEquipe ?>.php" class="btn-option">Tests</a>
-            <a href="" class="btn-option">Réponses aux formulaires</a>
+            <a href="../../Formulaire/Reponses/choix_formulaire.php" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
 </body>

@@ -41,7 +41,7 @@
 
     <div class="joueur-card">
       <span class="nom-joueur">Joueur 2</span>
-      <a href="../../../Joueur/Fiche_joueur/performance.html" class="btn-formulaire">Tests et Performance</a>
+      <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
       <a href="../../Formulaire/Medical/formmedical.php" class="btn-formulaire">Formulaire médical</a>
     </div>
 
