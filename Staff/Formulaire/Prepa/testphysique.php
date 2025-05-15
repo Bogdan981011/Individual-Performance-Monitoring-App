@@ -259,7 +259,38 @@
           </tr>
 
           <!-- <?php
+        require_once '/../../../bd.php';
 
+        try {
+          $id_equipe = $_GET['id_eq']; // Récupère l'id de l'équipe passé en GET
+
+          $stmt = $pdo->prepare("SELECT nom, prenom, id_joueur FROM joueurs WHERE id_equipe = :id_equipe");
+          $stmt->execute(['id_equipe' => $id_equipe]);
+          $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          foreach ($joueurs as $joueur) {
+            ?>
+            <tr>
+              <td style="display: none;">
+                <input type="hidden" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+              </td>
+              <td>
+                <input type="text" name="nom" class="name" value="<?= htmlspecialchars($joueur['nom']) ?>">
+              </td>
+              <td>
+                <input type="text" name="prenom" class="name" value="<?= htmlspecialchars($joueur['prenom']) ?>">
+              </td>
+              <td>
+                <input type="number" name="note" class="note" min="0" step="0.01">
+                <div class="error-message"></div>
+              </td>
+            </tr>
+            <?php 
+          }
+
+        } catch (PDOException $e) {
+          echo "Erreur : " . $e->getMessage();
+        }
           ?>
         </tbody>
       </table>
