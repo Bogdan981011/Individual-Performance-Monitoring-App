@@ -49,43 +49,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Fonction pour mettre à jour la couleur de l'input
-function updateColor(input) {
-    input.classList.remove("A", "EA", "NA");
-    const value = input.value.trim();
-    if (value === "A") input.classList.add("A");
-    else if (value === "EA") input.classList.add("EA");
-    else if (value === "NA") input.classList.add("NA");
-}
-
-// Fonction pour afficher un message d'erreur
-function showError(input, message) {
-    const errorDiv = input.parentElement.querySelector(".error-message");
-    errorDiv.textContent = message;
-}
-
-// Fonction pour effacer le message d'erreur
-function clearError(input) {
-    const errorDiv = input.parentElement.querySelector(".error-message");
-    errorDiv.textContent = "";
-}
-
-// Fonction pour valider la note (nombre positif avec max 2 chiffres après la virgule)
-function validateNote(input) {
-    const value = input.value.trim();
-    const regex = /^\d+(\.\d{1,2})?$/; // Expression régulière pour valider un nombre positif avec max 2 chiffres après la virgule
-
-    updateColor(input);
-
-    if (value && !regex.test(value)) {
-        showError(input, "Entrez un nombre positif avec maximum 2 décimales");
-    } else {
-        clearError(input);
+    function updateColor(input) {
+        input.classList.remove("A", "EA", "NA");
+        const value = input.value.trim();
+        if (value === "A") input.classList.add("A");
+        else if (value === "EA") input.classList.add("EA");
+        else if (value === "NA") input.classList.add("NA");
     }
-}
 
-// Appliquer la validation de la note sur les inputs
-document.querySelectorAll("input.note").forEach(input => {
-    input.addEventListener("input", () => validateNote(input));
-});
+    // Fonction pour afficher un message d'erreur
+    function showError(input, message) {
+        const errorDiv = input.parentElement.querySelector(".error-message");
+        errorDiv.textContent = message;
+    }
+
+    // Fonction pour effacer le message d'erreur
+    function clearError(input) {
+        const errorDiv = input.parentElement.querySelector(".error-message");
+        errorDiv.textContent = "";
+    }
+
+    // Fonction pour valider la note (nombre positif avec max 2 chiffres après la virgule)
+    function validateNote(input) {
+        const value = input.value.trim();
+        const regex = /^\d+(\.\d{1,2})?$/; // Expression régulière pour valider un nombre positif avec max 2 chiffres après la virgule
+
+        updateColor(input);
+
+        if (value && !regex.test(value)) {
+            showError(input, "Entrez un nombre positif avec maximum 2 décimales");
+        } else {
+            clearError(input);
+        }
+    }
+
+    // Appliquer la validation de la note sur les inputs
+    document.querySelectorAll("input.note").forEach(input => {
+        input.addEventListener("input", () => validateNote(input));
+    });
 
 });
