@@ -272,19 +272,20 @@
             ?>
             <tr>
               <td style="display: none;">
-                <input type="hidden" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+                <input type="hidden" name="id_joueur[]" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
               </td>
               <td>
-                <input type="text" name="nom" class="name" value="<?= htmlspecialchars($joueur['nom']) ?>">
+                <input type="text" name="nom[]" class="name" value="<?= htmlspecialchars($joueur['nom']) ?>">
               </td>
               <td>
-                <input type="text" name="prenom" class="name" value="<?= htmlspecialchars($joueur['prenom']) ?>">
+                <input type="text" name="prenom[]" class="name" value="<?= htmlspecialchars($joueur['prenom']) ?>">
               </td>
               <td>
-                <input type="number" name="note" class="note" min="0" step="0.01">
+                <input type="number" name="note[]" class="note" min="0" step="0.01">
                 <div class="error-message"></div>
               </td>
             </tr>
+            
             <?php 
           }
 
