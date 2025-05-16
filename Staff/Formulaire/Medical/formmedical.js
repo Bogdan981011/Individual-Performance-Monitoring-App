@@ -11,21 +11,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const gravite = form.gravite.value;
         const date = form.date.value.trim();
         const observation = form.observation.value.trim();
-        const duree = form.duree.value.trim().toLowerCase();
 
         // Validation des champs
-        const dureeOk = /(jour|semaine|mois|année)s?/.test(duree);
         const graviteOk = /^\d+$/.test(gravite) && gravite >= 1 && gravite <= 10;
         const champsNonVides = type && gravite && date && duree;
 
         // Vérification des champs vides (excepté observation)
         if (!champsNonVides) {
             return afficherErreur("Tous les champs sauf observation doivent être remplis.");
-        }
-
-        // Validation durée
-        if (!dureeOk) {
-            return afficherErreur("La durée doit mentionner <br> 'jour', 'semaine', 'mois' ou 'année'.");
         }
 
         // Validation format date
@@ -53,7 +46,6 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('gravite', gravite);
         formData.append('date', date);
         formData.append('observation', observation);
-        formData.append('duree', duree);
         formData.append('id_joueur', new URLSearchParams(window.location.search).get('id')); // récupère l'ID de l'URL
 
         fetch('formmedical.php', {

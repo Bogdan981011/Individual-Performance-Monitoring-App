@@ -50,10 +50,6 @@
       <label for="observation">Observation</label>
       <textarea id="observation" name="observation" rows="3"></textarea>
 
-      <!-- Durée estimée -->
-      <label for="duree">Durée estimée</label>
-      <input type="text" id="duree" name="duree" placeholder="Ex : 2 semaines" required>
-
       <button type="submit">Envoyer</button>
 
       <?php $id_joueur = $_GET['id'] ?>
