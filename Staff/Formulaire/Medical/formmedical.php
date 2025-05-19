@@ -17,6 +17,30 @@
       <h1>Formulaire<br>Médical</h1>
     </div>
 
+    <div>
+      <?php
+      include_once "../../../bd.php";
+
+      try{
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        if ($id === false) {
+            die("ID invalide");
+        }
+
+        stmt = $pdo->prepare("SELECT nom, prenom FROM joueur WHERE id_joueur=:id")
+        $stmt -> execute(['id_joueur' => $id]);
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        ?>
+        <h2><?= htmlspecialchars($result['prenom'] . " " . $result['nom']) ?></h2>
+        <?php
+
+      } catch (PDOException $e){
+        echo "Erreur : " . $e->getMessage();
+      }
+      ?>
+    </div>
+
     <form>
       <!-- Type de blessure -->
       <label for="type-blessure">Type de blessure</label>

@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Section</title>
     <link rel="stylesheet" href="../../../Styles/section.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 </head>
 <body>
     <!-- Ruban fixe en haut -->
@@ -30,7 +29,7 @@
     
         <!-- Section des options -->
         <?php
-        require_once '/../../../bd.php'; 
+        require_once '../../../bd.php'; 
 
         $nomEquipe = 'espoirs';
         $sql = "SELECT id_equipe FROM Equipe WHERE nom_equipe COLLATE utf8_general_ci = :nom";
@@ -39,21 +38,13 @@
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($result) {
-            $idEquipe = $result['id_equipe'];
-            echo "L'ID de l'équipe '$nomEquipe' est : $idEquipe";
-        } else {
-            echo "Équipe '$nomEquipe' non trouvée.";
-        }
         ?>
 
-        <!-- Section des options -->
         <div class="option-section">
             <a href="" class="btn-option">Performance Globale</a>
             <a href="joueurs_espoirs.php" class="btn-option">Liste des joueurs</a>
-            <a href="../../sectiontests.php?id_eq=<?= $idEquipe ?>.php" class="btn-option">Tests</a>
-            <a href="../../Formulaire/Reponses/choix_formulaire.php" class="btn-option">Réponses aux formulaires</a>
+            <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
+            <a href="../../FormulaireReponses/choix_formulaire.php" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
 </body>

@@ -5,17 +5,16 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Liste des joueurs - ASBH</title>
   <link rel="stylesheet" href="../../../Styles/joueurs.css" />
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
   <!-- Ruban de navigation -->
   <div class="header-ruban">
     <div class="ruban-section">
-      <a href="Crabos.php" class="ruban-link" id="crabos">CRABOS</a>
-      <a href="../CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
-      <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
-      <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
+      <a href="Crabos.php" class="ruban-link active" id="crabos">CRABOS</a>
+      <a href="../CadetA/joueurs_cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
+      <a href="../CadetB/joueurs_cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
+      <a href="../Espoirs/joueurs_espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
     </div>
     <a href="../../accueil_staff.html" class="btn-retour">Retour à la section</a>
   </div>
@@ -32,33 +31,20 @@
 
   <!-- Liste des joueurs -->
   <div class="joueurs-container">
-    <!-- Carte joueur - Exemple -->
-    <div class="joueur-card">
-      <span class="nom-joueur">Joueur 1</span>
-      <a href="#" class="btn-formulaire">Tests et Performance</a>
-      <a href="../../Formulaire/Medical/formmedical.php" class="btn-formulaire">Formulaire médical</a>
-    </div>
-
-    <div class="joueur-card">
-      <span class="nom-joueur">Joueur 2</span>
-      <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
-      <a href="../../Formulaire/Medical/formmedical.php" class="btn-formulaire">Formulaire médical</a>
-    </div>
 
     <?php
-    require_once '/../../../bd.php';
+    require_once '../../../bd.php';
 
     try {
         $stmt = $pdo->prepare("
           SELECT nom, prenom, id_joueur
-          FROM joueurs
-          JOIN equipe ON joueurs.id_equipe = equipe.id_equipe
+          FROM joueur
+          JOIN equipe ON joueur.id_equipe = equipe.id_equipe
           WHERE equipe.nom_equipe = :nom_equipe
         ");
 
-        $stmt->execute(['nom_equipe' => 'Crabos']);
+        $stmt->execute(['nom_equipe' => 'crabos']);
         $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
         foreach ($joueurs as $joueur) {
           ?>
           <div class="joueur-card">

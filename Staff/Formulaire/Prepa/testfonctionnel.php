@@ -74,6 +74,14 @@
       text-align: center;
       font-weight: bold;
     }
+    
+    .fakeinput{
+      padding: 4px 25px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
 
     .A { background-color: var(--vert); color: white; }
     .EA { background-color: var(--orange); color: black; }
@@ -145,26 +153,15 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td style="display: none;"><input type="hidden" class="id_joueur" name="id_joueur" value="???"></td>
-        <td><input type="text" name="nom" class="name"><div class="error-message"></div></td>
-        <td><input type="text" name="prenom" class="name"><div class="error-message"></div></td>
-        <td><input type="text" name="squat" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="iso" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="souplesse" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="flamant" class="note"><div class="error-message"></div></td>
-        <td><input type="text" name="haut" class="note"><div class="error-message"></div></td>
-      </tr>
-
       <?php
-      require_once '/../../../bd.php';
+      require_once '../../../bd.php';
 
       try {
           $id_equipe = $_GET['id_eq'];
 
           $stmt = $pdo->prepare("
               SELECT nom, prenom, id_joueur
-              FROM joueurs
+              FROM joueur
               WHERE id_equipe = :id_equipe
           ");
 
@@ -178,13 +175,9 @@
                   <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
                 </td>
 
-                <td>
-                  <input type="text" name="nom" class="name" value="<?= htmlspecialchars($joueur['nom']) ?>">
-                </td>
+                <td> <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span></td>
 
-                <td>
-                  <input type="text" name="prenom" class="name" value="<?= htmlspecialchars($joueur['prenom']) ?>">
-                </td>
+                <td><span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span></td>
 
                 <td>
                   <input type="text" name="squat" class="note">

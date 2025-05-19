@@ -68,6 +68,14 @@
       text-align: center;
     }
 
+    .fakeinput{
+      padding: 4px 75px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+
     .error-message {
       color: red;
       font-size: 12px;
@@ -245,26 +253,13 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <input type="text" name="nom" class="name">
-            </td>
-            <td>
-              <input type="text" name="prenom" class="name">
-            </td>
-            <td>
-              <input type="number" name="note" class="note" min="0" step="0.01">
-              <div class="error-message"></div>
-            </td>
-          </tr>
-
         <?php
-        require_once '/../../../bd.php';
+        require_once '../../../bd.php';
 
         try {
           $id_equipe = $_GET['id_eq']; // Récupère l'id de l'équipe passé en GET
 
-          $stmt = $pdo->prepare("SELECT nom, prenom, id_joueur FROM joueurs WHERE id_equipe = :id_equipe");
+          $stmt = $pdo->prepare("SELECT nom, prenom, id_joueur FROM joueur WHERE id_equipe = :id_equipe");
           $stmt->execute(['id_equipe' => $id_equipe]);
           $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -272,16 +267,16 @@
             ?>
             <tr>
               <td style="display: none;">
-                <input type="hidden" name="id_joueur[]" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+                <input type="hidden" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
               </td>
               <td>
-                <input type="text" name="nom[]" class="name" value="<?= htmlspecialchars($joueur['nom']) ?>">
+                <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span>
               </td>
               <td>
-                <input type="text" name="prenom[]" class="name" value="<?= htmlspecialchars($joueur['prenom']) ?>">
+                <span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span>
               </td>
               <td>
-                <input type="number" name="note[]" class="note" min="0" step="0.01">
+                <input type="number" name="note" class="note" min="0" step="0.01">
                 <div class="error-message"></div>
               </td>
             </tr>
