@@ -54,17 +54,23 @@ include 'recup.php'; // ou require_once 'recup.php';
       <!-- Section Graphes -->
     <div class="card">
         <h3>Graphiques</h3>
-        <h3>Poids</h3>
-        <canvas id="graph-poids"></canvas>
-
-        <h3>Taille</h3>
-        <canvas id="graph-taille"></canvas>
-
-        <h3>IMG</h3>
-        <canvas id="graph-img"></canvas>
+        <div class="graph-grid">
+          <div class="graph-box">
+            <h3>Poids</h3>
+            <canvas id="graph-poids"></canvas>
+          </div>
+          <div class="graph-box">
+            <h3>Taille</h3>
+            <canvas id="graph-taille"></canvas>
+          </div>
+          <div class="graph-box">
+            <h3>IMG</h3>
+            <canvas id="graph-img"></canvas>
+          </div>
+        </div>
 
         <script>
-            const dernieres_mesures = <?= json_encode($dernieres_mesures) ?>;
+            const dernieres_mesures = <?php echo json_encode($historique_mesures); ?>;
         </script>
         <script src="perf.js"></script>
 

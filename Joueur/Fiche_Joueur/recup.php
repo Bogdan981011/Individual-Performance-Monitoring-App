@@ -29,11 +29,11 @@ try {
     $tests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Récupération de toutes les mesures (poids, taille, img, gmc) ordonnées par date descendante
-    $stmt = $pdo->prepare("SELECT type_mesure, valeur, update_date FROM mesure WHERE id_joueur = :id AND type_mesure IN ('poids', 'taille', 'img', 'gmc') ORDER BY update_date DESC");
+    $stmt = $pdo->prepare("SELECT type_mesure, valeur, date_mesure FROM mesure WHERE id_joueur = :id AND type_mesure IN ('poids', 'taille', 'img', 'gmc') ORDER BY date_mesure DESC");
     $stmt->execute(['id' => $user_id]);
     $mesures_temps = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Initialiser les dernières mesures à null
+  // Initialiser les dernières mesures à null
     $dernieres_mesures = [
         'poids' => null,
         'taille' => null,
@@ -41,11 +41,18 @@ try {
         'gmc' => null
     ];
 
-    // Parcourir mesures_temps et récupérer la première occurrence de chaque type (la plus récente)
+    // Parcourir les mesures à l'envers pour obtenir la plus récente
+    $mesures_temps = array_reverse($mesures_temps);
+
     foreach ($mesures_temps as $m) {
         $type = $m['type_mesure'];
-        if ($dernieres_mesures[$type] === null) {
-            $dernieres_mesures[$type] = $m['valeur'];
+        $valeur = $m['valeur'];
+
+        // Vérifier si la mesure est attendue et si elle est valide (≠ null ou 0)
+        if (array_key_exists($type, $dernieres_mesures)) {
+            if ($dernieres_mesures[$type] === null && $valeur !== null && floatval($valeur) != 0) {
+                $dernieres_mesures[$type] = $valeur;
+            }
         }
     }
 
@@ -68,4 +75,35 @@ try {
 } catch (PDOException $e) {
     die("Erreur base de données : " . $e->getMessage());
 }
+$historique_mesures = [
+    'poids' => ['dates' => [], 'valeurs' => []],
+    'taille' => ['dates' => [], 'valeurs' => []],
+    'img' => ['dates' => [], 'valeurs' => []]
+];
+
+$stmt = $pdo->prepare("
+    SELECT type_mesure, valeur, date_mesure 
+    FROM mesure 
+    WHERE id_joueur = :id 
+      AND type_mesure IN ('poids', 'taille', 'img') 
+      AND valeur IS NOT NULL 
+      AND valeur != 0 
+    ORDER BY date_mesure ASC
+");
+$stmt->execute(['id' => $user_id]);
+$mesures_all = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+foreach ($mesures_all as $m) {
+    $type = $m['type_mesure'];
+    $valeur = floatval($m['valeur']);
+    $date = $m['date_mesure'];
+
+    if (!isset($historique_mesures[$type])) continue;
+
+    $historique_mesures[$type]['dates'][] = $date;
+    $historique_mesures[$type]['valeurs'][] = $valeur;
+}
+
+
+
 ?>

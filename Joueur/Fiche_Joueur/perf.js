@@ -1,16 +1,16 @@
-const dataLabels = dernieres_mesures.dates;
-
-const createLineChart = (id, label, data, borderColor, bgColor) => {
+// Fonction pour créer un graphique en ligne
+const createLineChart = (id, label, data, borderColor, bgColor, labels) => {
     const ctx = document.getElementById(id).getContext('2d');
     new Chart(ctx, {
         type: 'line',
         data: {
-            labels: dataLabels,
+            labels: labels,  // ⚠️ Les dates spécifiques à cette mesure
             datasets: [{
                 label: label,
                 data: data,
                 borderColor: borderColor,
                 backgroundColor: bgColor,
+                fill: false,
                 tension: 0.3
             }]
         },
@@ -27,14 +27,38 @@ const createLineChart = (id, label, data, borderColor, bgColor) => {
                     title: { display: true, text: 'Date' }
                 },
                 y: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                    title: { display: true, text: label }
                 }
             }
         }
     });
 };
 
-// Créer chaque graphique séparément
-createLineChart('graph-poids', 'Poids (kg)', dernieres_mesures.poids, 'blue', 'lightblue');
-createLineChart('graph-taille', 'Taille (m)', dernieres_mesures.taille, 'green', 'lightgreen');
-createLineChart('graph-img', 'IMG (%)', dernieres_mesures.img, 'red', 'pink');
+// Appel des graphiques avec les dates et valeurs propres à chaque mesure
+createLineChart(
+    'graph-poids',
+    'Poids (kg)',
+    dernieres_mesures.poids.valeurs,
+    'blue',
+    'lightblue',
+    dernieres_mesures.poids.dates
+);
+
+createLineChart(
+    'graph-taille',
+    'Taille (m)',
+    dernieres_mesures.taille.valeurs,
+    'green',
+    'lightgreen',
+    dernieres_mesures.taille.dates
+);
+
+createLineChart(
+    'graph-img',
+    'IMG (%)',
+    dernieres_mesures.img.valeurs,
+    'red',
+    'pink',
+    dernieres_mesures.img.dates
+);

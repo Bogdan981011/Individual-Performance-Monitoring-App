@@ -182,5 +182,27 @@ body {
   border-radius: 5px;
   font-size: 0.9em;
 }
+.graph-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.graph-box {
+  flex: 1 1 350px;       /* augmente la base à 350px */
+  max-width: 500px;      /* augmente la limite max à 500px */
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+
+.graph-box canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+
 
 
