@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const params = new URLSearchParams(window.location.search);
         const idJoueur = params.get('id');
         const equipe = params.get('eq');
+        const csrfToken = form.querySelector('input[name="csrf_token"]').value;
 
         // Validation des champs
         const graviteOk = /^\d+$/.test(gravite) && gravite >= 1 && gravite <= 10;
@@ -64,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         formData.append('recommandation', recommandation);
         formData.append('reprise', reprise)
         formData.append('id_joueur', idJoueur); // récupère l'ID de l'URL
+        formData.append('csrf_token', csrfToken);
 
         fetch('save_formmedical.php', {
             method: 'POST',

@@ -1,6 +1,6 @@
 <?php 
 session_start(); 
-if (!isset($_SESSION['id_utilisateur'])) {
+if (!isset($_SESSION['user_id'])) {
     // L'utilisateur n'est pas connecté, on le redirige
     header("Location: /vizia/accueil.html");
     exit;
@@ -59,7 +59,7 @@ if (!isset($_SESSION['id_utilisateur'])) {
             <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'kine'): ?>
                 <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
-              <?php endif; ?>
+            <?php endif; ?>
           </div>
           <?php
         }

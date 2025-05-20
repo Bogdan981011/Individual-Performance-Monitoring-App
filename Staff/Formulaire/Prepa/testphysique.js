@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateGlobale = dateInput.value.trim();
         const testType = document.querySelector('#testType').value;
         const equipe = new URLSearchParams(window.location.search).get('id_eq');
+        const csrfToken = form.querySelector('input[name="csrf_token"]').value;
         
         if (!testType) {
             afficherErreur("Veuillez choisir un test dans la liste déroulante.");
@@ -137,15 +138,18 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ joueurs })
+            body: JSON.stringify({ 
+                joueurs: joueurs, 
+                csrf_token: csrfToken  
+            })
         })
         .then(response => response.text())
         .then(data => {
             if (data.includes("ok")) {
-                afficherSuccès("Réponses envoyées avec succès.");
-                setTimeout(() => {
-                    window.location.href = `/vizia/Staff/sectiontests.php?id_eq=${equipe}`;
-                }, 1000); // Fermer setTimeout ici
+                // afficherSuccès("Réponses envoyées avec succès.");
+                // setTimeout(() => {
+                //     window.location.href = `/vizia/Staff/sectiontests.php?id_eq=${equipe}`;
+                // }, 1000); // Fermer setTimeout ici
             } else {
                 afficherErreur("Erreur serveur : " + data);
             }

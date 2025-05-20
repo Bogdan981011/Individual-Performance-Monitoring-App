@@ -1,3 +1,11 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+  // L'utilisateur n'est pas connecté, on le redirige
+  header("Location: /vizia/accueil.html");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -5,6 +13,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Formulaire Bien-être ASBH</title>
   <link rel="stylesheet" href="../Styles/rpe.css">
+  <script src="wellness.js"></script>
 </head>
 <body>
     <!-- Bouton retour -->
@@ -15,6 +24,8 @@
     <h1><img src="../../Images/asbh.svg" class="logo-asbh" alt="ASBH">WELLNESS</h1>
 
     <form>
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
       <label for="date">Date</label>
       <input type="date" id="date" name="date" required>
       

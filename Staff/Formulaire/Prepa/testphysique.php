@@ -1,3 +1,12 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -232,91 +241,93 @@
     <h2><?= htmlspecialchars($result['nom_equipe']) ?></h2>
 
     <form action="enregistrer_test.php" method="POST">
-    <div class="search-bar">
-      <input type="text" placeholder="Rechercher un nom ou prénom...">
-    </div>
-
-    <div class="date-section-flex">
-      <div class="date-field">
-        <label for="date1">Date :</label>
-        <input type="date" id="date" name="date"><span class="error-message"></span>
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+      
+      <div class="search-bar">
+        <input type="text" placeholder="Rechercher un nom ou prénom...">
       </div>
 
-      <div class="select-test">
-        <label for="testType">Test :</label>
-        <select id="testType" name="testType" required>
-          <option value="" disabled selected>─── Choisir un test ───</option>
-          <option value="pesee">Pesée</option>
-          <option value="squat">Squat Nuque</option>
-          <option value="broadjump">BROADJUMP</option>
-          <option value="dc">DC</option>
-          <option value="tp">TP</option>
-          <option value="10m">10m</option>
-          <option value="20m">20m</option>
-          <option value="bronco">BRONCO</option>
-          <option value="yoyo">YOYO</option>
-          <option value="rfu">RFU Test Avant</option>
-          <option value="cmg">CMG</option>
-          <option value="img">IMG</option>
-          <option value="taille">Taille</option>
-          <option value="poids">Poids</option>
-        </select>
+      <div class="date-section-flex">
+        <div class="date-field">
+          <label for="date1">Date :</label>
+          <input type="date" id="date" name="date"><span class="error-message"></span>
+        </div>
+
+        <div class="select-test">
+          <label for="testType">Test :</label>
+          <select id="testType" name="testType" required>
+            <option value="" disabled selected>─── Choisir un test ───</option>
+            <option value="pesee">Pesée</option>
+            <option value="squat">Squat Nuque</option>
+            <option value="broadjump">BROADJUMP</option>
+            <option value="dc">DC</option>
+            <option value="tp">TP</option>
+            <option value="10m">10m</option>
+            <option value="20m">20m</option>
+            <option value="bronco">BRONCO</option>
+            <option value="yoyo">YOYO</option>
+            <option value="rfu">RFU Test Avant</option>
+            <option value="cmg">CMG</option>
+            <option value="img">IMG</option>
+            <option value="taille">Taille</option>
+            <option value="poids">Poids</option>
+          </select>
+        </div>
       </div>
-    </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th>Nom</th>
-          <th>Prénom</th>
-          <th>Valeur</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-      require_once '../../../bd.php';
-
-      try {
-        $stmt = $pdo->prepare("
-          SELECT nom, prenom, id_joueur
-          FROM joueur
-          WHERE id_equipe = :id_equipe
-        ");
-
-        $stmt->execute(['id_equipe' => $id_equipe]);
-        $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-        foreach ($joueurs as $joueur) {
-          ?>
+      <table>
+        <thead>
           <tr>
-            <td style="display: none;">
-              <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
-            </td>
-            <td>
-              <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span>
-            </td>
-            <td>
-              <span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span>
-            </td>
-            <td>
-              <input type="number" name="note" class="note" min="0" step="0.01">
-              <div class="error-message"></div>
-            </td>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Valeur</th>
           </tr>
-          
-          <?php 
+        </thead>
+        <tbody>
+        <?php
+        require_once '../../../bd.php';
+
+        try {
+          $stmt = $pdo->prepare("
+            SELECT nom, prenom, id_joueur
+            FROM joueur
+            WHERE id_equipe = :id_equipe
+          ");
+
+          $stmt->execute(['id_equipe' => $id_equipe]);
+          $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+          foreach ($joueurs as $joueur) {
+            ?>
+            <tr>
+              <td style="display: none;">
+                <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+              </td>
+              <td>
+                <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span>
+              </td>
+              <td>
+                <span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span>
+              </td>
+              <td>
+                <input type="number" name="note" class="note" min="0" step="0.01">
+                <div class="error-message"></div>
+              </td>
+            </tr>
+            
+            <?php 
+          }
+
+        } catch (PDOException $e) {
+          echo "Erreur : " . $e->getMessage();
         }
+        ?>
 
-      } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
-      }
-      ?>
+        </tbody>
+      </table>
 
-      </tbody>
-    </table>
-
-    <!--  BOUTON ENREGISTRER -->
-    <button class="save-button">Enregistrer</button>
+      <!--  BOUTON ENREGISTRER -->
+      <button class="save-button">Enregistrer</button>
   
     </form>
   </div>

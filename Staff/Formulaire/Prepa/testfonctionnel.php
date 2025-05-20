@@ -1,3 +1,12 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -155,6 +164,7 @@
   <h2><?= htmlspecialchars($result['nom_equipe']) ?></h2>
 
   <form method="post" action="enregistrer_fonctionnel.php">
+    <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
     <div class="date-section">
       <label for="date">Date :</label>

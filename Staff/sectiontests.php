@@ -1,3 +1,12 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -54,8 +63,10 @@
     
     <!-- Section des options -->
     <div class="option-section">
-        <a href="Formulaire/Prepa/testfonctionnel.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Fonctionnels</a>
-        <a href="Formulaire/Prepa/testphysique.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Physiques</a>
+        <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'pp'): ?>
+            <a href="Formulaire/Prepa/testfonctionnel.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Fonctionnels</a>
+            <a href="Formulaire/Prepa/testphysique.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Physiques</a>
+        <?php endif; ?>
         <a href="importation.php" class="btn-option">Importer des fichiers</a>
     </div>
     

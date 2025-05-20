@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const lignes = document.querySelectorAll('tbody tr');
         const dateGlobale = dateInput.value.trim();
         const equipe = new URLSearchParams(window.location.search).get('id_eq');
+        const csrfToken = form.querySelector('input[name="csrf_token"]').value;
 
        
         lignes.forEach((ligne) => {
@@ -148,7 +149,10 @@ document.addEventListener('DOMContentLoaded', function() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ joueurs })
+            body: JSON.stringify({ 
+                joueurs: joueurs, 
+                csrf_token: csrfToken  
+            })
         })
         .then(response => response.text())
         .then(data => {
