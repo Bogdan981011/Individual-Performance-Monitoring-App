@@ -16,7 +16,7 @@
       <a href="../CadetB/joueurs_cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
       <a href="espoirs.php" class="ruban-link active" id="espoirs">ESPOIRS</a>
     </div>
-    <a href="../../accueil_staff.html" class="btn-retour">Retour à la section</a>
+    <a href="espoirs.php" class="btn-retour">Retour à l'équipe</a>
   </div>
   
   <!-- Titre de la page -->
@@ -49,7 +49,7 @@
           <div class="joueur-card">
             <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
             <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
-            <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>" class="btn-formulaire">Formulaire médical</a>
+            <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=E" class="btn-formulaire">Formulaire médical</a>
           </div>
           <?php
         }

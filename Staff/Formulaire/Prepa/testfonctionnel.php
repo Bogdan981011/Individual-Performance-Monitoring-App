@@ -23,6 +23,12 @@
       color: var(--bleu);
     }
 
+    h2 {
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--bleu);
+    }
+
     .return-btn {
       position: absolute;
       top: 20px;
@@ -128,93 +134,109 @@
   <script src="testfonctionnel.js"></script>
 </head>
 <body>
+  <?php
+  require_once '../../../bd.php';
+  $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
+  if ($id_equipe === false) {
+    echo "<p>Une erreur est survenue. Redirection...</p>";
+    echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.html', 1000);</script>";
+    exit;
+  }
 
-<a href="../../accueil_staff.html" class="return-btn">Retour à l’accueil</a>
+  $stmt = $pdo->prepare("SELECT nom_equipe FROM equipe WHERE id_equipe =:id");
+  $stmt -> execute(['id' => $id_equipe]);
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  ?>
 
-<h1>Tableau de Tests Fonctionnels</h1>
+  <a href="../../sectiontests.php?id_eq=<?= $id_equipe ?>" class="return-btn">Retour à la selection du test</a>
 
-<form method="post" action="enregistrer_fonctionnel.php">
+  <h1>Tableau de Tests Fonctionnels</h1>
 
-  <div class="date-section">
-    <label for="date">Date :</label>
-    <input type="date" id="date" name="date" required><div class="error-message"></div>
-  </div>
+  <h2><?= htmlspecialchars($result['nom_equipe']) ?></h2>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Nom</th>
-        <th>Prénom</th>
-        <th>Squat d'Arraché</th>
-        <th>ISO Leg Curl</th>
-        <th>Souplesse Chaîne Postérieure</th>
-        <th>Flamant Rose / Équilibre</th>
-        <th>Souplesse Membres Supérieurs</th>
-      </tr>
-    </thead>
-    <tbody>
-      <?php
-      require_once '../../../bd.php';
+  <form method="post" action="enregistrer_fonctionnel.php">
 
-      try {
-          $id_equipe = $_GET['id_eq'];
+    <div class="date-section">
+      <label for="date">Date :</label>
+      <input type="date" id="date" name="date" required><div class="error-message"></div>
+    </div>
 
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Squat d'Arraché</th>
+          <th>ISO Leg Curl</th>
+          <th>Souplesse Chaîne Postérieure</th>
+          <th>Flamant Rose / Équilibre</th>
+          <th>Souplesse Membres Supérieurs</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+        try {
           $stmt = $pdo->prepare("
-              SELECT nom, prenom, id_joueur
-              FROM joueur
-              WHERE id_equipe = :id_equipe
+            SELECT nom, prenom, id_joueur
+            FROM joueur
+            WHERE id_equipe = :id_equipe
           ");
 
           $stmt->execute(['id_equipe' => $id_equipe]);
           $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
           foreach ($joueurs as $joueur) {
-              ?>
-              <tr>
-                <td style="display: none;">
-                  <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
-                </td>
+            ?>
+            <tr>
+              <td style="display: none;">
+                <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+              </td>
 
-                <td> <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span></td>
+              <td> <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span></td>
 
-                <td><span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span></td>
+              <td><span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span></td>
 
-                <td>
-                  <input type="text" name="squat" class="note">
-                </td>
+              <td>
+                <input type="text" name="squat" class="note">
+                <div class="error-message"></div>
+              </td>
 
-                <td>
-                  <input type="text" name="iso" class="note">
-                </td>
+              <td>
+                <input type="text" name="iso" class="note">
+                <div class="error-message"></div>
+              </td>
 
-                <td>
-                  <input type="text" name="souplesse" class="note">
-                </td>
+              <td>
+                <input type="text" name="souplesse" class="note">
+                <div class="error-message"></div>
+              </td>
 
-                <td>
-                  <input type="text" name="flamant" class="note">
-                </td>
+              <td>
+                <input type="text" name="flamant" class="note">
+                <div class="error-message"></div>
+              </td>
 
-                <td>
-                  <input type="text" name="haut" class="note">
-                </td>
-              </tr>
-              <?php
+              <td>
+                <input type="text" name="haut" class="note">
+                <div class="error-message"></div>
+              </td>
+            </tr>
+            <?php
           }
 
-      } catch (PDOException $e) {
+        } catch (PDOException $e) {
           echo "Erreur : " . $e->getMessage();
-      }
-      ?>
+        }
+        ?>
 
 
-    </tbody>
-  </table>
+      </tbody>
+    </table>
 
-  <div style="text-align: center;">
-    <button type="submit">Enregistrer</button>
-  </div>
-</form>
+    <div style="text-align: center;">
+      <button type="submit">Enregistrer</button>
+    </div>
+  </form>
 
 </body>
 </html>

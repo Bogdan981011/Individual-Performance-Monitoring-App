@@ -9,12 +9,36 @@
 
 </head>
 <body>
+    <?php 
+    require_once '../bd.php';
+    $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
+    if ($id_equipe === false) {
+        echo "<p>Une erreur est survenue. Redirection...</p>";
+        echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.html', 1000);</script>";
+        exit;
+    }    
+    $stmt = $pdo->prepare("SELECT nom_equipe FROM equipe WHERE id_equipe =:id");
+    $stmt -> execute(['id' => $id_equipe]);
+    $result = $stmt->fetch(PDO::FETCH_ASSOC);
+    $nom = strtoupper(trim($result['nom_equipe']));
+
+    // Récupère toutes les équipes nécessaires
+    $stmt = $pdo->query("SELECT id_equipe, nom_equipe FROM equipe");
+    $equipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+    ?>
     <div class="header-ruban">
         <div class="ruban-section">
-            <a href="Equipe/Crabos/crabos.php" class="ruban-link" id="crabos">CRABOS</a>
-            <a href="Equipe/CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
-            <a href="Equipe/CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
-            <a href="Equipe/Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
+            <?php foreach ($equipes as $equipe): 
+                $nomEquipe = strtoupper($equipe['nom_equipe']);
+                $activeClass = ($nom === $nomEquipe) ? 'active' : '';
+            ?>
+                <a href="sectiontests.php?id_eq=<?= $equipe['id_equipe'] ?>"
+                class="ruban-link <?= $activeClass ?>"
+                id="<?= strtolower(str_replace(' ', '', $nomEquipe)) ?>">
+                <?= $nomEquipe ?>
+                </a>
+            <?php endforeach; ?>
         </div>
     </div>
 
@@ -29,8 +53,6 @@
     </div>
     
     <!-- Section des options -->
-    <?php $id_equipe = $_GET['id_eq'] ?>
-
     <div class="option-section">
         <a href="Formulaire/Prepa/testfonctionnel.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Fonctionnels</a>
         <a href="Formulaire/Prepa/testphysique.php?id_eq=<?= $id_equipe ?>" class="btn-option">Tests Physiques</a>

@@ -10,15 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
         const type = form.type.value.trim();
         const gravite = form.gravite.value;
         const date = form.date.value.trim();
-        const observation = form.observation.value.trim();
+        const recommandation = form.recommandation.value.trim();
+        const reprise = form.reprise.value.trim();
+
+        const params = new URLSearchParams(window.location.search);
+        const idJoueur = params.get('id');
+        const equipe = params.get('eq');
 
         // Validation des champs
         const graviteOk = /^\d+$/.test(gravite) && gravite >= 1 && gravite <= 10;
-        const champsNonVides = type && gravite && date && duree;
+        const champsNonVides = type && gravite && date;
 
-        // Vérification des champs vides (excepté observation)
+        // Vérification des champs vides (excepté recommandation/reprise)
         if (!champsNonVides) {
-            return afficherErreur("Tous les champs sauf observation doivent être remplis.");
+            return afficherErreur("Tous les champs sauf recommandation / reprise doivent être remplis.");
         }
 
         // Validation format date
@@ -31,6 +36,17 @@ document.addEventListener('DOMContentLoaded', function() {
         const today = new Date();
         today.setHours(0, 0, 0, 0); // Réinitialiser l'heure de "today" à minuit
 
+        // Valisation de la longueur recommandation
+        if (recommandation.length > 500) {
+            return afficherErreur("La recommandation ne doit pas dépasser 500 caractères.");
+        }
+
+        
+        // Valisation de la longueur reprise
+        if (reprise.length > 500) {
+            return afficherErreur("La reprise ne doit pas dépasser 500 caractères.");
+        }
+
         if (dateEntree > today) {
             return afficherErreur("La date ne peut pas être dans le futur.");
         }
@@ -41,20 +57,39 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Si tout est OK, on envoie les données par AJAX
-        const formData = new URLSearchParams();
+        const formData = new FormData();
         formData.append('type', type);
         formData.append('gravite', gravite);
         formData.append('date', date);
-        formData.append('observation', observation);
-        formData.append('id_joueur', new URLSearchParams(window.location.search).get('id')); // récupère l'ID de l'URL
+        formData.append('recommandation', recommandation);
+        formData.append('reprise', reprise)
+        formData.append('id_joueur', idJoueur); // récupère l'ID de l'URL
 
-        fetch('formmedical.php', {
+        fetch('save_formmedical.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             body: formData
         })
-        .then(() => {
-            afficherSuccès("Réponses envoyés avec succès.");
+        .then(response => response.text())
+        .then(data => {
+            console.log("Réponse PHP :", data); // Tu verras ici l’erreur ou "OK"
+            if (data.includes("ok")) {
+                afficherSuccès("Réponses envoyées avec succès.");
+                setTimeout(() => {
+                    if (equipe === "A") {
+                        window.location.href = `/vizia/Staff/Equipe/CadetA/joueurs_cadetA.php`;
+                    } else if (equipe === "B") {
+                        window.location.href = `/vizia/Staff/Equipe/CadetB/joueurs_cadetB.php`;
+                    } else if (equipe === "C") {
+                        window.location.href = `/vizia/Staff/Equipe/Crabos/joueurs_crabos.php`;
+                    }else if (equipe === "E") {
+                        window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
+                    } else {
+                        window.location.href = `/vizia/Staff/accueil_staff.html`;
+                    }
+                }, 1000); // Fermer setTimeout ici
+            } else {
+                afficherErreur("Erreur serveur : " + data);
+            }
         })
         .catch(() => {
             afficherErreur("Erreur serveur ou réseau.");
@@ -83,7 +118,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const year = parseInt(dateParts[0], 10);
 
             const date = new Date(year, month, day);
-            console.log(date);
             return date.getDate() === day && date.getMonth() === month && date.getFullYear() === year;
         }
     });

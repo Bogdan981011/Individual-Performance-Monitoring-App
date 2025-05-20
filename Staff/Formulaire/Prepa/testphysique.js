@@ -114,35 +114,51 @@ document.addEventListener('DOMContentLoaded', function() {
         function afficherSuccès(message) {
             resultat.innerHTML = `<p style="color: green; text-align: center; font-weight: bold; border: 1px solid green">${message}</p>`;
         }
-
-        // Si tout est OK, on envoie les données par AJAX
-        const formData = new URLSearchParams();
-        const lignes = document.querySelectorAll('tbody tr');
-        const dateGlobale = dateInput.value.trim();
-        const testType = document.querySelector('#testType').value;
-
+        
         if (!testType) {
             afficherErreur("Veuillez choisir un test dans la liste déroulante.");
             return;
         }
 
-        lignes.forEach((ligne, index) => {
-            const id = ligne.querySelector('input[name^=".id_joueur"]')?.value;
-            const note = ligne.querySelector('input[name^="note"]')?.value || '';
+        // Si tout est OK, on envoie les données par AJAX
+        const joueurs = [];
+        const lignes = document.querySelectorAll('tbody tr');
+        const dateGlobale = dateInput.value.trim();
+        const testType = document.querySelector('#testType').value;
+        const equipe = new URLSearchParams(window.location.search).get('id_eq');
 
-            formData.append(`joueurs[${index}][id_joueur]`, id);
-            formData.append(`joueurs[${index}][date]`, dateGlobale);
-            formData.append(`joueurs[${index}][test]`, testType);
-            formData.append(`joueurs[${index}][note]`, note);
+        lignes.forEach((ligne) => {
+            const id = ligne.querySelector('input[name=".id_joueur"]')?.value;
+            if (!id) return;
+
+            const note = ligne.querySelector('input[name="note"]')?.value || '';
+
+            const joueur = {
+                id_joueur: id,
+                date: dateGlobale,
+                test: testType,
+                val: note,
+            };
+            joueurs.push(joueur);
         });
 
-        fetch('???.php', {
+        fetch('save_testphysique.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ joueurs })
         })
-        .then(() => {
-            afficherSuccès("Réponses envoyés avec succès.");
+        .then(response => response.text())
+        .then(data => {
+            if (data.includes("ok")) {
+                afficherSuccès("Réponses envoyées avec succès.");
+                setTimeout(() => {
+                    window.location.href = `/vizia/Staff/sectiontests.php?id_eq=${equipe}`;
+                }, 1000); // Fermer setTimeout ici
+            } else {
+                afficherErreur("Erreur serveur : " + data);
+            }
         })
         .catch(() => {
             afficherErreur("Erreur serveur ou réseau.");

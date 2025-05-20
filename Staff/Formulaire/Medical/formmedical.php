@@ -22,13 +22,15 @@
       include_once "../../../bd.php";
 
       try{
-        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-        if ($id === false) {
-            die("ID invalide");
+        $id_joueur = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        if ($id_joueur === false) {
+          echo "<p>Une erreur est survenue. Redirection...</p>";
+          echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.html', 1000);</script>";
+          exit;
         }
 
-        stmt = $pdo->prepare("SELECT nom, prenom FROM joueur WHERE id_joueur=:id")
-        $stmt -> execute(['id_joueur' => $id]);
+        $stmt = $pdo->prepare("SELECT nom, prenom FROM joueur WHERE id_joueur=:id");
+        $stmt -> execute(['id' => $id_joueur]);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
         ?>
@@ -61,22 +63,22 @@
       <!-- Affichage des chiffres sous l'échelle -->
       <div class="range-labels">
         <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span>
-        <span>6</spaici n><span>7</span><span>8</span><span>9</span><span>10</span>
+        <span>6</span><span>7</span><span>8</span><span>9</span><span>10</span>
       </div>
-
-     
 
       <!-- Date -->
       <label for="date">Date blessure</label>
       <input type="date" id="date" name="date" required>
 
-      <!-- Observation -->
-      <label for="observation">Observation</label>
-      <textarea id="observation" name="observation" rows="3"></textarea>
+      <!-- Recommandation -->
+      <label for="recommandation">Recommandation</label>
+      <textarea id="recommandation" name="recommandation" rows="2" maxlength="500"></textarea>
+      
+      <!-- Reprise -->
+      <label for="duree">Reprise</label>
+      <textarea id="reprise" name="reprise" rows="2" maxlength="500"></textarea>
 
       <button type="submit">Envoyer</button>
-
-      <?php $id_joueur = $_GET['id'] ?>
 
     </form>
   </div>

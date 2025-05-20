@@ -28,6 +28,12 @@
       color: var(--bleu);
     }
 
+    h2 {
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--bleu);
+    }
+
     .search-bar {
       text-align: center;
       margin-bottom: 20px;
@@ -206,14 +212,29 @@
   <script src="testphysique.js"></script>
 </head>
   <body>
-  <a href="../../accueil_staff.html" class="return-btn">Retour à l’accueil</a>
+  <?php
+  require_once '../../../bd.php';
+  $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
+  if ($id_equipe === false) {
+    echo "<p>Une erreur est survenue. Redirection...</p>";
+    echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.html', 1000);</script>";
+    exit;
+  }
+
+  $stmt = $pdo->prepare("SELECT nom_equipe FROM equipe WHERE id_equipe =:id");
+  $stmt -> execute(['id' => $id_equipe]);
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  ?>
+
+  <a href="../../sectiontests.php?id_eq=<?= $id_equipe ?>" class="return-btn">Retour à la selection du test</a>
   <div class="main-container">
     <h1>Test Physique</h1>
+    <h2><?= htmlspecialchars($result['nom_equipe']) ?></h2>
 
-      <form action="enregistrer_test.php" method="POST">
-      <div class="search-bar">
-        <input type="text" placeholder="Rechercher un nom ou prénom...">
-      </div>
+    <form action="enregistrer_test.php" method="POST">
+    <div class="search-bar">
+      <input type="text" placeholder="Rechercher un nom ou prénom...">
+    </div>
 
     <div class="date-section-flex">
       <div class="date-field">
@@ -243,60 +264,62 @@
       </div>
     </div>
 
+    <table>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prénom</th>
+          <th>Note</th>
+        </tr>
+      </thead>
+      <tbody>
+      <?php
+      require_once '../../../bd.php';
 
-      <table>
-        <thead>
+      try {
+        $stmt = $pdo->prepare("
+          SELECT nom, prenom, id_joueur
+          FROM joueur
+          WHERE id_equipe = :id_equipe
+        ");
+
+        $stmt->execute(['id_equipe' => $id_equipe]);
+        $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($joueurs as $joueur) {
+          ?>
           <tr>
-            <th>Nom</th>
-            <th>Prénom</th>
-            <th>Note</th>
+            <td style="display: none;">
+              <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+            </td>
+            <td>
+              <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span>
+            </td>
+            <td>
+              <span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span>
+            </td>
+            <td>
+              <input type="number" name="note" class="note" min="0" step="0.01">
+              <div class="error-message"></div>
+            </td>
           </tr>
-        </thead>
-        <tbody>
-        <?php
-        require_once '../../../bd.php';
-
-        try {
-          $id_equipe = $_GET['id_eq']; // Récupère l'id de l'équipe passé en GET
-
-          $stmt = $pdo->prepare("SELECT nom, prenom, id_joueur FROM joueur WHERE id_equipe = :id_equipe");
-          $stmt->execute(['id_equipe' => $id_equipe]);
-          $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-          foreach ($joueurs as $joueur) {
-            ?>
-            <tr>
-              <td style="display: none;">
-                <input type="hidden" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
-              </td>
-              <td>
-                <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span>
-              </td>
-              <td>
-                <span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span>
-              </td>
-              <td>
-                <input type="number" name="note" class="note" min="0" step="0.01">
-                <div class="error-message"></div>
-              </td>
-            </tr>
-            
-            <?php 
-          }
-
-        } catch (PDOException $e) {
-          echo "Erreur : " . $e->getMessage();
+          
+          <?php 
         }
-        ?>
 
-        </tbody>
-      </table>
+      } catch (PDOException $e) {
+        echo "Erreur : " . $e->getMessage();
+      }
+      ?>
 
-      <!--  BOUTON ENREGISTRER -->
-      <button class="save-button">Enregistrer</button>
-    </div>
+      </tbody>
+    </table>
 
-  </form>
+    <!--  BOUTON ENREGISTRER -->
+    <button class="save-button">Enregistrer</button>
+  
+    </form>
+  </div>
 
 </body>
 </html>

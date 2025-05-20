@@ -114,35 +114,52 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         // Si tout est OK, on envoie les données par AJAX
-        const formData = new URLSearchParams();
+        const joueurs = [];
         const lignes = document.querySelectorAll('tbody tr');
         const dateGlobale = dateInput.value.trim();
+        const equipe = new URLSearchParams(window.location.search).get('id_eq');
 
-        lignes.forEach((ligne, index) => {
-            const id = ligne.querySelector('input[name^=".id_joueur"]')?.value;
+       
+        lignes.forEach((ligne) => {
+            const id = ligne.querySelector('input[name="id_joueur"]')?.value;
 
-            const squat = ligne.querySelector('input[name^="squat"]')?.value || '';
-            const iso = ligne.querySelector('input[name^="iso"]')?.value || '';
-            const souplesse = ligne.querySelector('input[name^="souplesse"]')?.value || '';
-            const flamant = ligne.querySelector('input[name^="flamant"]')?.value || '';
-            const haut = ligne.querySelector('input[name^="haut"]')?.value || '';
+            if (!id) return; // Si l'ID est manquant, on ignore cette ligne
 
-            formData.append(`joueurs[${index}][id_joueur]`, id);
-            formData.append(`joueurs[${index}][date]`, dateGlobale);
-            formData.append(`joueurs[${index}][squat]`, squat);
-            formData.append(`joueurs[${index}][iso]`, iso);
-            formData.append(`joueurs[${index}][souplesse]`, souplesse);
-            formData.append(`joueurs[${index}][flamant]`, flamant);
-            formData.append(`joueurs[${index}][haut]`, haut);
+            const squat = ligne.querySelector('input[name="squat"]')?.value || '';
+            const iso = ligne.querySelector('input[name="iso"]')?.value || '';
+            const souplesse = ligne.querySelector('input[name="souplesse"]')?.value || '';
+            const flamant = ligne.querySelector('input[name="flamant"]')?.value || '';
+            const haut = ligne.querySelector('input[name="haut"]')?.value || '';
+
+            const joueur = {
+                id_joueur: id,
+                date: dateGlobale,
+                squat: squat,
+                iso: iso,
+                souplesse: souplesse,
+                flamant: flamant,
+                haut: haut
+            };
+            joueurs.push(joueur); // Ajoute le joueur au tableau
         });
 
-        fetch('???.php', {
+        fetch('save_testfonctionnel.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ joueurs })
         })
-        .then(() => {
-            afficherSuccès("Réponses envoyés avec succès.");
+        .then(response => response.text())
+        .then(data => {
+            if (data.includes("ok")) {
+                afficherSuccès("Réponses envoyées avec succès.");
+                setTimeout(() => {
+                    window.location.href = `/vizia/Staff/sectiontests.php?id_eq=${equipe}`;
+                }, 1000); // Fermer setTimeout ici
+            } else {
+                afficherErreur("Erreur serveur : " + data);
+            }
         })
         .catch(() => {
             afficherErreur("Erreur serveur ou réseau.");
