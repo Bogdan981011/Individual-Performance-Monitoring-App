@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulaire Entraînement ASBH</title>
     <link rel="stylesheet" href="../Styles/rpe.css"> <!-- Le lien vers ton fichier CSS -->
+    <script src="rpe.js"></script>
+
 </head>
 <body>
   <!-- Bouton retour -->
@@ -69,6 +71,7 @@
 
             <!-- Bouton Submit -->
             <button type="submit">Submit</button>
+            <?php $id_joueur = $_GET['id'] ?>
         </form>
     </div>
 
