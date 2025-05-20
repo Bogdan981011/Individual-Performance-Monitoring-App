@@ -1,0 +1,186 @@
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fdfdfd;
+    color: #1a1a1a;
+}
+
+.header {
+    background: none;
+    padding: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.header-box {
+    background: linear-gradient(to right, #002766, #d72638);
+    color: white;
+    border-bottom-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    max-width: 1480px;
+    width: 100%;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 3px solid white;
+    margin-right: 20px;
+}
+
+.player-name {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.container div {
+    text-align: right;
+    flex: 1;
+}
+
+.main-wrapper {
+    max-width: 1480px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.fixed-info {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 15px;
+    background-color: #fff;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.fixed-info div {
+    text-align: center;
+    font-size: 16px;
+}
+
+.section {
+    display: none;
+    padding: 20px 0;
+}
+
+.section.active {
+    display: block;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    margin: 10px 0;
+    padding: 15px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+    font-size: 18px;
+    color: #002766;
+    margin-bottom: 8px;
+}
+
+.nav {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #ffffff;
+    border-top: 1px solid #ccc;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.nav button {
+    background: none;
+    border: none;
+    font-size: 14px;
+    color: #555;
+    text-align: center;
+}
+
+.nav button.active {
+    color: #d72638;
+    font-weight: bold;
+}
+
+.nav button span {
+    display: block;
+    font-size: 18px;
+}
+
+.physique-row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.btn-retour {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #d72638;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.btn-retour:hover {
+    background-color: #002766;
+}
+/* Couleurs selon valeur */
+.test-A {
+  background-color: #23de29; /* Vert clair */
+  color: white;
+  font-weight: bold;
+}
+.test-NA {
+  background-color: #ef0f34; /* Rouge clair */
+  color: white;
+  font-weight: bold;
+}
+.test-EA {
+  background-color: #f4a261; /* Orange clair */
+  color: black;
+  font-weight: bold;
+}
+.test-empty {
+  background-color: #e0e0e0; /* Gris */
+  color: #333;
+  font-style: italic;
+}
+
+/* Légende stylée */
+.legend {
+  margin-top: 10px;
+}
+.legend span {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 8px;
+  border-radius: 5px;
+  font-size: 0.9em;
+}
+
+
