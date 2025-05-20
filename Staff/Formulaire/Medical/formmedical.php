@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -44,6 +47,8 @@
     </div>
 
     <form>
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
       <!-- Type de blessure -->
       <label for="type-blessure">Type de blessure</label>
       <input type="text" id="type" name="type" placeholder="Ex : Entorse" required>

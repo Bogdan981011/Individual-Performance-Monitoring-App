@@ -48,15 +48,6 @@ document.addEventListener('DOMContentLoaded', function() {
         valideDate(dateInput);  // Valider la date lorsqu'elle change
     });
 
-    // Fonction pour mettre à jour la couleur de l'input
-    function updateColor(input) {
-        input.classList.remove("A", "EA", "NA");
-        const value = input.value.trim();
-        if (value === "A") input.classList.add("A");
-        else if (value === "EA") input.classList.add("EA");
-        else if (value === "NA") input.classList.add("NA");
-    }
-
     // Fonction pour afficher un message d'erreur
     function showError(input, message) {
         const errorDiv = input.parentElement.querySelector(".error-message");
@@ -73,8 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
     function validateNote(input) {
         const value = input.value.trim();
         const regex = /^\d+(\.\d{1,2})?$/; // Expression régulière pour valider un nombre positif avec max 2 chiffres après la virgule
-
-        updateColor(input);
 
         if (value && !regex.test(value)) {
             showError(input, "Entrez un nombre positif avec maximum 2 décimales");
@@ -115,10 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
             resultat.innerHTML = `<p style="color: green; text-align: center; font-weight: bold; border: 1px solid green">${message}</p>`;
         }
         
-        if (!testType) {
-            afficherErreur("Veuillez choisir un test dans la liste déroulante.");
-            return;
-        }
 
         // Si tout est OK, on envoie les données par AJAX
         const joueurs = [];
@@ -126,9 +111,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const dateGlobale = dateInput.value.trim();
         const testType = document.querySelector('#testType').value;
         const equipe = new URLSearchParams(window.location.search).get('id_eq');
+        
+        if (!testType) {
+            afficherErreur("Veuillez choisir un test dans la liste déroulante.");
+            return;
+        }
 
         lignes.forEach((ligne) => {
-            const id = ligne.querySelector('input[name=".id_joueur"]')?.value;
+            const id = ligne.querySelector('input[name="id_joueur"]')?.value;
             if (!id) return;
 
             const note = ligne.querySelector('input[name="note"]')?.value || '';

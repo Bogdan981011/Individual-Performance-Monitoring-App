@@ -10,33 +10,57 @@ if (!isset($data['joueurs']) || !is_array($data['joueurs'])) {
     exit;
 }
 
+$mesureTypes = ['taille', 'poids', 'img'];
+$type = $data['joueurs'][0]['test'];
+
 try {
     $pdo->beginTransaction(); // Démarrer la transaction
-    echo 'p';
 
-    $stmt = $pdo->prepare("
-        INSERT INTO tests_physiques (id_joueur, date_test, type_test, mesure_test)
-        VALUES (:id_joueur, :date_test, :type_test, :valeur)
-    ");
-
+   if (in_array($type, $mesureTypes)) {
+        // Préparer la requête pour la table `mesure`
+        $stmt = $pdo->prepare("
+            INSERT INTO mesure (id_joueur, date_mesure, type_mesure, valeur)
+            VALUES (:id_joueur, :date_mesure, :type_mesure, :valeur)
+        ");
+    } else {
+        // Préparer la requête pour la table `tests_physiques`
+        $stmt = $pdo->prepare("
+            INSERT INTO tests_physiques (id_joueur, date_test, type_test, mesure_test)
+            VALUES (:id_joueur, :date_test, :type_test, :valeur)
+        ");
+    }
+    
     foreach ($data['joueurs'] as $joueur) {
         $id = filter_var($joueur['id_joueur'] ?? null, FILTER_VALIDATE_INT);
         $date = $joueur['date'] ?? '';
         $test = $joueur['test'] ?? '';
-        $val = $joueur['val'] ?? '';
+        $val = $joueur['val'] ?? null;
+
+        if ($val === '' || !is_numeric($val)) {
+            $val = null;
+        }
         
         if (!$id || !$date || !$test) continue;
 
-        $stmt->execute([
-            'id_joueur' => $id
-            'date_test' => $date,
-            'type_test' => $tes$,
-            'valeur'    => $val
-        ]);
+        if (in_array($type, $mesureTypes)) {
+            $stmt->execute([
+                'id_joueur' => $id,
+                'date_mesure' => $date,
+                'type_mesure' => $test,
+                'valeur'    => $val
+            ]);
+        } else {
+            $stmt->execute([
+                'id_joueur' => $id,
+                'date_test' => $date,
+                'type_test' => $test,
+                'valeur'    => $val
+            ]);
+        }
     }
 
     $pdo->commit(); // Valider la transaction
-    echo "";
+    echo "ok";
 
 } catch (PDOException $e) {
     $pdo->rollBack(); // Annuler si erreur

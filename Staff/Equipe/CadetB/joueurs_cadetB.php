@@ -49,7 +49,9 @@
           <div class="joueur-card">
             <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
             <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
-            <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=B" class="btn-formulaire">Formulaire médical</a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'kine'): ?>
+              <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
+            <?php endif; ?>
           </div>
           <?php
         }

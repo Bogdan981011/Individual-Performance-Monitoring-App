@@ -1,3 +1,12 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['id_utilisateur'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -48,7 +57,9 @@
           <div class="joueur-card">
             <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
             <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
-            <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'kine'): ?>
+                <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
+              <?php endif; ?>
           </div>
           <?php
         }

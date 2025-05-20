@@ -269,7 +269,7 @@
         <tr>
           <th>Nom</th>
           <th>Prénom</th>
-          <th>Note</th>
+          <th>Valeur</th>
         </tr>
       </thead>
       <tbody>
