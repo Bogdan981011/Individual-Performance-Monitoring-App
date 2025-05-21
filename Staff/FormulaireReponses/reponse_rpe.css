@@ -1,0 +1,121 @@
+/* style-rpe.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #fce3e5, #ffffff); /* Dégradé léger du rouge SBH */
+    color: #333;
+    margin: 20px;
+    padding: 0;
+    background-repeat: no-repeat;    /* empêche la répétition */
+    background-attachment: fixed;    /* optionnel : fond fixe pendant scroll */
+    background-size: cover;          /* le fond couvre toute la surface */
+}
+
+
+
+
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    color: transparent;
+    background-image: linear-gradient(to right, #005f99, #d90429);
+    -webkit-background-clip: text;
+    background-clip: text;
+    margin-bottom: 60px; /* un peu plus grand pour espacer */
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+
+.player-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    padding: 20px 25px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.player-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+.player-card h3 {
+    font-size: 1.6rem;
+    margin-bottom: 12px;
+    color: #005f99;
+    border-bottom: 2px solid #005f99;
+    padding-bottom: 6px;
+}
+
+.player-card p,
+.player-card span {
+    font-size: 1.1rem;
+    line-height: 1.5;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.player-card .observations {
+    white-space: pre-wrap;
+    font-style: italic;
+    color: #777;
+}
+
+.error-message {
+    color: #cc0000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+.back-button-fixed {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: #CC0A0A;
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1rem;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.back-button-fixed:hover {
+    background-color: #1f0480;
+    transform: scale(1.05);
+}
+
+/* Par défaut (desktop et tablettes larges) */
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+/* Sur mobile : liste 1 colonne */
+@media (max-width: 600px) {
+    .container {
+        display: block; /* désactive la grille */
+        padding: 10px 15px;
+    }
+    .player-card {
+        margin-bottom: 20px;
+        cursor: pointer;
+    }
+}
+
+
+@media (max-width: 600px) {
+    .player-card h3 {
+        font-size: 1.3rem;
+    }
+}
