@@ -21,25 +21,27 @@ require_once '../../bd.php';
 
 try {
     $pdo->beginTransaction();
-    $stmt = $pdo->prepare("INSERT INTO staff (nom, prénom, email, poste, mdp) VALUES (:nom, :prénom, :email, :poste, :mdp)");
+    $stmt = $pdo->prepare("INSERT INTO staff (nom, prenom, email, role, mdp) VALUES (:nom, :prenom, :email, :poste, :mdp)");
         
     // Préparation de la requête d'insertion
     foreach ($data['staffs'] as $staff) {
         $nom = trim($staff['nom']);
-        $prénom = trim($staff['prénom']);
+        $prénom = trim($staff['prenom']);
         $email = trim($staff['email']);
         $poste = trim($staff['poste']);
         $mdp = trim($staff['mdp']);
 
         $stmt->execute([
-            'nom'       => $nom,
-            'prénom'    => $prénom,
-            'email'     => $email,
-            'poste'     => $poste,
-            'mdp'       => $mdp
+            ':nom'       => $nom,
+            ':prenom'    => $prénom,
+            ':email'     => $email,
+            ':poste'     => $poste,
+            ':mdp'       => $mdp
         ]);
     }
+
     $pdo->commit();
+    echo 'ok';
 
 } catch (PDOException $e) {
     $pdo->rollBack(); // Annuler si erreur

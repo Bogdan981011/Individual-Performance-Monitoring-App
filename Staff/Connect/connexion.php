@@ -30,20 +30,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $_SESSION['role'] = $role;
                 $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
-                // Rediriger l'utilisateur vers la page d'accueil ou autre
-                header("Location: ../accueil_staff.html");
-                exit;
+                echo 'ok';
             } else {
                 // Si le mot de passe est incorrect
-                echo "Email ou mot de passe incorrect.";
+                echo "email ou mot de passe incorrect.";
             }
         } else {
             // Si l'utilisateur n'existe pas
-            echo "Email ou mot de passe incorrect.";
+            echo "email ou mot de passe incorrect.";
         }
     } catch (PDOException $e) {
         // Gestion des erreurs
-        echo "Erreur lors de la récupération des données : " . $e->getMessage();
+        echo "erreur lors de la récupération des données : " . $e->getMessage();
     }
 }
 ?>

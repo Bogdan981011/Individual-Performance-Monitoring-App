@@ -69,14 +69,14 @@ if (!isset($_SESSION['user_id'])) {
                     <label>Poste :</label>
                     <select name="poste">
                         <option value="" disabled selected>Sélectionner son rôle</option>
-                        <option value="Coach">Coach</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Directeur">Directeur</option>
-                        <option value="Prépa physique">Prépa physique</option>
-                        <option value="Kiné">Kiné</option>
+                        <option value="coach">Coach</option>
+                        <option value="manager">Manager</option>
+                        <option value="directeur">Directeur</option>
+                        <option value="pp">Prépa physique</option>
+                        <option value="kine">Kiné</option>
                         <option value="Analyste vidéo">Analyste vidéo</option>
-                        <option value="Corps admin">Corps admin</option>
-                        <option value="Prépa mental">Prépa mental</option>
+                        <option value="admin">Corps admin</option>
+                        <option value="pm">Prépa mental</option>
                     </select>
                     <span class="error-message"></span>
                 </p>

@@ -11,36 +11,33 @@ document.addEventListener('DOMContentLoaded', function () {
             <button type="button" class="supprimer" onclick="this.parentElement.remove()">− Supprimer</button>
             <h2>Personne ${index}</h2>
             <p>
-                <label>Poste :</label>
-                <select name="poste">
-                    <option value="" disabled selected>Sélectionner son rôle</option>
-                    <option value="coach">Coach</option>
-                    <option value="manager">Manager</option>
-                    <option value="directeur">Directeur</option>
-                    <option value="pp">Prépa physique</option>
-                    <option value="kine">Kiné</option>
-                    <option value="Analyste vidéo">Analyste vidéo</option>
-                    <option value="admin">Corps admin</option>
-                    <option value="pm">Prépa mental</option>
+                <label>Equipe :</label>
+                <select name="equipe">
+                    <option value="" disabled selected>Sélectionner son équipe</option>
+                    <option value="crabos">CRABOS</option>
+                    <option value="cadets a">CADETS A</option>
+                    <option value="cadets b">CADETS B</option>
+                    <option value="espoirs">ESPOIRS</option>
                 </select>
                 <span class="error-message"></span>
             </p>
             <p>
                 <label>Nom :</label>
-                <input type="text" name="nom" ><span class="error-message"></span>
+                <input type="text" name="nom"><span class="error-message"></span>
             </p>
             <p>
                 <label>Prénom :</label>
-                <input type="text" name="prénom"><span class="error-message"></span>
+                <input type="text" name="prenom"><span class="error-message"></span>
             </p>
             <p>
                 <label>Adresse e-mail :</label>
                 <input type="email" name="mail"><span class="error-message"></span>
             </p>
-            <p>
+            <p>                    
                 <label>Mot de passe provisoire :</label>
                 <input type="text" name="mdp"><span class="error-message"></span>
             </p>
+    
         `;
         container.appendChild(personne);
     }
@@ -105,9 +102,9 @@ document.addEventListener('DOMContentLoaded', function () {
         
         personnes.forEach((personne) => {
             const nom = personne.querySelector('input[name="nom"]');
-            const prénom = personne.querySelector('input[name="prénom"]');
+            const prenom = personne.querySelector('input[name="prenom"]');
             const email = personne.querySelector('input[name="mail"]');
-            const poste = personne.querySelector('select[name="poste"]');
+            const equipe = personne.querySelector('select[name="equipe"]');
             const mdp = personne.querySelector('input[name="mdp"]');
             
             // Vérifier que tous les champs sont remplis
@@ -118,11 +115,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearError(nom);
             }
 
-            if (!prénom.value.trim()) {
-                showError(prénom, 'Le prénom est obligatoire.');
+            if (!prenom.value.trim()) {
+                showError(prenom, 'Le prénom est obligatoire.');
                 isValid = false;
             } else {
-                clearError(prénom);
+                clearError(prenom);
             }
 
             if (!email.value.trim()) {
@@ -135,11 +132,11 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
 
-            if (!poste.value) {
-                showError(poste, 'Le rôle est obligatoire.');
+            if (!equipe.value) {
+                showError(equipe, 'Le rôle est obligatoire.');
                 isValid = false;
             } else {
-                clearError(poste);
+                clearError(equipe);
             }
 
             if (!mdp.value.trim()) {
@@ -169,34 +166,34 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Si tout est OK, on envoie les données par AJAX
-        const staffs = [];
+        const joueurs = [];
         const personnes = document.querySelectorAll('.personne');
         const csrfToken = form.querySelector('input[name="csrf_token"]').value;
 
         personnes.forEach((personne) => {
             const nom = personne.querySelector('input[name="nom"]').value.trim();
-            const prénom = personne.querySelector('input[name="prénom"]').value.trim();
+            const prenom = personne.querySelector('input[name="prenom"]').value.trim();
             const email = personne.querySelector('input[name="mail"]').value.trim();
-            const poste = personne.querySelector('select[name="poste"]').value;
+            const equipe = personne.querySelector('select[name="equipe"]').value;
             const mdp = personne.querySelector('input[name="mdp"]').value.trim();
 
-            staffs.push({
+            joueurs.push({
                 nom,
-                prénom,
+                prenom,
                 email,
-                poste, 
+                equipe, 
                 mdp
             });
         });
 
-        fetch('save_staff.php', {
+        fetch('save_joueur.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
            
             body: JSON.stringify({ 
-                staffs: staffs, 
+                joueurs: joueurs, 
                 csrf_token: csrfToken  
             })
         })
