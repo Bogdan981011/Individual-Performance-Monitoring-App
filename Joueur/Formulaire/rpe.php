@@ -1,3 +1,11 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+  // L'utilisateur n'est pas connecté, on le redirige
+  header("Location: /vizia/accueil.html");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -19,6 +27,9 @@
         </h1>
         <form action="reponse_rpe.php?id=<?= $id_joueur ?>" method="POST">
             <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+            
+            <label for="date">Date</label>
+            <input type="date" id="date" name="date" style="width:97%"required>
 
             <!-- Type d'entraînement -->
             <label for="type-entrainement">Type d’entraînement</label>
@@ -68,7 +79,7 @@
 
             <!-- Observations -->
             <label for="observations">Observations</label>
-            <textarea id="observations" name="observations" rows="4" placeholder="Observations" required></textarea>
+            <textarea id="observations" name="observations" rows="4" placeholder="Observations"></textarea>
 
             <!-- Bouton Submit -->
             <button type="submit">Submit</button>

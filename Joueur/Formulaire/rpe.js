@@ -10,13 +10,14 @@ document.addEventListener('DOMContentLoaded', function () {
         const rpe = form['difficulte']?.value;
         const commentaire = form['observations']?.value || '';
         const temps = form['temps-entrainement'].value;
-
-
+        const date = form['date'].value; // Ajouté ici
 
         const params = new URLSearchParams(window.location.search);
         const idJoueur = params.get('id');
+        const csrfToken = form.querySelector('input[name="csrf_token"]')?.value;
 
-        if (!type || !rpe) {
+
+        if (!type || !rpe || !date) {
             return afficherErreur("Tous les champs obligatoires doivent être remplis.");
         }
 
@@ -29,14 +30,25 @@ document.addEventListener('DOMContentLoaded', function () {
             return afficherErreur("Le commentaire ne doit pas dépasser 500 caractères.");
         }
 
+        if (!dateOk(date)) {
+            return afficherErreur("Le format de la date est invalide.");
+        }
+
+        const dateEntree = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (dateEntree > today) {
+            return afficherErreur("La date ne peut pas être dans le futur.");
+        }
+
         const formData = new FormData();
+        formData.append('date', date);
         formData.append('type_entrainement', type);
         formData.append('difficulte', rpe);
         formData.append('observations', commentaire);
         formData.append('id_joueur', idJoueur);
         formData.append('temps_entrainement', temps);
-        formData.append('csrf_token', csrfToken);
-
+        formData.append('csrf_token', csrfToken); // assure-toi que cette variable existe quelque part
 
         fetch('save_rpe.php', {
             method: 'POST',
@@ -63,6 +75,20 @@ document.addEventListener('DOMContentLoaded', function () {
 
         function afficherSucces(msg) {
             resultat.innerHTML = `<p style="color: green; text-align:center;">${msg}</p>`;
+        }
+
+        function dateOk(dateString) {
+            const dateParts = dateString.split('-');
+            if (dateParts.length !== 3) return false;
+
+            const year = parseInt(dateParts[0], 10);
+            const month = parseInt(dateParts[1], 10) - 1;
+            const day = parseInt(dateParts[2], 10);
+
+            const date = new Date(year, month, day);
+            return date.getFullYear() === year &&
+                   date.getMonth() === month &&
+                   date.getDate() === day;
         }
     });
 });

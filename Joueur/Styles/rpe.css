@@ -9,19 +9,18 @@ body {
     width: 100vw;
     overflow-x: hidden;
 }
-input[type="text"],
-input[type="date"],
-select,
-textarea {
-  width: 100%;
-  padding: 10px;
-  border-radius: 8px;
-  border: none;
-  font-size: 1em;
-  background-color: #f3f3f3;
-  color: #333;
-  margin-bottom: 20px;
+
+input[type="text"], input[type="date"], select, textarea {
+    width: 97% !important;
+    padding: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 1em;
+    background-color: #f3f3f3;
+    color: #333;
+    margin-bottom: 20px;
 }
+
 
 textarea {
   resize: vertical;
@@ -60,28 +59,12 @@ h1 {
 
 /* Style des champs de formulaire */
 label {
-    margin-top: 8 px;
+    margin-top: 8px;
     display: block;
     margin-bottom: 8px;
     font-size: 1.1em;
 }
 
-input[type="text"],
-select,
-textarea {
-    width: 100%; /* Assurer que tous les champs ont la même largeur */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 1em;
-    background-color: #f5f5f5;
-    box-sizing: border-box; /* Assure que padding et border sont inclus dans la largeur */
-}
-
-textarea {
-    resize: vertical;
-}
 
 /* Forcer la largeur des éléments select */
 select {
