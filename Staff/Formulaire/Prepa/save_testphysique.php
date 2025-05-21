@@ -11,13 +11,13 @@ if (!isset($data['csrf_token']) || $data['csrf_token'] !== $_SESSION['csrf_token
     exit;
 }
 
-require_once '../../../bd.php';
-
 if (!isset($data['joueurs']) || !is_array($data['joueurs'])) {
     http_response_code(400);
     echo "Données invalides";
     exit;
 }
+
+require_once '../../../bd.php';
 
 $mesureTypes = ['taille', 'poids', 'img'];
 $type = $data['joueurs'][0]['test'];
@@ -69,10 +69,11 @@ try {
     }
 
     $pdo->commit(); // Valider la transaction
-    echo "o";
+    echo "ok";
 
 } catch (PDOException $e) {
     $pdo->rollBack(); // Annuler si erreur
     http_response_code(500);
     echo "Erreur lors de l'enregistrement : " . $e->getMessage();
 }
+?>

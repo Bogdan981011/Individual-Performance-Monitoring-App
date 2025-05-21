@@ -38,3 +38,14 @@ echo "Temps entraînement : $temps_entrainement<br>";
 echo "Difficulté : $difficulte<br>";
 echo "Observations : $observations<br>";
 ?>
+
+
+
+    require_once '../../../bd.php';
+
+    try {
+        $stmt = $pdo->prepare("
+          SELECT nom, prenom, id_joueur
+          FROM joueur
+          JOIN equipe ON joueur.id_equipe = equipe.id_equipe
+        ");

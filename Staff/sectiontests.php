@@ -19,7 +19,6 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <?php 
-    require_once '../bd.php';
     $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
     if ($id_equipe === false) {
         echo "<p>Une erreur est survenue. Redirection...</p>";

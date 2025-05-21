@@ -1,14 +1,13 @@
 <?php
 session_start();
 
-// Connexion à la base de données
-include_once "../../../bd.php";
-
 if (!isset($_SESSION['csrf_token']) || $_SESSION['csrf_token'] !== $_POST['csrf_token']) {
     http_response_code(403);
     echo "Token CSRF invalide.";
     exit;
 }
+
+include_once "../../../bd.php";
 
 // Vérifier que les données nécessaires sont présentes
 $required_fields = ['type', 'gravite', 'date', 'id_joueur'];

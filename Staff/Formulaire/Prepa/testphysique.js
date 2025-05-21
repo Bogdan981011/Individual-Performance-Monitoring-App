@@ -146,10 +146,10 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             if (data.includes("ok")) {
-                // afficherSuccès("Réponses envoyées avec succès.");
-                // setTimeout(() => {
-                //     window.location.href = `/vizia/Staff/sectiontests.php?id_eq=${equipe}`;
-                // }, 1000); // Fermer setTimeout ici
+                afficherSuccès("Réponses envoyées avec succès.");
+                setTimeout(() => {
+                    window.location.href = `/vizia/Staff/sectiontests.php?id_eq=${equipe}`;
+                }, 1000);
             } else {
                 afficherErreur("Erreur serveur : " + data);
             }

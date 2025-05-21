@@ -50,12 +50,11 @@ p {
     background-color: #fff;
     border-radius: 0.92vw;
     box-shadow: 0 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
-    width: 28.83vw; /* 400px */
-    margin: 5.56vh auto; /* 50px top/bottom */
-    padding: 3.33vh; /* 30px */
+    width: 28.83vw; 
+    margin: 4vh auto; 
+    padding: 3vh;
     text-align: center;
 }
-
 
 .form-container h1,
 .form-container p {

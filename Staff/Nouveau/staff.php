@@ -1,51 +1,19 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="../../Styles/nouveau.css" type="text/css" media="screen" />
     <title>Nouveau</title>
-    <script>
-        // Fonction pour ajouter une section "personne"
-        function ajouterPersonne() {
-            const container = document.getElementById('personnes');
-            const index = container.children.length + 1;
-            const personne = document.createElement('div');
-            personne.className = 'form-container personne';
-
-            personne.innerHTML = `
-                <button type="button" class="supprimer" onclick="this.parentElement.remove()">− Supprimer</button>
-                <h2>Personne ${index}</h2>
-                <p>
-                    <label>Poste :</label>
-                    <select name="n[]">
-                        <option value="Coach">Coach</option>
-                        <option value="Manager">Manager</option>
-                        <option value="Directeur">Directeur</option>
-                        <option value="Prépa physique">Prépa physique</option>
-                        <option value="Kiné">Kiné</option>
-                        <option value="Analyste vidéo">Analyste vidéo</option>
-                        <option value="Corps admin">Corps admin</option>
-                        <option value="Prépa mental">Prépa mental</option>
-                    </select>
-                </p>
-                <p>
-                    <label>Nom :</label>
-                    <input type="text" name="p[]">
-                </p>
-                
-                <p>
-                    <label>Prénom :</label>
-                    <input type="text" name="p[]">
-                </p>
-                <p>
-                    <label>Adresse e-mail :</label>
-                    <input type="email" name="mail[]">
-                </p>
-        
-            `;
-            container.appendChild(personne);
-        }
-    </script>
+    <script src="staff.js"></script>
     <style>
         /* Tu peux ajouter ceci directement dans ton CSS existant */
         .supprimer {
@@ -76,23 +44,31 @@
             color: #1D1442;
             text-align: center;
         }
+
+        .error-message{
+            color: #cc0a0a;
+            font-size: 1rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <a href="../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
     </div>
-    <h1>Nouveau Membre</h1> 
-    <p>Création de Compte - Staff</p>
+    <h1>Création de Compte - Staff</h1>
 
-    <form method="get" action="enregistrement.php" autocomplete="off">
+    <form>
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
+
         <div id="personnes">
             <!-- Une première personne affichée par défaut -->
             <div class="form-container personne">
                 <h2>Personne 1</h2>
                 <p>
                     <label>Poste :</label>
-                    <select name="n[]">
+                    <select name="poste">
+                        <option value="" disabled selected>Sélectionner son rôle</option>
                         <option value="Coach">Coach</option>
                         <option value="Manager">Manager</option>
                         <option value="Directeur">Directeur</option>
@@ -102,24 +78,29 @@
                         <option value="Corps admin">Corps admin</option>
                         <option value="Prépa mental">Prépa mental</option>
                     </select>
+                    <span class="error-message"></span>
                 </p>
                 <p>
                     <label>Nom :</label>
-                    <input type="text" name="p">
+                    <input type="text" name="nom" ><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Prénom :</label>
-                    <input type="text" name="p">
+                    <input type="text" name="prénom"><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Adresse e-mail :</label>
-                    <input type="email" name="mail">
+                    <input type="email" name="mail"><span class="error-message"></span>
+                </p>
+                <p>
+                    <label>Mot de passe provisoire :</label>
+                    <input type="text" name="mdp"><span class="error-message"></span>
                 </p>
             </div>
         </div>
 
         <!-- Bouton pour ajouter une personne -->
-        <button type="button" class="ajouter" onclick="ajouterPersonne()">+ Ajouter une personne</button>
+        <button type="button" class="ajouter">+ Ajouter une personne</button>
 
         <!-- Bouton de soumission -->
         <div class="form-container">
