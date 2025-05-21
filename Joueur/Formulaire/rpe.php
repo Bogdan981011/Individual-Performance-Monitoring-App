@@ -18,6 +18,7 @@
             <img src="../../Images/asbh.svg" alt="Logo ASBH" class="logo-asbh"> Formulaire RPE
         </h1>
         <form action="reponse_rpe.php?id=<?= $id_joueur ?>" method="POST">
+            <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
             <!-- Type d'entraînement -->
             <label for="type-entrainement">Type d’entraînement</label>

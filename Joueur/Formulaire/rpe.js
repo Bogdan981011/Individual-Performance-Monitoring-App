@@ -35,9 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
         formData.append('observations', commentaire);
         formData.append('id_joueur', idJoueur);
         formData.append('temps_entrainement', temps);
+        formData.append('csrf_token', csrfToken);
 
 
-        fetch('reponse_rpe.php', {
+        fetch('save_rpe.php', {
             method: 'POST',
             body: formData
         })
