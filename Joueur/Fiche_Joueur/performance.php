@@ -144,7 +144,7 @@ include 'recup.php'; // ou require_once 'recup.php';
     <?php endif; ?>
   </div>
 
-  <div class="card">
+  <div class="card_phys">
     <h3>Tests Physiques</h3>
 
     <div class="flex-test-layout">
@@ -165,8 +165,8 @@ include 'recup.php'; // ou require_once 'recup.php';
           $test_types[$type] = true;
       }
 
-      ksort($pivoted);
-      $pivoted = array_slice($pivoted, 0, 5, true);
+      krsort($pivoted);
+      $pivoted = array_slice($pivoted, 0, 6, true);
       $test_types = array_keys($test_types);
       sort($test_types);
 
@@ -192,8 +192,8 @@ include 'recup.php'; // ou require_once 'recup.php';
 
     <!-- GRAPH BLOCK -->
     <div class="graph-physique">
-      <h3>Évolution des Tests Physiques</h3>
-      <div id="graph-tests-container" class="graph-grid"></div>
+      <div id="graph-tests-container" class="graph-grid-phys">
+      </div>
       <script>
         window.data_graph = <?= json_encode($mesures, JSON_UNESCAPED_UNICODE); ?>;
         console.log("[PHP → JS] data_graph:", data_graph);

@@ -203,6 +203,43 @@ body {
   height: auto !important;
 }
 
+.flex-test-layout {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  justify-content: space-between;
+  padding-bottom: 100px;
+  padding-left: 20px;
+}
+
+.graph-physique {
+  flex: 1; /* each takes equal space */
+  max-width: 50%; /* optional: prevent overflow */
+}
+
+.table-physique {
+  flex: 1; /* each takes equal space */
+  max-width: 50%; /* optional: prevent overflow */
+  padding-top: 50px;
+}
+
+.table-physique table {
+  width: 100%;
+}
+
+.graph-box-phys {
+  width: 100%;
+}
+
+.graph-canvas {
+  width: 100% !important;
+  height: auto !important;
+}
+
+
+
+
+
 
 
 
