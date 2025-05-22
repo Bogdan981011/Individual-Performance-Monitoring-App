@@ -2,7 +2,7 @@
 $host = 'localhost';
 $dbname = 'vizia';
 $username = 'root';
-$password = 'root';
+$password = '';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -57,15 +57,24 @@ try {
     }
 
     // Tests physiques
-    $stmt = $pdo->prepare("SELECT type_test, mesure_test FROM tests_physiques WHERE id_joueur = :id");
+    $stmt = $pdo->prepare("SELECT type_test, mesure_test, date_test 
+                                    FROM tests_physiques 
+                                    WHERE id_joueur = :id
+                                    AND mesure_test IS NOT NULL 
+                                    AND mesure_test != 0");
     $stmt->execute(['id' => $user_id]);
     $mesures = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // On trie les mesures dans un tableau associatif
-    $mesures_assoc = [];
-    foreach ($mesures as $m) {
-        $mesures_assoc[$m['type_test']] = $m['mesure_test'];
+    // Graph preprocessing data
+    $graph_data = [];
+    foreach ($mesures as $entry) {
+        $type = $entry['type_test'];
+        $graph_data[$type][] = [
+            'date' => date('Y-m-d', strtotime($entry['date_test'])),
+            'value' => floatval($entry['mesure_test'])
+        ];
     }
+
 
     // Données médicales
     $stmt = $pdo->prepare("SELECT date_blessure, type_blessure, gravite_blessure, observations FROM medical_form WHERE id_joueur = :id ORDER BY date_blessure DESC LIMIT 1");
@@ -103,7 +112,4 @@ foreach ($mesures_all as $m) {
     $historique_mesures[$type]['dates'][] = $date;
     $historique_mesures[$type]['valeurs'][] = $valeur;
 }
-
-
-
 ?>

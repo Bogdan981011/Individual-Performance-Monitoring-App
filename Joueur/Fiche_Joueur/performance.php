@@ -147,27 +147,63 @@ include 'recup.php'; // ou require_once 'recup.php';
   <div class="card">
     <h3>Tests Physiques</h3>
 
-    <?php if (!empty($mesures_assoc)) : ?>
-      <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-          <tr>
-            <th>Type de test</th>
-            <th>Mesure</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php foreach ($mesures_assoc as $type => $valeur) : ?>
-            <tr>
-              <td><?= htmlspecialchars($type) ?></td>
-              <td><?= htmlspecialchars($valeur) ?></td>
-            </tr>
-          <?php endforeach; ?>
-        </tbody>
-      </table>
-    <?php else : ?>
-      <p>Aucun test physique disponible.</p>
-    <?php endif; ?>
-  </div>
+    <div class="flex-test-layout">
+
+      <!-- TABLE BLOCK -->
+      <div class="table-physique">
+      <?php
+      // Prepare pivot data (same as before)
+      $pivoted = [];
+      $test_types = [];
+
+      foreach ($mesures as $entry) {
+          $date = date('Y-m-d', strtotime($entry['date_test']));
+          $type = $entry['type_test'];
+          $value = $entry['mesure_test'];
+
+          $pivoted[$date][$type] = $value;
+          $test_types[$type] = true;
+      }
+
+      ksort($pivoted);
+      $pivoted = array_slice($pivoted, 0, 5, true);
+      $test_types = array_keys($test_types);
+      sort($test_types);
+
+      echo '<table border="1" cellpadding="8" cellspacing="0">';
+      echo '<thead><tr><th>Date</th>';
+      foreach ($test_types as $type) {
+          echo '<th>' . htmlspecialchars($type) . '</th>';
+      }
+      echo '</tr></thead><tbody>';
+
+      foreach ($pivoted as $date => $testsOnDate) {
+          echo '<tr>';
+          echo '<td>' . htmlspecialchars($date) . '</td>';
+          foreach ($test_types as $type) {
+              $val = isset($testsOnDate[$type]) ? $testsOnDate[$type] : '-';
+              echo '<td>' . htmlspecialchars($val) . '</td>';
+          }
+          echo '</tr>';
+      }
+      echo '</tbody></table>';
+      ?>
+    </div>
+
+    <!-- GRAPH BLOCK -->
+    <div class="graph-physique">
+      <h3>Évolution des Tests Physiques</h3>
+      <div id="graph-tests-container" class="graph-grid"></div>
+      <script>
+        window.data_graph = <?= json_encode($mesures, JSON_UNESCAPED_UNICODE); ?>;
+        console.log("[PHP → JS] data_graph:", data_graph);
+      </script>
+      <script src="graph_int_phys.js"></script>
+    </div>
+
+  </div> <!-- end .flex-test-layout -->
+</div> <!-- end .card -->
+
 </div>
 
 
