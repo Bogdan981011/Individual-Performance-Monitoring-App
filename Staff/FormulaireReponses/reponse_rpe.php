@@ -32,6 +32,43 @@ try {
     <title>Derniers RPE Joueurs</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="reponse_rpe.css">
+    <style>
+        /* Styles minimalistes pour le modal, adapte avec ton CSS */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .modal-overlay.active {
+            display: flex;
+        }
+        .modal {
+            background: #fff;
+            padding: 20px 30px;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-close {
+            position: absolute;
+            top: 10px; right: 15px;
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: #333;
+        }
+        .modal p {
+            margin: 10px 0;
+            white-space: pre-wrap;
+        }
+    </style>
 </head>
 <body>
     <div class="back-button-container">
@@ -40,7 +77,7 @@ try {
         </a>
     </div>
 
-    <h1>Réponses RPE</h1> <!-- En dehors de la grille -->
+    <h1>Réponses RPE</h1>
 
     <div class="container">
         <?php if (isset($erreur)) : ?>
@@ -62,8 +99,18 @@ try {
                     ");
                     $stmt_rpe->execute([$id_joueur]);
                     $donnees = $stmt_rpe->fetch(PDO::FETCH_ASSOC);
+
+                    // Préparer données JSON pour le modal
+                    $player_data = [
+                        'nom' => "$prenom $nom",
+                        'type_entrainement' => $donnees['type_entrainement'] ?? '',
+                        'temps_entrainement' => $donnees['temps_entrainement'] ?? '',
+                        'difficulte' => $donnees['difficulte'] ?? '',
+                        'observations' => $donnees['observations'] ?? '',
+                    ];
+                    $json_player_data = htmlspecialchars(json_encode($player_data), ENT_QUOTES, 'UTF-8');
                 ?>
-                <div class="player-card">
+                <div class="player-card" data-player='<?= $json_player_data ?>' style="cursor:pointer;">
                     <h3><?= "$prenom $nom" ?></h3>
                     <?php if ($donnees) : ?>
                         <p><strong>Type entraînement :</strong> <?= htmlspecialchars($donnees['type_entrainement']) ?></p>
@@ -77,6 +124,49 @@ try {
             <?php endforeach; ?>
         <?php endif; ?>
     </div>
-</body>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay" aria-hidden="true" role="dialog" aria-labelledby="modalName">
+      <div class="modal" role="document">
+        <button class="modal-close" id="modalClose" aria-label="Fermer">&times;</button>
+        <h2 id="modalName">Nom du joueur</h2>
+        <p><strong>Type entraînement :</strong> <span id="modalType"></span></p>
+        <p><strong>Temps entraînement :</strong> <span id="modalTemps"></span> min</p>
+        <p><strong>Difficulté :</strong> <span id="modalDifficulte"></span>/10</p>
+        <p><strong>Observations :</strong></p>
+        <p id="modalObservations"></p>
+      </div>
+    </div>
+
+    <script>
+    // Gestion ouverture/fermeture modal
+    document.querySelectorAll('.player-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const data = JSON.parse(card.getAttribute('data-player'));
+        document.getElementById('modalName').textContent = data.nom || '';
+        document.getElementById('modalType').textContent = data.type_entrainement || '';
+        document.getElementById('modalTemps').textContent = data.temps_entrainement || '';
+        document.getElementById('modalDifficulte').textContent = data.difficulte || '';
+        document.getElementById('modalObservations').innerHTML = (data.observations || '').replace(/\n/g, '<br>');
+
+        const overlay = document.getElementById('modalOverlay');
+        overlay.classList.add('active');
+        overlay.setAttribute('aria-hidden', 'false');
+      });
+    });
+
+    document.getElementById('modalClose').addEventListener('click', () => {
+      const overlay = document.getElementById('modalOverlay');
+      overlay.classList.remove('active');
+      overlay.setAttribute('aria-hidden', 'true');
+    });
+
+    document.getElementById('modalOverlay').addEventListener('click', (e) => {
+      if(e.target.id === 'modalOverlay') {
+        e.currentTarget.classList.remove('active');
+        e.currentTarget.setAttribute('aria-hidden', 'true');
+      }
+    });
+    </script>
+</body>
 </html>

@@ -41,6 +41,10 @@ h1 {
     transform: translateY(-5px);
     box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
+.player-card p strong {
+    color: #151313; /* rouge vif pour les labels */
+    font-weight: 700;
+}
 
 .player-card h3 {
     font-size: 1.6rem;
@@ -100,6 +104,52 @@ h1 {
     margin: 0 auto;
     padding: 10px;
 }
+/* Overlay flou */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    backdrop-filter: blur(5px);
+    background-color: rgba(0,0,0,0.3);
+    z-index: 999;
+    display: none; /* caché par défaut */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal centré */
+.modal {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    max-width: 500px;
+    width: 90%;
+    padding: 20px 25px;
+    position: relative;
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+/* Bouton fermer */
+.modal-close {
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #d90429;
+    font-weight: bold;
+}
+
+/* Affiche l'overlay en flex (visible) */
+.modal-overlay.active {
+    display: flex;
+}
+
 
 /* Sur mobile : liste 1 colonne */
 @media (max-width: 600px) {

@@ -22,7 +22,22 @@ if (!$result) {
     exit;
 }
 
-$equipe = $result['nom_equipe'];
+$equipe = strtolower(trim($result['nom_equipe']));
+
+// Déterminer l'URL de retour selon le nom de l'équipe
+$url_retour = '';
+if ($equipe === 'cadets a') {
+    $url_retour = '/vizia/Staff/Equipe/CadetA/cadetA.php';
+} elseif ($equipe === 'cadets b') {
+    $url_retour = '/vizia/Staff/Equipe/CadetB/cadetB.php';
+} elseif ($equipe === 'crabos') {
+    $url_retour = '/vizia/Staff/Equipe/crabos/crabos.php';
+} elseif ($equipe === 'espoirs') {
+    $url_retour = '/vizia/Staff/Equipe/espoirs/espoirs.php';
+} else {
+    // Par défaut, revenir à l'accueil si le nom d'équipe ne correspond pas à un cas connu
+    $url_retour = '../../accueil_staff.html';
+}
 ?>
 
 <!DOCTYPE html>
@@ -52,8 +67,7 @@ $equipe = $result['nom_equipe'];
 </head>
 <body>
   <div>
-    <a href="http://localhost/vizia/Staff/Equipe/<?= htmlspecialchars($equipe) ?>/<?= strtolower($equipe) ?>.php?id_eq=<?= urlencode($id_equipe) ?>" 
-      class="btn-retour">
+    <a href="<?= htmlspecialchars($url_retour) ?>" class="btn-retour">
         Retour au choix de formulaire
     </a>
   </div>
