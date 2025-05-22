@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'recup.php'; // ou require_once 'recup.php';
 ?>
 
@@ -229,17 +230,33 @@ include 'recup.php'; // ou require_once 'recup.php';
       const urlParams = new URLSearchParams(window.location.search);
       return urlParams.get(param);
     }
+     const userRole = <?= isset($_SESSION['role']) ? json_encode($_SESSION['role']) : 'null'; ?>;
+  const equipe = new URLSearchParams(window.location.search).get("eq");
+let retourURL = "";
 
-    const source = getQueryParam('source');
-    const equipe = getQueryParam('equipe');
+if (userRole) {
+  switch (equipe) {
+    case "A":
+      retourURL = "/vizia/Staff/Equipe/CadetA/joueurs_cadetA.php";
+      break;
+    case "B":
+      retourURL = "/vizia/Staff/Equipe/CadetB/joueurs_cadetB.php";
+      break;
+    case "C":
+      retourURL = "/vizia/Staff/Equipe/Crabos/joueurs_crabos.php";
+      break;
+    case "E":
+      retourURL = "/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php";
+      break;
+    default:
+      retourURL = "/vizia/Staff/accueil_staff.html";
+  }
+} else {
+  retourURL = '../accueil_joueur.html'; // ✅ Correction ici
+}
 
-    let retourURL = '../accueil_joueur.html'; // Par défaut pour les joueurs
+document.getElementById('btn-retour').href = retourURL;
 
-    if (source === 'staff' && equipe) {
-     retourURL = `../../Staff/Equipe/${equipe}/joueurs_${equipe.toLowerCase()}.php`;
-    }
-
-    document.getElementById('btn-retour').href = retourURL;
       
   </script>
   

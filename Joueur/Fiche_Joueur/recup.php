@@ -1,8 +1,9 @@
 <?php
+session_start();
 $host = 'localhost';
 $dbname = 'vizia';
 $username = 'root';
-$password = '';
+$password = 'root';
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
@@ -11,7 +12,35 @@ try {
     die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
 
-$user_id = 2;
+if (isset($_SESSION['role'])) {
+    
+    $user_id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+
+    if ($user_id === false || $user_id === null) {
+        
+        $equipe = filter_input(INPUT_GET, 'eq', FILTER_SANITIZE_STRING);
+
+        echo "<p>Une erreur est survenue. Redirection en cours...</p>";
+        echo '<script>
+        const equipe = "' . $equipe . '";
+        setTimeout(() => {
+                    if (equipe === "A") {
+                        window.location.href = `/vizia/Staff/Equipe/CadetA/joueurs_cadetA.php`;
+                    } else if (equipe === "B") {
+                        window.location.href = `/vizia/Staff/Equipe/CadetB/joueurs_cadetB.php`;
+                    } else if (equipe === "C") {
+                        window.location.href = `/vizia/Staff/Equipe/Crabos/joueurs_crabos.php`;
+                    }else if (equipe === "E") {
+                        window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
+                    } else {
+                        window.location.href = `/vizia/Staff/accueil_staff.html`;
+                    }
+                }, 1000); // Fermer setTimeout ici
+        </script>';
+        exit;
+    }
+
+} else $user_id = $_SESSION['user_id']; 
 
 try {
     // Données joueur

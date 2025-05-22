@@ -58,10 +58,10 @@ if (!isset($_SESSION['user_id'])) {
           ?>
           <div class="joueur-card">
             <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
-            <a href="../../Modification/modif.php?id=<?= $joueur['id_joueur'] ?>" class="btn-formulaire"> Modifier les informations</a>
-            <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
+            <a href="../../Modification/modif.php?id=<?= $joueur['id_joueur'] ?>&eq=C" class="btn-formulaire"> Modifier les informations</a>
+            <a href="../../../Joueur/Fiche_joueur/performance.php?id=<?= $joueur['id_joueur'] ?>&eq=C" class="btn-formulaire">Tests et Performance</a>
             <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'kine'): ?>
-              <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
+              <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=C" class="btn-formulaire">Formulaire médical</a>
             <?php endif; ?>
           </div>
           <?php
