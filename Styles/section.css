@@ -196,65 +196,24 @@ body {
     }
 }
 
-/* ============================ Media Queries pour différents écrans ============================ */
-
-/* Pour les écrans de taille mobile (jusqu'à 600px) */
-@media (max-width: 600px) {
-    .container {
-        width: 90vw; /* Augmente légèrement la largeur */
-        padding: 20px 10px; /* Réduit un peu le padding */
-        margin-top: 10px; /* Réduit la marge supérieure */
-    }
-
-    .central-logo {
-        width: 200px; /* Réduit la taille du logo */
-    }
-
-    .header-ruban {
-        font-size: 1rem; /* Réduit légèrement la taille de la police */
-        height: 45px; /* Réduit la hauteur du ruban */
-    }
-
-    .btn-retour {
-        padding: 8px 15px; /* Réduit légèrement la taille du bouton */
-        font-size: 0.9rem; /* Réduit la taille de la police */
-    }
-
-    .btn-option {
-        padding: 10px 20px; /* Réduit légèrement la taille des boutons */
-        font-size: 0.9rem; /* Réduit la taille de la police */
-        width: 80%; /* Diminue légèrement la largeur des boutons */
-        max-width: 280px; /* Maintient la largeur maximale */
-    }
-
-    .welcome-message {
-        margin-top: 20px; /* Réduit la marge */
-        font-size: 1.2rem; /* Réduit la taille de la police */
-        padding: 15px 20px; /* Réduit le padding */
-    }
-    
-    .ruban-link {
-        font-size: 1rem; /* Réduit la taille des liens */
-        padding: 8px 16px; /* Réduit l'espacement des liens */
-    }
-
+@media (max-width: 768px) {
     .ruban-section {
-        flex-direction: column; /* Empile les liens sur les petits écrans */
-        align-items: center; /* Centre les liens */
+        width: 100%;
+        justify-content: space-evenly;
+    }
+
+    .ruban-link {
+        font-size: 0.9rem;
+        padding: 6px 12px;
+    }
+   
+    body.section-equipe .btn-retour {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-top: 50px;
+        align-self: flex-end;
+        z-index: 100;
     }
 }
 
-/* Pour les écrans de taille tablette (jusqu'à 900px) */
-@media (max-width: 900px) {
-    .container {
-        width: 85vw; /* Ajuste la largeur pour les tablettes */
-    }
-
-    .btn-option {
-        width: 85%; /* Diminue légèrement la largeur des boutons */
-    }
-
-    .central-logo {
-        width: 250px; /* Ajuste la taille du logo */
-    }
-}

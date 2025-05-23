@@ -15,8 +15,7 @@ if (!isset($_SESSION['user_id'])) {
     <title>Section</title>
     <link rel="stylesheet" href="../../../Styles/section.css">
 </head>
-<body>
-    <!-- Ruban fixe en haut -->
+<body class="section-equipe">    <!-- Ruban fixe en haut -->
     <div class="header-ruban">
         <div class="ruban-section">
             <a href="../Crabos/crabos.php" class="ruban-link" id="crabos">CRABOS</a>

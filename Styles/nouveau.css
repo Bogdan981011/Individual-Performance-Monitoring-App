@@ -135,50 +135,14 @@ a:hover {
     transform: scale(1.05); /* Effet de zoom au survol */
     text-decoration: none;
 }
-
-
-/* Requêtes média pour les petits écrans (tablettes et téléphones) */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.8em;
-        margin-top: 1.67vh;
-    }
-
     .form-container {
-        width: 90vw;
-        margin: 6vh auto;
-        padding: 5vh 5vw;
+        width: 80vw;
+        margin: 16vh auto; /* auto centre horizontalement */
+        padding: 4vh 4vw;
         border-radius: 4vw;
         box-shadow: 0 0 4vw rgba(0, 0, 0, 0.2);
     }
-
-
-
-
-    p {
-        font-size: 1em;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    input[type="submit"] {
-        font-size: 1em;
-        padding: 1.5vh;
-    }
-
-
-  
-
-    .btn-retour {
-        padding: 1vh 4vw;
-        font-size: 0.95rem;
-        margin-right: 2vw;
-        border-radius: 2vw;
-    }
-
-    .header {
-        padding: 5px 10px;
-    }
-
 }
+
+
