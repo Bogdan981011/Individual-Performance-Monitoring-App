@@ -82,13 +82,18 @@ if (!isset($_SESSION['user_id'])) {
             color: #190C63;
             text-align: center;
         }
+        .error-message{
+            color: #cc0a0a;
+            font-size: 1rem;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <div class="header">
         <a href="../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
     </div>
-    <h1>Création de Compte - Staff</h1> 
+    <h1>Création de Compte - Joueur</h1> 
     <form method="get" action="enregistrement.php" autocomplete="off">
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <div id="personnes">

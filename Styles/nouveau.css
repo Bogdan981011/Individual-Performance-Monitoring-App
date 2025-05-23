@@ -21,10 +21,12 @@ body::before {
     z-index: -1;
 }
 
+
 /* Empêche le contenu d'être affecté par le position: fixed du background */
 body {
     position: relative;
 }
+
 
 /* Style du texte "Connexion" */
 h1 {
@@ -144,44 +146,39 @@ a:hover {
 
     .form-container {
         width: 90vw;
-        margin: 2.22vh auto;
-        padding: 2.22vh;
+        margin: 6vh auto;
+        padding: 5vh 5vw;
+        border-radius: 4vw;
+        box-shadow: 0 0 4vw rgba(0, 0, 0, 0.2);
+    }
+
+
+
+
+    p {
+        font-size: 1em;
     }
 
     input[type="text"],
     input[type="email"],
-    input[type="password"] {
-        font-size: 1em;
-    }
-
+    input[type="password"],
     input[type="submit"] {
         font-size: 1em;
-        padding: 1.33vh;
+        padding: 1.5vh;
     }
 
-    p {
-        font-size: 1em;
-    }
-}
 
-/* Requêtes médias pour les très petits écrans (smartphones) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5em;
-    }
+  
 
-    .form-container {
-        width: 90vw;
-        margin: 1.11vh auto;
-        padding: 1.67vh;
+    .btn-retour {
+        padding: 1vh 4vw;
+        font-size: 0.95rem;
+        margin-right: 2vw;
+        border-radius: 2vw;
     }
 
-    p {
-        font-size: 0.9em;
+    .header {
+        padding: 5px 10px;
     }
 
-    input[type="submit"] {
-        padding: 1.67vh;
-        font-size: 1em;
-    }
 }

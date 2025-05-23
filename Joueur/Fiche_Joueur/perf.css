@@ -97,25 +97,39 @@ body {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: #ffffff;
-    border-top: 1px solid #ccc;
+    background: linear-gradient(to right, #002766, #d72638); /* Bleu ASBH → Rouge */
+    border-top: none;
     display: flex;
     justify-content: space-around;
     padding: 10px 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px); /* effet verre dépoli */
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 999;
 }
 
 .nav button {
     background: none;
     border: none;
     font-size: 14px;
-    color: #555;
+    color: white;
     text-align: center;
+    transition: transform 0.2s, color 0.3s;
+}
+
+.nav button:hover {
+    transform: scale(1.1);
+    color: #ffd700; /* Doré au survol */
 }
 
 .nav button.active {
-    color: #d72638;
+    color: #ffffff;
     font-weight: bold;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
 }
+
 
 .nav button span {
     display: block;
@@ -235,11 +249,113 @@ body {
   width: 100% !important;
   height: auto !important;
 }
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+}
+/* Appliquer un style responsive pour les tableaux */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto;
+  display: block;
+  border: none;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
 
 
 
+table td, table th {
+  border: 1px solid #000; /* Garde les bordures internes si tu veux */
+}
 
 
+@media screen and (max-width: 768px) {
+  /* Enlève le centrage excessif des éléments */
+  .graph-grid,
+  .graph-grid-phys {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 0 10px;
+  }
 
+  .graph-box {
+    width: 100%;
+    padding: 10px;
+    margin: 0 auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
 
+  .graph-box canvas,
+  .graph-canvas {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 220px; /* Plus compact */
+  }
 
+  .flex-test-layout {
+    flex-direction: column;
+    gap: 20px;
+    padding: 0 10px;
+  }
+
+  .graph-physique,
+  .table-physique {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .table-physique {
+    overflow-x: auto;
+    padding: 0;
+  }
+
+  .table-physique table {
+    font-size: 13px;
+  }
+
+  .table-physique th,
+  .table-physique td {
+    padding: 4px;
+    font-size: 12px;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .container img {
+    width: 100px;
+    height: 100px;
+    margin: 0 auto 10px;
+  }
+
+  .player-name {
+    font-size: 20px;
+    margin-top: 10px;
+  }
+
+  .header-box {
+    padding: 20px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+
+  .fixed-info {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .nav button span {
+    font-size: 16px;
+  }
+}
