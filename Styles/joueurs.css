@@ -49,9 +49,15 @@ html, body {
     margin-bottom: 1vh;
 }
 
-/* Groupe de boutons alignés à droite */
-.joueur-card a.btn-formulaire:first-of-type {
-    margin-left: auto; /* pousse ce bouton vers la droite */
+
+
+
+.joueur-card .btn-container {
+    display: flex;
+    gap: 1.5vw;  /* plus d’espace entre les boutons */
+    flex-wrap: wrap;  /* boutons peuvent passer à la ligne */
+    justify-content: flex-end;
+    width: 100%;
 }
 
 .btn-formulaire {
@@ -62,7 +68,10 @@ html, body {
     text-decoration: none;
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-size: 1rem;
-    margin-left: 1vw;
+    margin-left: 0; /* on gère l’espace avec gap du container */
+    min-width: 120px;
+    padding: 1.5vh 2vw;
+    text-align: center;
 }
 
 .btn-formulaire:hover {
@@ -200,3 +209,59 @@ html, body {
 }
 
 
+@media (max-width: 768px) {
+
+    body.section-equipe .header {
+        position: static;
+        justify-content: flex-start;
+        padding: 2vh 5vw;
+    }
+
+    body.section-equipe .btn-retour {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        margin-top: 2vh;
+        align-self: flex-start;
+    }
+
+    .ruban-section {
+        flex-wrap: wrap;
+        gap: 5px;
+    }
+
+    .ruban-link {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+    }
+
+    .joueurs-container {
+        width: 95vw;
+    }
+
+    .btn-formulaire {
+        font-size: 0.9rem;
+        padding: 1vh 3vw;
+        margin-left: 0;
+        margin-top: 1vh;
+        width: 100%;  /* Fixe tous les boutons à occuper toute la largeur du conteneur */
+        max-width: 300px; /* Limite la largeur à 300px pour que les boutons ne soient pas trop larges */
+    }
+
+    .joueur-card .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Aligne les boutons au centre */
+        width: 100%;
+        margin-top: 1vh;
+    }
+
+    .joueur-card a.btn-formulaire {
+        margin: 0.5vh 0;
+        width: 100%; /* Forcer tous les boutons à avoir la même largeur */
+        max-width: 300px; /* Limite à une largeur maximale */
+    }
+
+    .nom-joueur {
+        font-size: 1rem;
+    }
+}
