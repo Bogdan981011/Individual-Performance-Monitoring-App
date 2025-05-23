@@ -52,10 +52,12 @@ try {
 
     $pdo->commit();
     echo "ok";
+    exit;
 
 } catch (PDOException $e) {
     $pdo->rollBack(); // Annuler si erreur
     http_response_code(500);
     echo "Erreur lors de l'enregistrement : " . $e->getMessage();
+    exit;
 }
 ?>

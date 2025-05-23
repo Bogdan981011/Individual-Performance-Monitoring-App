@@ -29,13 +29,32 @@ $temps_entrainement = trim($_POST['temps_entrainement']);
 $difficulte = (int) $_POST['difficulte'];
 $observations = trim($_POST['observations']);
 $id_joueur = (int) $_POST['id_joueur'];
-// Conversion date éventuelle (pas nécessaire si tu l’as bien en YYYY-MM-DD)
-if (strpos($date, '/') !== false) {
-    $parts = explode('/', $date);
-    if (count($parts) === 3) {
-        // JJ/MM/AAAA → AAAA-MM-DD
-        $date = $parts[2] . '-' . $parts[1] . '-' . $parts[0];
-    }
+
+// Vérification de la date
+if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) || !strtotime($date)) {
+    http_response_code(400);
+    echo "Format de date invalide.";
+    exit;
+}
+
+if (strtotime($date) > strtotime(date('Y-m-d'))) {
+    http_response_code(400);
+    echo "La date ne peut pas être dans le futur.";
+    exit;
+}
+
+// Vérification du RPE
+if ($difficulte < 1 || $difficulte > 10) {
+    http_response_code(400);
+    echo "La difficulté (RPE) doit être entre 1 et 10.";
+    exit;
+}
+
+// Longueur du commentaire
+if (strlen($observations) > 500) {
+    http_response_code(400);
+    echo "Le commentaire ne doit pas dépasser 500 caractères.";
+    exit;
 }
 
 

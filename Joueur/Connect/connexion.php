@@ -7,6 +7,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Récupérer les données du formulaire
     $email = $_POST['mail'];
     $password = $_POST['mdp'];
+       
+    // Vérification des champs requis
+    if (empty($email) || empty($password)) {
+        http_response_code(400);
+        echo "Tous les champs sont obligatoires.";
+        exit;
+    }
+
+    // Validation du format d'email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        http_response_code(400);
+        echo "Adresse e-mail invalide.";
+        exit;
+    }
 
    // Préparer la requête pour récupérer l'utilisateur basé sur l'e-mail
     try {

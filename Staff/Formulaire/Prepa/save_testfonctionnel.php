@@ -66,6 +66,7 @@ try {
 
     $pdo->commit(); // Valider la transaction
     echo "ok";
+    exit;
     
 } catch (PDOException $e) {
     http_response_code(500);
