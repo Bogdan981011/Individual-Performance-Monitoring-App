@@ -39,17 +39,32 @@ try {
         ");
     }
     
-    foreach ($data['joueurs'] as $joueur) {
+    foreach ($data['joueurs'] as $index => $joueur) {
         $id = filter_var($joueur['id_joueur'] ?? null, FILTER_VALIDATE_INT);
         $date = $joueur['date'] ?? '';
         $test = $joueur['test'] ?? '';
         $val = $joueur['val'] ?? null;
 
-        if ($val === '' || !is_numeric($val)) {
-            $val = null;
+        // Vérif champs obligatoires
+        if (!$id || $date === '' || $test === '') {
+            throw new Exception("Tous les champs sont obligatoires pour le joueur #".($index+1));
         }
-        
-        if (!$id || !$date || !$test) continue;
+
+        // Vérif format date (YYYY-MM-DD) + non futur
+        $dateRegex = '/^\d{4}-\d{2}-\d{2}$/';
+        if (!preg_match($dateRegex, $date)) {
+            throw new Exception("Le format de la date est invalide pour le joueur #".($index+1));
+        }
+        $timestamp = strtotime($date);
+        if ($timestamp === false || $timestamp > strtotime(date('Y-m-d'))) {
+            throw new Exception("La date est invalide ou dans le futur pour le joueur #".($index+1));
+        }
+
+        // Vérif valeur numérique valide (ou vide autorisé)
+        if ($val !== '' && !preg_match('/^\d+(\.\d{1,2})?$/', $val)) {
+            throw new Exception("La note doit être un nombre positif (max 2 décimales) pour le joueur #".($index+1));
+        }
+
 
         if (in_array($type, $mesureTypes)) {
             $stmt->execute([

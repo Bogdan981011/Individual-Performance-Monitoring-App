@@ -29,27 +29,40 @@ try {
         VALUES (:id, :date, :squat, :iso, :souplesse, :flamant, :haut)
     ");
 
-    foreach ($data['joueurs'] as $joueur) {
+    foreach ($data['joueurs'] as $index => $joueur) {
         $id = filter_var($joueur['id_joueur'] ?? null, FILTER_VALIDATE_INT);
         $date = $joueur['date'] ?? '';
-        $squat = strtoupper(trim($joueur['squat'] ?? ''));
-        $iso = strtoupper(trim($joueur['iso'] ?? ''));
-        $souplesse = strtoupper(trim($joueur['souplesse'] ?? ''));
-        $flamant = strtoupper(trim($joueur['flamant'] ?? ''));
-        $haut = strtoupper(trim($joueur['haut'] ?? ''));
+        $fields = ['squat', 'iso', 'souplesse', 'flamant', 'haut'];
+        $valeurs = [];
 
-        if (!$id || !$date) continue;
+        if (!$id || !$date) {
+            throw new Exception("Tous les champs sont obligatoires pour le joueur #".($index+1));
+        }
+
+        if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $date) || strtotime($date) > strtotime(date('Y-m-d'))) {
+            throw new Exception("Date invalide ou dans le futur pour le joueur #".($index+1));
+        }
+
+        foreach ($fields as $champ) {
+            $val = strtoupper(trim($joueur[$champ] ?? ''));
+
+            if ($val !== '' && !in_array($val, ['A', 'EA', 'NA'])) {
+                throw new Exception("Valeur invalide pour '$champ' du joueur #".($index+1)." (seuls A, EA ou NA sont autorisés)");
+            }
+
+            $valeurs[$champ] = $val ?: null;
+        }
 
         $stmt->execute([
             'id' => $id,
             'date' => $date,
-            'squat' => $squat,
-            'iso' => $iso,
-            'souplesse' => $souplesse,
-            'flamant' => $flamant,
-            'haut' => $haut
+            'squat' => $valeurs['squat'],
+            'iso' => $valeurs['iso'],
+            'souplesse' => $valeurs['souplesse'],
+            'flamant' => $valeurs['flamant'],
+            'haut' => $valeurs['haut']
         ]);
-    }    
+    }   
 
     $pdo->commit(); // Valider la transaction
     echo "ok";

@@ -25,6 +25,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const formData = new FormData();
         formData.append('mdp_av', mdpAv);
         formData.append('new_mdp', newMdp);
+        formData.append('confirmMdp', confirmMdp);
         formData.append('csrf_token', csrfToken);
 
         // Envoi AJAX

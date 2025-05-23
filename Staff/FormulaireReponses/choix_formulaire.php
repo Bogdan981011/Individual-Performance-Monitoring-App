@@ -1,4 +1,12 @@
 <?php
+
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+  // L'utilisateur n'est pas connecté, on le redirige
+  header("Location: /vizia/accueil.html");
+  exit;
+}
+
 require '../../bd.php'; // adapte ce chemin selon ton arborescence
 
 $id_joueur = $_GET['id'] ?? 'demo'; // Valeur temporaire pour test

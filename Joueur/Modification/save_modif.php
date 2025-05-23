@@ -15,11 +15,16 @@ require_once "../../bd.php";
 $idJoueur = $_SESSION['user_id'];
 $ancienMdp = $_POST['mdp_av'] ?? '';
 $nouveauMdp = $_POST['new_mdp'] ?? '';
+$confirmMdp = $_POST['confirmMdp'] ?? '';
 
 // Validation simple
 if (empty($ancienMdp) || empty($nouveauMdp)) {
     echo "Champs manquants.";
     exit;
+}
+
+if ($nouveauMdp !== $confirmMdp) {
+    echo "Les nouveaux mots de passe ne correspondent pas.";
 }
 
 try {

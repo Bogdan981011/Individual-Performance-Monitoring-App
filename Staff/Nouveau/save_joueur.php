@@ -31,13 +31,20 @@ try {
         VALUES (:id_equipe, :nom, :prenom, :email, :mdp)");   
 
     // Préparation de la requête d'insertion
-    foreach ($data['joueurs'] as $joueur) {
+    foreach ($data['joueurs'] as $index => $joueur) {
         $nom    = trim($joueur['nom']);
         $prenom = trim($joueur['prenom']);
         $email  = trim($joueur['email']);
         $mdp    = trim($joueur['mdp']);
         $equipe = trim($joueur['equipe']); // nom de l’équipe
 
+        if ($nom === '' || $prenom === '' || $email === '' || $equipe === '' || $mdp === '') {
+            throw new Exception("Tous les champs sont obligatoires pour le joueur #".($index+1));
+        }
+
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            throw new Exception("Format d'email invalide pour le joueur #".($index+1));
+        }
         
         // Chercher l'id de l'équipe
         $stmtEquipe->execute([':nom' => $equipe]);
@@ -55,13 +62,13 @@ try {
             ':nom'       => $nom,
             ':prenom'    => $prenom,
             ':email'     => $email,
-            ':mdp'       => $mdp
+            ':mdp'       => password_hash($mdp, PASSWORD_DEFAULT)
         ]);
 
     }
 
-    $pdo->commit();
-    echo 'ok';
+    $pdo->commit();    
+    echo "ok";
 
 } catch (PDOException $e) {
     $pdo->rollBack(); // Annuler si erreur

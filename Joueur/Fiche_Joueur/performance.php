@@ -1,6 +1,12 @@
-<?php
-session_start();
-include 'recup.php'; // ou require_once 'recup.php';
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+  // L'utilisateur n'est pas connecté, on le redirige
+  header("Location: /vizia/accueil.html");
+  exit;
+}
+
+include_once 'recup.php'; // ou require_once 'recup.php';
 ?>
 
 <!DOCTYPE html>

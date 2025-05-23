@@ -28,13 +28,58 @@ $recommandation = trim($_POST['recommandation'] ?? '');
 $reprise = trim($_POST['reprise'] ?? '');
 $id_joueur = (int) $_POST['id_joueur'];
 
-// Conversion de date si nécessaire (si elle arrive au format JJ/MM/AAAA)
-if (strpos($date, '/') !== false) {
-    $parts = explode('/', $date);
+// Validation ID
+if (!$id_joueur) {
+    http_response_code(400);
+    echo "ID joueur invalide.";
+    exit;
+}
+
+// Gravité : entier entre 1 et 10
+if (!preg_match('/^\d+$/', $gravite) || $gravite < 1 || $gravite > 10) {
+    http_response_code(400);
+    echo "Gravité invalide. Elle doit être un entier entre 1 et 10.";
+    exit;
+}
+
+// Vérification de la longueur des champs texte
+if (strlen($recommandation) > 500) {
+    http_response_code(400);
+    echo "La recommandation ne doit pas dépasser 500 caractères.";
+    exit;
+}
+
+if (strlen($reprise) > 500) {
+    http_response_code(400);
+    echo "La reprise ne doit pas dépasser 500 caractères.";
+    exit;
+}
+
+if (strpos($dateInput, '/') !== false) {
+    $parts = explode('/', $dateInput);
     if (count($parts) === 3) {
-        // JJ/MM/AAAA → AAAA-MM-DD
-        $date = $parts[2] . '-' . $parts[1] . '-' . $parts[0];
+        $date = sprintf('%04d-%02d-%02d', $parts[2], $parts[1], $parts[0]);
+    } else {
+        http_response_code(400);
+        echo "Format de date invalide.";
+        exit;
     }
+} else {
+    $date = $dateInput;
+}
+
+// Vérification que la date est bien une date valide
+if (!strtotime($date)) {
+    http_response_code(400);
+    echo "Date invalide.";
+    exit;
+}
+
+// Vérification que la date n’est pas dans le futur
+if (strtotime($date) > strtotime(date('Y-m-d'))) {
+    http_response_code(400);
+    echo "La date ne peut pas être dans le futur.";
+    exit;
 }
 
 // Préparer la requête d'insertion
@@ -55,6 +100,7 @@ try {
 
     // Redirection après succès
     echo 'ok';
+    exit;
 
 } catch (PDOException $e) {
     http_response_code(500);

@@ -1,4 +1,12 @@
 <?php
+
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+  // L'utilisateur n'est pas connecté, on le redirige
+  header("Location: /vizia/accueil.html");
+  exit;
+}
+
 require_once '../../bd.php';
 
 ob_start(); // Mise en mémoire tampon

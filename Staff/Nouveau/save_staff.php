@@ -24,24 +24,34 @@ try {
     $stmt = $pdo->prepare("INSERT INTO staff (nom, prenom, email, role, mdp) VALUES (:nom, :prenom, :email, :poste, :mdp)");
         
     // Préparation de la requête d'insertion
-    foreach ($data['staffs'] as $staff) {
+    foreach ($data['staffs'] as $index => $staff) {
         $nom = trim($staff['nom']);
         $prénom = trim($staff['prenom']);
         $email = trim($staff['email']);
         $poste = trim($staff['poste']);
         $mdp = trim($staff['mdp']);
 
+        // Vérification champs vides sur une ligne
+        if ($nom === '' || $prenom === '' || $email === '' || $poste === '' || $mdp === '') {
+            throw new Exception("Tous les champs sont obligatoires pour le staff #".($index+1));
+        }
+
+    // Validation email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        throw new Exception("Format d'email invalide pour le staff #".($index+1));
+    }
+
         $stmt->execute([
             ':nom'       => $nom,
             ':prenom'    => $prénom,
             ':email'     => $email,
             ':poste'     => $poste,
-            ':mdp'       => $mdp
+            ':mdp'       =>  password_hash($mdp, PASSWORD_DEFAULT)
         ]);
     }
 
     $pdo->commit();
-    echo 'ok';
+    echo "ok";
 
 } catch (PDOException $e) {
     $pdo->rollBack(); // Annuler si erreur
