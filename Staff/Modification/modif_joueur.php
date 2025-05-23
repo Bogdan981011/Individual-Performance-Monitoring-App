@@ -8,6 +8,7 @@ session_start();
     <meta charset="UTF-8">
     <title>Modifier un joueur</title>
     <link rel="stylesheet" href="../../Styles/nouveau.css">
+    <script src="modif_joueur.js"></script>
 </head>
 <body>
     <b><a href="../accueil_staff.html">Retour</a></b>
@@ -50,9 +51,10 @@ session_start();
     <p> Merci de ne remplir que les champs à modifier.</p>
 
     <form>
+      <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <p>
-            <label for="id_equipe">Équipe :</label>
-            <select name="id_equipe" id="id_equipe">
+            <label for="nom_equipe">Équipe :</label>
+            <select name="nom_equipe" id="nom_equipe">
                 <option value="crabos" <?php if (strtolower($equipe) == "crabos") echo "disabled selected"?> >CRABOS</option>
                 <option value="cadets a" <?php if (strtolower($equipe) == "cadets a") echo "disabled selected"?> >CADETS A</option>
                 <option value="cadets b"<?php if (strtolower($equipe) == "cadets b") echo "disabled selected"?> >CADETS B</option>
@@ -75,24 +77,25 @@ session_start();
         <!-- Prénom -->
         <p>
             <label for="prenom">Prénom :</label>
-            <input type="text" name="prenom" id="prenom" placeholder=<?= $prenom ?>>
+            <input type="text" name="prenom" id="prenom" placeholder="<?= $prenom ?>">
         </p>
 
         <!-- Poste -->
         <p>
             <label for="poste">Poste :</label>
-            <input type="text" name="poste" id="poste"  placeholder=<?= $poste ?>>
+            <input type="text" name="poste" id="poste" placeholder="<?= $poste ?>">
+
         </p>
 
         <!-- Email -->
         <p>
             <label for="email">Email :</label>
-            <input type="email" name="email" id="email"  placeholder=<?= $email ?>>
+            <input type="email" name="email" id="email"  placeholder="<?= $email ?>">
         </p>
 
         <!-- Mot de passe -->
         <p>
-            <label for="mdp">Mot de passe :</label>
+            <label for="mdp">Mot de passe provisoire :</label>
             <input type="password" name="mdp" id="mdp">
         </p>
 

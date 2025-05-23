@@ -74,7 +74,7 @@ if (!isset($_SESSION['user_id'])) {
                         <option value="directeur">Directeur</option>
                         <option value="pp">Prépa physique</option>
                         <option value="kine">Kiné</option>
-                        <option value="Analyste vidéo">Analyste vidéo</option>
+                        <option value="video">Analyste vidéo</option>
                         <option value="admin">Corps admin</option>
                         <option value="pm">Prépa mental</option>
                     </select>

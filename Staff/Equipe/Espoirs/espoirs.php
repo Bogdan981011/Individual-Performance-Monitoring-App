@@ -43,7 +43,9 @@
         <div class="option-section">
             <a href="" class="btn-option">Performance Globale</a>
             <a href="joueurs_espoirs.php" class="btn-option">Liste des joueurs</a>
-            <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
+            <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'pp' || $_SESSION['role'] === 'admin')): ?>
+                <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
+            <?php endif; ?>
             <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
