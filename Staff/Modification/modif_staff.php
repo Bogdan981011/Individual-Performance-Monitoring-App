@@ -11,16 +11,17 @@ if (!isset($_SESSION['user_id'])) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Modifier un joueur</title>
     <link rel="stylesheet" href="../../Styles/nouveau.css">
     <script src="modif.js"></script>
 </head>
 <body>
-    <b><a href="../accueil_joueur.html">Retour</a></b>
+    <a id="btn-retour" class="btn-retour" href="../accueil_staff.html">Retour</a>
 
 <div class="form-container">
     
-    <h1>Modification du mot de passe</h1>
+    <h2>Modification du mot de passe</h2>
 
     <form>
       <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
