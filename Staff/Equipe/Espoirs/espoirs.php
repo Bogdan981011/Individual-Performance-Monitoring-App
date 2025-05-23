@@ -22,12 +22,8 @@ if (!isset($_SESSION['user_id'])) {
             <a href="../CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
             <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
             <a href="espoirs.php" class="ruban-link active" id="espoirs">ESPOIRS</a>
+            <a href="../../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
         </div>
-    </div>
-
-    <!-- Déconnexion -->
-    <div class="header">
-        <a href="../../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
     </div>
 
     <div class="container">

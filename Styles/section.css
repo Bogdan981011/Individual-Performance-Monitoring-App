@@ -54,7 +54,7 @@ body {
 /* Section du ruban pour les liens */
 .ruban-section {
     display: flex;
-    justify-content: space-around; /* Espacement uniforme entre les sections */
+    justify-content: space-between; /* Espacement uniforme entre les sections */
     width: 80%; /* Largeur du ruban */
 }
 
@@ -89,9 +89,6 @@ body {
 }
 
 .btn-retour {
-    position: fixed;   /* fixe la position */
-    top: 20px;         /* 20px du haut */
-    right: 20px;       /* 20px de la droite */
     background-color: #CC0A0A;
     color: white;
     padding: 10px 20px;
