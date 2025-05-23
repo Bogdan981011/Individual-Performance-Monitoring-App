@@ -11,12 +11,13 @@ if (!isset($_SESSION['user_id'])) {
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Modifier un joueur</title>
     <link rel="stylesheet" href="../../Styles/nouveau.css">
     <script src="modif_joueur.js"></script>
 </head>
 <body>
-    <b><a href="../accueil_staff.html">Retour</a></b>
+    <a  id="btn-retour" class="btn-retour" href="../accueil_staff.html">Retour</a>
 
 <div class="form-container">
     <?php
@@ -52,7 +53,7 @@ if (!isset($_SESSION['user_id'])) {
         }
     ?>
     
-    <h1><?= "Modification du profil de " . $prenom. " " . $nom ?></h1>
+    <h2><?= "Modification du profil de " . $prenom. " " . $nom ?></h2>
     <p> Merci de ne remplir que les champs à modifier.</p>
 
     <form>

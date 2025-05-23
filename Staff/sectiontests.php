@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 </head>
-<body>
+<body class="section-equipe">
     <?php 
     require_once "../bd.php";
     $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);

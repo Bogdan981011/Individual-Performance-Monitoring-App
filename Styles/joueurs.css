@@ -16,7 +16,10 @@ html, body {
     background-size: cover; /* Couvre l'intégralité de la page */
     background-attachment: fixed; /* Empêche le fond de se déplacer */
     width: 100%; /* Assure que le body prend toute la largeur */
-    overflow: hidden;
+   
+}
+.h2{
+    color: blue;
 }
 
 

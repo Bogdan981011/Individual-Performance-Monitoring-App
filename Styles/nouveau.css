@@ -39,7 +39,11 @@ h1 {
     text-shadow: 0.10vw 0.10vw 0.31vw rgba(0, 0, 0, 0.5);
     margin-top: 2.22vh;
 }
-
+h2{
+    color: rgb(7, 7, 120);
+    font-family: 'Bebas Neue', sans-serif;
+    text-transform: uppercase;
+}
 /* Texte centré */
 p {
     text-align: center;
@@ -127,7 +131,10 @@ a:hover {
     text-decoration: none; /* Empêche le soulignement du lien */
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-size: 1rem;
-    margin-right: 4vw; /* Peut être ajusté pour la distance entre le bord droit et le bouton */
+    position: fixed; /* Le bouton reste fixe quand on fait défiler la page */
+    top: 20px; /* Ajuste selon l'endroit où tu veux le placer verticalement */
+    right: 4vw; /* Le bouton est fixé à droite avec un léger décalage */
+    z-index: 1000; /* Assure-toi qu'il soit au-dessus des autres éléments */
 }
 
 .btn-retour:hover {
@@ -135,6 +142,7 @@ a:hover {
     transform: scale(1.05); /* Effet de zoom au survol */
     text-decoration: none;
 }
+
 @media (max-width: 768px) {
     .form-container {
         width: 80vw;

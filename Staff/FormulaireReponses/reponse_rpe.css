@@ -151,7 +151,6 @@ h1 {
 }
 
 
-/* Sur mobile : liste 1 colonne */
 @media (max-width: 600px) {
     .container {
         display: block; /* désactive la grille */
@@ -161,11 +160,14 @@ h1 {
         margin-bottom: 20px;
         cursor: pointer;
     }
-}
-
-
-@media (max-width: 600px) {
     .player-card h3 {
         font-size: 1.3rem;
     }
+    
+    body h1 { /* Spécifie que c'est un h1 à l'intérieur du body */
+        font-size: 2rem; /* Taille plus petite pour les mobiles */
+        margin-top: 120px; /* Réduit l'espace sous le titre */
+        margin-bottom: 30px; /* Optionnel, ajuste l'espace sous le titre */
+    }
+
 }

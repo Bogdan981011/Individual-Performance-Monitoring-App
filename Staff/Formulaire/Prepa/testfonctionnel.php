@@ -38,24 +38,27 @@ if (!isset($_SESSION['user_id'])) {
       color: var(--bleu);
     }
 
+    /* Style du bouton retour */
     .return-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      background-color: var(--rouge);
-      color: white;
-      padding: 8px 14px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s;
+        position: fixed; /* Reste fixe même lors du défilement */
+        top: 20px; /* Positionne le bouton à 20px du haut */
+        left: 20px; /* Positionne le bouton à 20px du côté gauche */
+        background-color: var(--rouge); /* Rouge pour le bouton */
+        color: white;
+        padding: 8px 14px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        text-decoration: none; /* Enlève le soulignement */
+        transition: background-color 0.3s;
+        z-index: 1000; /* S'assure que le bouton soit au-dessus des autres éléments */
     }
 
     .return-btn:hover {
-      background-color: #0e0640;
+        background-color: #0e0640; /* Changement de couleur au survol */
     }
+
 
     .date-section {
       margin-bottom: 20px;
