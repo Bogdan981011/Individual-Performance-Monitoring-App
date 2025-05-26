@@ -91,8 +91,9 @@ include_once 'recup.php'; // ou require_once 'recup.php';
       <h3>Suivi Médical</h3>
       <p><strong>Dernier examen :</strong> <?= $medicalData['date_blessure'] ?? 'Non renseigné'; ?></p>
       <p><strong>Blessure :</strong> <?= $medicalData['type_blessure'] ?? 'Aucune'; ?></p>
-      <p><strong>Durée :</strong> <?= $medicalData['gravite_blessure'] ?? 'N.C.'; ?></p>
-      <p><strong>Recommandation :</strong> <?= $medicalData['observations'] ?? 'N.C.'; ?></p>
+      <p><strong>Durée :</strong> <?= $medicalData['gravite'] ?? 'N.C.'; ?></p>
+      <p><strong>Recommandation :</strong> <?= $medicalData['recommandation'] ?? 'N.C.'; ?></p>
+      <p><strong>Reprise :</strong> <?= $medicalData['reprise'] ?? 'N.C.'; ?></p>
 
     </div>
   </div>

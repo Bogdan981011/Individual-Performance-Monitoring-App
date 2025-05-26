@@ -106,7 +106,7 @@ try {
 
 
     // Données médicales
-    $stmt = $pdo->prepare("SELECT date_blessure, type_blessure, gravite_blessure, observations FROM medical_form WHERE id_joueur = :id ORDER BY date_blessure DESC LIMIT 1");
+    $stmt = $pdo->prepare("SELECT date_blessure, type_blessure, gravite, recommandation, reprise FROM medical_form WHERE id_joueur = :id ORDER BY date_blessure DESC LIMIT 1");
     $stmt->execute(['id' => $user_id]);
     $medicalData = $stmt->fetch(PDO::FETCH_ASSOC);
 
