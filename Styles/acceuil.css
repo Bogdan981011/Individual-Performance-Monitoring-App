@@ -127,6 +127,24 @@ footer {
   transform: scale(1.1);
   opacity: 1;
 }
+.credits {
+  margin-top: 2vh;
+  font-size: 1.2rem;
+}
+
+.credits a {
+  color: #0d171e; /* Bleu ASBH */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.credits a:hover {
+  text-decoration: underline;
+  color: #e42a09;
+}
+
+
+
 
 @media (max-width: 768px) {
   .container {
@@ -157,5 +175,9 @@ footer {
 @media (max-width: 480px) {
   .footer-img:nth-child(n+4) {
     display: none;
+  }
+  .credits {
+    font-size: 0.7rem;
+    padding: 2vh 10vw 3vh;
   }
 }
