@@ -208,9 +208,7 @@ body {
         position: relative;
         top: auto;
         right: auto;
-        margin-top: 50px;
         align-self: flex-end;
         z-index: 100;
     }
 }
-

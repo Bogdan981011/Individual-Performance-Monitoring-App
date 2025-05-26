@@ -127,6 +127,10 @@ a:hover {
     transition: background-color 0.3s ease, transform 0.3s ease;
     font-size: 1rem;
     margin-right: 4vw; /* Peut être ajusté pour la distance entre le bord droit et le bouton */
+    position: fixed; /* Le bouton reste fixe quand on fait défiler la page */
+    top: 20px; /* Ajuste selon l'endroit où tu veux le placer verticalement */
+    right: 4vw; /* Le bouton est fixé à droite avec un léger décalage */
+    z-index: 1000;
 }
 
 .btn-retour:hover {
@@ -136,53 +140,13 @@ a:hover {
 }
 
 
-/* Requêtes média pour les petits écrans (tablettes et téléphones) */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 1.8em;
-        margin-top: 1.67vh;
-    }
-
     .form-container {
-        width: 90vw;
-        margin: 2.22vh auto;
-        padding: 2.22vh;
-    }
-
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        font-size: 1em;
-    }
-
-    input[type="submit"] {
-        font-size: 1em;
-        padding: 1.33vh;
-    }
-
-    p {
-        font-size: 1em;
+        width: 80vw;
+        margin: 16vh auto; /* auto centre horizontalement */
+        padding: 4vh 4vw;
+        border-radius: 4vw;
+        box-shadow: 0 0 4vw rgba(0, 0, 0, 0.2);
     }
 }
 
-/* Requêtes médias pour les très petits écrans (smartphones) */
-@media (max-width: 480px) {
-    h1 {
-        font-size: 1.5em;
-    }
-
-    .form-container {
-        width: 90vw;
-        margin: 1.11vh auto;
-        padding: 1.67vh;
-    }
-
-    p {
-        font-size: 0.9em;
-    }
-
-    input[type="submit"] {
-        padding: 1.67vh;
-        font-size: 1em;
-    }
-}

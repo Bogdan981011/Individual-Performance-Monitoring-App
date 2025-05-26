@@ -22,8 +22,8 @@ if (!isset($_SESSION['user_id'])) {
             <a href="../CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
             <a href="cadetB.php" class="ruban-link active" id="cadetsB">CADETS B</a>
             <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
-            <a href="../../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
         </div>
+        <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
     <div class="container">

@@ -18,9 +18,7 @@ html, body {
     width: 100%; /* Assure que le body prend toute la largeur */
    
 }
-.h2{
-    color: blue;
-}
+
 
 
 
@@ -228,14 +226,17 @@ html, body {
     }
 
     .ruban-section {
-        flex-wrap: wrap;
-        gap: 5px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Deux colonnes de taille égale */
+        width: 100%;
     }
-
     .ruban-link {
         font-size: 0.85rem;
-        padding: 5px 10px;
+        padding: 5px;
+        text-align: center;
+        
     }
+
 
     .joueurs-container {
         width: 95vw;
