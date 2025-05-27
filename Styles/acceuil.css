@@ -79,26 +79,50 @@ body::before {
 }
 
 
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 90%;
+  max-width: 50vw;
+}
+
+/* Espacement ajusté entre le bouton et les crédits */
 .connect-btn {
   display: inline-block;
-  margin-top: 25vh;
+  margin-top: 20vh;  /* Réduit la marge pour plus de proximité avec les crédits */
   background-color: #190C63;
   color: white;
   border: none;
-  padding: 1.2em 2.5em; /* Ajuste les dimensions */
-  font-size: 2.2vh; /* Taille du texte */
-  border-radius: 8px; /* Coins légèrement arrondis, pas ovales */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25); /* Ombre douce */
+  padding: 1.2em 2.5em;
+  font-size: 2.2vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
   cursor: pointer;
   transition: transform 0.3s ease, opacity 0.3s ease;
   text-decoration: none;
 }
 
-
-.connect-btn:hover {
-  transform: scale(1.1);
-  opacity: 1;
+.credits {
+  margin-top: 2vh;  /* Espacement juste en dessous du bouton */
+  font-size: 1rem;
+  text-align: center;
 }
+
+.credits a {
+  color: #0d171e;  /* Couleur du lien */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.credits a:hover {
+  text-decoration: underline;
+  color: #e42a09; /* Couleur du lien au survol */
+}
+
 
 /* Footer */
 footer {
@@ -126,21 +150,6 @@ footer {
 .footer-img:hover {
   transform: scale(1.1);
   opacity: 1;
-}
-.credits {
-  margin-top: 2vh;
-  font-size: 1.2rem;
-}
-
-.credits a {
-  color: #0d171e; /* Bleu ASBH */
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.credits a:hover {
-  text-decoration: underline;
-  color: #e42a09;
 }
 
 
