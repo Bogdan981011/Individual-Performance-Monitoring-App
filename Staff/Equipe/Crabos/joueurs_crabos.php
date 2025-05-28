@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
+<?php include('../../../chatbot/chatbot.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">

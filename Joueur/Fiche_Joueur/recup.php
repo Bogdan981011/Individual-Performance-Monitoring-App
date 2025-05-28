@@ -1,7 +1,7 @@
 <?php
 session_start();
 $host = 'localhost';
-$dbname = 'vizia';
+$dbname = 'vizia1';
 $username = 'root';
 $password = 'root';
 

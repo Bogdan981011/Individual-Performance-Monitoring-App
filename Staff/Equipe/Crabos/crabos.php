@@ -1,21 +1,22 @@
 <?php 
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
-    // L'utilisateur n'est pas connecté, on le redirige
     header("Location: /vizia/accueil.html");
     exit;
 }
 ?>
+<?php include('../../../chatbot/chatbot.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Section</title>
-    <link rel="stylesheet" href="../../../Styles/section.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Section Crabos</title>
+    <link rel="stylesheet" href="../../../Styles/section.css" />
 </head>
 <body class="section-equipe">
+
     <!-- Ruban fixe en haut -->
     <div class="header-ruban">
         <div class="ruban-section">
@@ -27,12 +28,11 @@ if (!isset($_SESSION['user_id'])) {
         <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
-
     <div class="container">
         <div class="logo-section">
-            <img src="../../../Images/logo.svg" alt="Logo ASBH" class="logo central-logo">
+            <img src="../../../Images/logo.svg" alt="Logo ASBH" class="logo central-logo" />
         </div>
-    
+
         <!-- Section des options -->
         <?php
         require_once '../../../bd.php'; 
@@ -50,10 +50,11 @@ if (!isset($_SESSION['user_id'])) {
             <a href="" class="btn-option">Performance Globale</a>
             <a href="joueurs_crabos.php" class="btn-option">Liste des joueurs</a>
             <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'pp' || $_SESSION['role'] === 'admin')): ?>
-                <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
+                <a href="../../sectiontests.php?id_eq=<?= htmlspecialchars($result['id_equipe']) ?>" class="btn-option">Tests</a>
             <?php endif; ?>
-            <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Réponses aux formulaires</a>
+            <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= htmlspecialchars($result['id_equipe']) ?>" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
+
 </body>
 </html>

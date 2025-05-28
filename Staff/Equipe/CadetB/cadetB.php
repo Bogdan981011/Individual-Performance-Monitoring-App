@@ -6,6 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
+<?php include('../../../chatbot/chatbot.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -53,5 +54,6 @@ if (!isset($_SESSION['user_id'])) {
             <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
+
 </body>
 </html>

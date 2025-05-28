@@ -8,7 +8,7 @@ if (!isset($_SESSION['user_id'])) {
 
 include_once 'recup.php'; // ou require_once 'recup.php';
 ?>
-
+<?php include('../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

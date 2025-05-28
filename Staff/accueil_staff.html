@@ -17,12 +17,7 @@
     <!-- Container principal -->
     <div class="container">
         <!-- Section des options -->
-        <!-- Logo au-dessus du container -->
-        <div id="chatbot-toggle">
-            <!-- Ici on remplace l'icône par l'image du chatbot -->
-            <img src="../Images/logochatbot.png" alt="Chatbot Rugby Ball" id="chatbot-image">
-        </div>
-
+        
         <!-- Message de bienvenue avec effet pop-up -->
         <h2 class="welcome-message">Félicitations, vous êtes maintenant connecté !</h2>
         
@@ -41,24 +36,30 @@
         <i class="fas fa-robot"></i>
         <span id="chat-bubble"><i class="fas fa-comment"></i></span>
     </div> -->
-
-    <!-- Container du chatbot -->
-    <div id="chat-container" style="display: none;">
-        <div id="chat-box">
-            <div id="faq"></div>
-            <div id="chat-content">
-                <p><strong>ViziaBot:</strong> Bonjour ! Comment puis-je vous aider ?</p>
-            </div>
+<!-- Logo au-dessus du container -->
+        <div id="chatbot-toggle">
+            <!-- Ici on remplace l'icône par l'image du chatbot -->
+            <img src="../Images/logochatbot.png" alt="Chatbot Rugby Ball" id="chatbot-image">
         </div>
-        <input type="text" id="chat-input" placeholder="Écrivez un message...">
-        <button onclick="sendMessage()">Envoyer</button>
+    <!-- Container du chatbot -->
+    <!-- Nouveau container avec iframe Gradio -->
+    <div id="chat-container">
+        <iframe 
+            src="http://127.0.0.1:7860"
+            width="100%" 
+            height="100%" 
+            style="border: none; border-radius: 10px;">
+        </iframe>
     </div>
+
 
     <script>
         const toggleButton = document.getElementById('chatbot-toggle');
         const chatContainer = document.getElementById('chat-container');
 
-        // Fonction pour ouvrir/fermer le chatbot
+        // Forcer fermeture au départ
+        chatContainer.style.display = 'none';
+
         toggleButton.addEventListener('click', () => {
             if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
                 chatContainer.style.display = 'block';
@@ -66,6 +67,7 @@
                 chatContainer.style.display = 'none';
             }
         });
+
 
         function sendMessage() {
             const input = document.getElementById('chat-input');
