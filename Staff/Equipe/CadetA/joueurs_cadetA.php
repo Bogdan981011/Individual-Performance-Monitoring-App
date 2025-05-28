@@ -1,3 +1,4 @@
+
 <?php 
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
@@ -6,7 +7,6 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
-<?php include('../../../chatbot/chatbot.php'); ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -74,4 +74,4 @@ if (!isset($_SESSION['user_id'])) {
 
 </body>
 </html>
->>>>>>> 410cb254b20a5b3d074157af1c0e71edebc76f99
+

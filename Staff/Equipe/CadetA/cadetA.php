@@ -1,3 +1,13 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+<?php include('../../../chatbot/chatbot.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -6,9 +16,7 @@
     <title>Section</title>
     <link rel="stylesheet" href="../../../Styles/section.css">
 </head>
-<?php include('../../../chatbot/chatbot.php'); ?>
-<body>
-    <!-- Ruban fixe en haut -->
+<body class="section-equipe">    <!-- Ruban fixe en haut -->
     <div class="header-ruban">
         <div class="ruban-section">
             <a href="../Crabos/crabos.php" class="ruban-link" id="crabos">CRABOS</a>
@@ -16,11 +24,7 @@
             <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
             <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
         </div>
-    </div>
-
-    <!-- Déconnexion -->
-    <div class="header">
-        <a href="../../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
+        <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
     <div class="container">
@@ -42,12 +46,13 @@
         ?>
 
         <div class="option-section">
-            <a href="../../perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>
+            <a href="" class="btn-option">Performance Globale</a>
             <a href="joueurs_cadetA.php" class="btn-option">Liste des joueurs</a>
-            <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
+            <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'pp' || $_SESSION['role'] === 'admin')): ?>
+                <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
+            <?php endif; ?>
             <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Réponses aux formulaires</a>
         </div>
     </div>
 </body>
 </html>
->>>>>>> 410cb254b20a5b3d074157af1c0e71edebc76f99
