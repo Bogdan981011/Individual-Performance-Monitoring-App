@@ -7,6 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 ?>
 <?php include('../../../chatbot/chatbot.php'); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -57,13 +58,11 @@ if (!isset($_SESSION['user_id'])) {
           ?>
           <div class="joueur-card">
             <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
-            <div class="btn-container">
-              <a href="../../Modification/modif_joueur.php?id=<?= $joueur['id_joueur'] ?>&eq=B" class="btn-formulaire"> Modifier les informations</a>
-              <a href="../../../Joueur/Fiche_joueur/performance.php?id=<?= $joueur['id_joueur'] ?>&eq=B" class="btn-formulaire">Tests et Performance</a>
-              <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'kine' || $_SESSION['role'] === 'admin')): ?>
-                <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=B" class="btn-formulaire">Formulaire médical</a>
-              <?php endif; ?>
-            </div>
+            <a href="../../Modification/modif.php?id=<?= $joueur['id_joueur'] ?>" class="btn-formulaire"> Modifier les informations</a>
+            <a href="../../../Joueur/Fiche_joueur/performance.php" class="btn-formulaire">Tests et Performance</a>
+            <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'kine'): ?>
+              <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
+            <?php endif; ?>
           </div>
           <?php
         }
@@ -77,3 +76,4 @@ if (!isset($_SESSION['user_id'])) {
 
 </body>
 </html>
+>>>>>>> 410cb254b20a5b3d074157af1c0e71edebc76f99
