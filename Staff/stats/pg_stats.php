@@ -233,7 +233,7 @@ $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
             <?php endforeach; ?>
         </div>
-        <a href="../accueil_staff.html" class="btn-retour">Accueil</a>
+        <a href="../perf_globale.php?id_eq=<?= $id_equipe ?>" class="btn-retour">Retour à la section</a>
     </div>
 
  
