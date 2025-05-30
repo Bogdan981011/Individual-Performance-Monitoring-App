@@ -16,12 +16,10 @@
             <a href="cadetB.php" class="ruban-link active" id="cadetsB">CADETS B</a>
             <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
         </div>
+        <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
-    <!-- Déconnexion -->
-    <div class="header">
-        <a href="../../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
-    </div>
+    
 
     <div class="container">
         <div class="logo-section">
@@ -42,7 +40,8 @@
         ?>
     
         <div class="option-section">
-            <a href="../../perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>            <a href="joueurs_cadetB.php" class="btn-option">Liste des joueurs</a>
+            <a href="../../perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>            
+            <a href="joueurs_cadetB.php" class="btn-option">Liste des joueurs</a>
             <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
             <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Réponses aux formulaires</a>
         </div>

@@ -157,7 +157,7 @@ if (!isset($_SESSION['user_id'])) {
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   ?>
 
-  <a href="../../sectiontests.php?id_eq=<?= $id_equipe ?>" class="return-btn">Retour à la selection du test</a>
+  <a href="../sectiontests.php?id_eq=<?= $id_equipe ?>" class="return-btn">Retour à la selection du test</a>
 
   <h1>Tableau de Tests Fonctionnels</h1>
 

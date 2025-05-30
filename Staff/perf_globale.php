@@ -49,12 +49,10 @@ if (!isset($_SESSION['user_id'])) {
                 </a>
             <?php endforeach; ?>
         </div>
+        <a href="accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
-    <!-- Déconnexion -->
-    <div class="header">
-        <a href="accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
-    </div>
+    
 
     <div class="container">
         <div class="logo-section">

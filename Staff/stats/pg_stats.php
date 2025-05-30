@@ -60,9 +60,16 @@ $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Dashboard - <?= htmlspecialchars($equipe['nom_equipe']) ?><?= htmlspecialchars($equipe['nom_equipe']) ?></title>
     <style>
-        body { font-family: Arial; margin: 20px; background: #f9f9f9; }
+        body {
+            font-family: Arial;
+            margin: 20px;
+            background: #f9f9f9;
+            padding-top: 80px; /* Ajouté pour créer un espace après le ruban */
+        }
+
         h1, h2 { text-align: center; color: #190C63; }
         .stats { display: flex; justify-content: space-around; margin-bottom: 30px; }
         .stat-box {
@@ -133,21 +140,63 @@ $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             pointer-events: none;
         }
 
-        @media (max-width: 600px) {
-            .ruban-link {
-                font-size: 1rem;
-                padding: 8px 16px;
+        /* Style du bouton retour */
+        .btn-retour {
+            background-color: #CC0A0A;
+            color: white;
+            padding: 1.5vh 2vw;
+            border-radius: 0.5vw;
+            text-decoration: none; /* Empêche le soulignement du lien */
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            font-size: 1rem;
+            position: fixed; /* Le bouton reste fixe quand on fait défiler la page */
+            top: 20px; /* Ajuste selon l'endroit où tu veux le placer verticalement */
+            right: 4vw; /* Le bouton est fixé à droite avec un léger décalage */
+            z-index: 1000; /* Assure-toi qu'il soit au-dessus des autres éléments */
+        }
+
+        .btn-retour:hover {
+            background-color: #d93e00;
+            transform: scale(1.05); /* Effet de zoom au survol */
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .ruban-section {
+                width: 100%;
+                justify-content: space-evenly;
             }
 
             .ruban-section {
-                flex-direction: column;
-                align-items: center;
+                display: flex;
+                overflow-x: auto;
+                padding: 0 10px;
+                scroll-behavior: smooth;
             }
 
-            .header-ruban {
-                font-size: 1rem;
-                height: 45px;
+        
+            body.section-equipe .btn-retour {
+                position: relative;
+                top: auto;
+                right: auto;
+                align-self: flex-end;
+                z-index: 100;
             }
+            .ruban-link {
+                font-size: 0.9rem;
+                padding: 8px 12px;
+                min-width: fit-content;
+                flex-shrink: 0; /* empêche de rétrécir trop */
+            }
+            .ruban-section {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                padding: 0 10px;
+                gap: 8px;
+            }
+
+
         }
     </style>
 </head>
@@ -184,17 +233,12 @@ $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </a>
             <?php endforeach; ?>
         </div>
+        <a href="../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
-    <!-- Déconnexion -->
-    <div class="header">
-        <a href="../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
-    </div>
+ 
 
-    <div class="container">
-        <div class="logo-section">
-          <img src="../Images/logo.svg" alt="Logo ASBH" class="logo central-logo">
-    </div>
+
 
 
 <h1>Dashboard collectif</h1>

@@ -16,12 +16,10 @@
             <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
             <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
         </div>
+        <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
-    <!-- Déconnexion -->
-    <div class="header">
-        <a href="../../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
-    </div>
+    
 
     <div class="container">
         <div class="logo-section">

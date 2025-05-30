@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
         ?>
 
         <div class="option-section">
-            <a href="" class="btn-option">Performance Globale</a>
+            <a href="../../perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>
             <a href="joueurs_cadetA.php" class="btn-option">Liste des joueurs</a>
             <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'pp' || $_SESSION['role'] === 'admin')): ?>
                 <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
