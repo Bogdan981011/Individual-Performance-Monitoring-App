@@ -78,26 +78,30 @@ def draw_field_lines_with_labels(surface, width, height, font):
     # Line positions based on 800x600 canvas
     # Vertical (Y) lines
     horizontal_lines = [
-    (0, "Touchline T"),              # Top of field
-    (61, "5m T"),                    # ~5m from top
-    (183, "15m T"),                  # ~15m from top
-    (417, "15m B"),                  # ~15m from bottom
-    (539, "5m B"),                   # ~5m from bottom
-    (600, "Touchline B"),           # Bottom of field
+    (40, "Touchline T"),              # Top of field
+    (75, "5m T"),                    # ~5m from top
+    (145, "15m T"),                  # ~15m from top
+    (415, "15m B"),                  # ~15m from bottom
+    (481, "5m B"),                   # ~5m from bottom
+    (515, "Touchline B"),           # Bottom of field
     ]
 
 
     # Horizontal (X) lines
     vertical_lines = [
-    (20, "Goal Line L"),               # Left goal line
-    (40, "5m L"),                     # 5m from left
-    (80, "10m L"),                    # 10m from left
-    (176, "22m L"),                   # 22m from left
+    (30, "Goal Line L"),               # Left goal line
+    (97, "Goal Line L"),               # Left goal line
+    (160, "10m L"),                     # 5m from left
+    (220, "20m L"),                    # 10m from left
+    (280, "30m L"),                   # 22m from left
+    (340, "40m L"),                   # 22m from left
     (400, "Halfway"),                # Midfield
-    (624, "22m R"),                   # 22m from right
-    (720, "10m R"),                   # 10m from right
-    (760, "5m R"),                    # 5m from right
-    (800, "Goal Line R"),            # Right goal line
+    (460, "40m R"),                   # 22m from right
+    (520, "30m R"),                   # 10m from right
+    (580, "20m R"),                    # 5m from right
+    (640, "10m R"),                    # 5m from right
+    (705, "Goal Line R"),            # Right goal line
+    (770, "Goal Line R"),            # Right goal line
     ]
 
 
@@ -177,7 +181,7 @@ def parse_input_to_multi_action_players(text):
     return players
 
 # --- Render GIF using Pygame offscreen ---
-def create_gif_multi_action(text_input):
+def create_gif_multi_action(text_input, grid=False):
     width, height = 800, 600
     duration = 90
     filename = f"animation_{uuid.uuid4().hex}.gif"
@@ -207,7 +211,8 @@ def create_gif_multi_action(text_input):
             screen.fill((255, 255, 255))
             
         # Draw field lines over the background
-        draw_field_lines_with_labels(screen, width, height, font)
+        if grid == True:
+            draw_field_lines_with_labels(screen, width, height, font)
             
         for p in players:
             p.update()
@@ -222,7 +227,7 @@ def create_gif_multi_action(text_input):
 
 # --- Gradio Interface ---
 def generate_multi_action_animation(user_input):
-    gif_path = create_gif_multi_action(user_input)
+    gif_path = create_gif_multi_action(user_input, grid=False)
     return gif_path
 
 # Sample input using trails
@@ -253,8 +258,19 @@ interface = gr.Interface(
 interface.launch()
 
 """
-todos : 
-    - adapt the grid to the field
+to do s : 
+    - add basic elements : 
+        * arrows that show the player direction (single/multiple)
+        * ball logics (passes, kicks, posession)
+        * highlight the zones where players will move in
+        * card system
+        * time system (halfs, minutes, time for making decision)
+        * legend
+        * zooming on the field
+        * replay/2x speed logic (automatic and button pause)
+    - add advanced elements : 
+        * strategic formations
+        * display specific zones for each post (single/multiple ??)
     - integrate all the necessary elements for the animation system
     - give a rag to a llm
     - link the llm with the animation system
