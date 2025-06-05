@@ -4,7 +4,7 @@ require_once '../../bd.php';
 // Handle validation/invalidation
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected']) && isset($_POST['action'])) {
     $action = $_POST['action'];
-    $validite = $action === 'valider' ? 'vrai' : 'faux';
+    $validite = $action === 'valider' ? 1 : 0;
 
     foreach ($_POST['selected'] as $entry) {
         [$id, $entryType] = explode('|', $entry);
@@ -39,14 +39,14 @@ function getPlayers($pdo, $validite, $team_id = null) {
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
-$valid_players = getPlayers($pdo, 'vrai', $type === 'joueur' ? $team_id : null);
-$invalid_players = getPlayers($pdo, 'faux', $type === 'joueur' ? $team_id : null);
+$valid_players = getPlayers($pdo, 1, $type === 'joueur' ? $team_id : null);
+$invalid_players = getPlayers($pdo, 0, $type === 'joueur' ? $team_id : null);
 
-$stmt = $pdo->prepare("SELECT id_staff AS id, nom, prenom, role FROM staff WHERE validite='vrai'");
+$stmt = $pdo->prepare("SELECT id_staff AS id, nom, prenom, role FROM staff WHERE validite=1");
 $stmt->execute();
 $valid_staff = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt = $pdo->prepare("SELECT id_staff AS id, nom, prenom, role FROM staff WHERE validite='faux'");
+$stmt = $pdo->prepare("SELECT id_staff AS id, nom, prenom, role FROM staff WHERE validite=0");
 $stmt->execute();
 $invalid_staff = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
