@@ -1,6 +1,6 @@
 <?php
 $host = 'localhost';
-$dbname = 'vizia2';
+$dbname = 'test';
 $username = 'root';
 $password = 'root';
 

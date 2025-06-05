@@ -72,7 +72,7 @@
 
 <!-- Conteneur iframe du chatbot -->
 <div id="chat-container">
-    <iframe src="http://127.0.0.1:7860"></iframe>
+    <iframe src="http://127.0.0.1:7861"></iframe>
 </div>
 
 <script>

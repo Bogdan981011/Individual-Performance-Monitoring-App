@@ -37,4 +37,5 @@ with gr.Blocks() as demo:
     textbox.submit(chat_with_selected_model, [textbox, state, model_selector], [chatbot, state])
     textbox.submit(reset_input, [], [textbox])
 
-demo.launch()
+# chatbot_nosql.py
+demo.launch(server_name="127.0.0.1", server_port=7861)
