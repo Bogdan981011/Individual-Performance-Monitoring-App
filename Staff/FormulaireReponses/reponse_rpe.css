@@ -18,8 +18,7 @@ h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 3rem;
     text-align: center;
-    color: transparent;
-    background-image: linear-gradient(to right, #005f99, #d90429);
+    color: #CC0A0A;
     -webkit-background-clip: text;
     background-clip: text;
     margin-bottom: 60px; /* un peu plus grand pour espacer */
@@ -49,8 +48,8 @@ h1 {
 .player-card h3 {
     font-size: 1.6rem;
     margin-bottom: 12px;
-    color: #005f99;
-    border-bottom: 2px solid #005f99;
+    color: #CC0A0A;
+    border-bottom: 2px solid #CC0A0A;
     padding-bottom: 6px;
 }
 

@@ -3,7 +3,7 @@
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
   // L'utilisateur n'est pas connecté, on le redirige
-  header("Location: /vizia/accueil.html");
+  header("Location: /vizia/accueil.php");
   exit;
 }
 
@@ -41,43 +41,6 @@ try {
     <title>Derniers RPE Joueurs</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="reponse_rpe.css">
-    <style>
-        /* Styles minimalistes pour le modal, adapte avec ton CSS */
-        .modal-overlay {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.5);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        .modal-overlay.active {
-            display: flex;
-        }
-        .modal {
-            background: #fff;
-            padding: 20px 30px;
-            border-radius: 8px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
-            position: relative;
-        }
-        .modal-close {
-            position: absolute;
-            top: 10px; right: 15px;
-            background: none;
-            border: none;
-            font-size: 28px;
-            cursor: pointer;
-            color: #333;
-        }
-        .modal p {
-            margin: 10px 0;
-            white-space: pre-wrap;
-        }
-    </style>
 </head>
 <body>
     <div class="back-button-container">

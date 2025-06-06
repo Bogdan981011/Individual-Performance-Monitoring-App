@@ -2,7 +2,7 @@
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
     // L'utilisateur n'est pas connecté, on le redirige
-    header("Location: /vizia/accueil.html");
+    header("Location: /vizia/accueil.php");
     exit;
 }
 ?>
@@ -22,27 +22,27 @@ if (!isset($_SESSION['user_id'])) {
 
     body {
       font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
+      background-color: #FBEAEA;
       padding: 20px;
       position: relative;
     }
 
     h1 {
       text-align: center;
-      color: var(--bleu);
+      color: var(--rouge);
     }
 
     h2 {
       text-transform: uppercase;
       text-align: center;
-      color: var(--bleu);
+      color: var(--rouge);
     }
 
     /* Style du bouton retour */
     .return-btn {
         position: fixed; /* Reste fixe même lors du défilement */
         top: 20px; /* Positionne le bouton à 20px du haut */
-        left: 20px; /* Positionne le bouton à 20px du côté gauche */
+        right: 20px;
         background-color: var(--rouge); /* Rouge pour le bouton */
         color: white;
         padding: 8px 14px;
@@ -80,7 +80,7 @@ if (!isset($_SESSION['user_id'])) {
     }
 
     th {
-      background-color: var(--bleu);
+      background-color: var(--rouge);
       color: white;
     }
 
@@ -114,7 +114,7 @@ if (!isset($_SESSION['user_id'])) {
 
     button[type="submit"] {
       padding: 10px 20px;
-      background-color: var(--bleu);
+      background-color: var(--rouge);
       color: white;
       border: none;
       border-radius: 6px;

@@ -1,51 +1,54 @@
 <?php
 
-session_start(); 
-if (!isset($_SESSION['user_id'])) {
-  // L'utilisateur n'est pas connecté, on le redirige
-  header("Location: /vizia/accueil.html");
-  exit;
-}
+  session_start(); 
+  if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.php");
+    exit;
+  }
 
-require '../../bd.php'; // adapte ce chemin selon ton arborescence
+  require_once '../../bd.php'; 
 
-$id_joueur = $_GET['id'] ?? 'demo'; // Valeur temporaire pour test
-
-// Récupérer id_eq et valider
-$id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
-if ($id_equipe === false) {
+  $id_joueur = $_GET['id']; 
+   
+  $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
+  if ($id_equipe === false) {
     echo "<p>Une erreur est survenue. Redirection...</p>";
     echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.php', 1000);</script>";
     exit;
-}
+  }    
 
-// Récupérer nom_equipe avec id_equipe
-$stmt = $pdo->prepare("SELECT nom_equipe FROM equipe WHERE id_equipe = :id");
-$stmt->execute(['id' => $id_equipe]);
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
+  // Récupère nom de l'équipe actuelle
+  $stmt = $pdo->prepare("SELECT nom_equipe FROM equipe WHERE id_equipe = :id");
+  $stmt->execute(['id' => $id_equipe]);
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$result) {
+  if (!$result) {
     echo "<p>Équipe introuvable. Redirection...</p>";
     echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.php', 1000);</script>";
     exit;
-}
+  }
 
-$equipe = strtolower(trim($result['nom_equipe']));
+  $nom = strtoupper(trim($result['nom_equipe']));
+  $equipe = strtolower(trim($result['nom_equipe']));
 
-// Déterminer l'URL de retour selon le nom de l'équipe
-$url_retour = '';
-if ($equipe === 'cadets a') {
-    $url_retour = '/vizia/Staff/Equipe/CadetA/cadetA.php';
-} elseif ($equipe === 'cadets b') {
-    $url_retour = '/vizia/Staff/Equipe/CadetB/cadetB.php';
-} elseif ($equipe === 'crabos') {
-    $url_retour = '/vizia/Staff/Equipe/crabos/crabos.php';
-} elseif ($equipe === 'espoirs') {
-    $url_retour = '/vizia/Staff/Equipe/espoirs/espoirs.php';
-} else {
-    // Par défaut, revenir à l'accueil si le nom d'équipe ne correspond pas à un cas connu
-    $url_retour = '../../accueil_staff.php';
-}
+  // Déterminer l'URL de retour selon l'équipe
+  switch ($equipe) {
+    case 'cadets a':
+      $url_retour = '/vizia/Staff/Equipe/CadetA/cadetA.php';
+      break;
+    case 'cadets b':
+      $url_retour = '/vizia/Staff/Equipe/CadetB/cadetB.php';
+      break;
+    case 'crabos':
+      $url_retour = '/vizia/Staff/Equipe/crabos/crabos.php';
+      break;
+    case 'espoirs':
+      $url_retour = '/vizia/Staff/Equipe/espoirs/espoirs.php';
+      break;
+    default:
+      $url_retour = '../../accueil_staff.php';
+  }
 ?>
 
 <!DOCTYPE html>
@@ -57,9 +60,6 @@ if ($equipe === 'cadets a') {
   <link rel="stylesheet" href="../../Styles/section.css" />
   <style>
     .btn-retour {
-      position: fixed;
-      top: 20px;
-      right: 20px;
       padding: 10px 15px;
       background-color: #CC0A0A;
       color: white;
@@ -74,19 +74,47 @@ if ($equipe === 'cadets a') {
   </style>
 </head>
 <body>
-  <div>
-    <a href="<?= htmlspecialchars($url_retour) ?>" class="btn-retour">
-        Retour au choix de formulaire
-    </a>
+  <?php 
+  $id_equipe = filter_input(INPUT_GET, 'id_eq', FILTER_VALIDATE_INT);
+  if ($id_equipe === false) {
+    echo "<p>Une erreur est survenue. Redirection...</p>";
+    echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.php', 1000);</script>";
+    exit;
+  }    
+  $stmt = $pdo->prepare("SELECT nom_equipe FROM equipe WHERE id_equipe =:id");
+  $stmt -> execute(['id' => $id_equipe]);
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  $nom = strtoupper(trim($result['nom_equipe']));
+
+  // Récupère toutes les équipes nécessaires
+  $stmt = $pdo->query("SELECT id_equipe, nom_equipe FROM equipe");
+  $equipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+  ?>
+  <div class="header-ruban">
+    <div class="ruban-section">
+        <?php foreach ($equipes as $equipe): 
+            $nomEquipe = strtoupper($equipe['nom_equipe']);
+            $activeClass = ($nom === $nomEquipe) ? 'active' : '';
+        ?>
+            <a href="choix_formulaire.php?id_eq=<?= $equipe['id_equipe'] ?>"
+            class="ruban-link <?= $activeClass ?>"
+            id="<?= strtolower(str_replace(' ', '', $nomEquipe)) ?>">
+            <?= $nomEquipe ?>
+            </a>
+        <?php endforeach; ?>
+        <a href="<?= htmlspecialchars($url_retour) ?>" class="btn-retour"> Retour</a>
+    </div>
   </div>
 
-  <h2 class="page-title">Réponses aux formulaires</h2>
-
   <div class="container">
-    <div class="option-section">
+      <div class="logo-section">
+        <img src="../../Images/logo.svg" alt="Logo ASBH" class="logo central-logo">
+  </div>
+
+  <div class="option-section">
       <a href="reponse_rpe.php?id_eq=<?= urlencode($id_equipe) ?>" class="btn-option">Réponse au formulaire RPE</a>
       <a href="reponse_wellness.php?id_eq=<?= urlencode($id_equipe) ?>" class="btn-option">Réponse au formulaire Wellness</a>
-    </div>
   </div>
 
 </body>

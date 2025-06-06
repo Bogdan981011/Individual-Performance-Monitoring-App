@@ -2,7 +2,7 @@
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
     // L'utilisateur n'est pas connecté, on le redirige
-    header("Location: /vizia/accueil.html");
+    header("Location: /vizia/accueil.php");
     exit;
 }
 ?>
@@ -21,7 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 
     body {
       font-family: Arial, sans-serif;
-      background-color: var(--gris);
+      background-color: #FBEAEA;
       margin: 0;
       padding: 0;
       display: flex;
@@ -34,13 +34,13 @@ if (!isset($_SESSION['user_id'])) {
 
     h1 {
       text-align: center;
-      color: var(--bleu);
+      color: var(--rouge);
     }
 
     h2 {
       text-transform: uppercase;
       text-align: center;
-      color: var(--bleu);
+      color: var(--rouge);
     }
 
     .search-bar {
@@ -71,7 +71,7 @@ if (!isset($_SESSION['user_id'])) {
     }
 
     th {
-      background-color: var(--bleu);
+      background-color: var(--rouge);
       color: white;
     }
 
@@ -98,7 +98,7 @@ if (!isset($_SESSION['user_id'])) {
 
     .btn-option {
       display: block;
-      background-color: var(--bleu);
+      background-color: var(--rouge);
       color: white;
       padding: 10px;
       margin-bottom: 10px;
@@ -116,7 +116,7 @@ if (!isset($_SESSION['user_id'])) {
     .return-btn {
         position: fixed; /* Reste fixe même lors du défilement */
         top: 20px; /* Positionne le bouton à 20px du haut */
-        left: 20px; /* Positionne le bouton à 20px du côté gauche */
+        right: 20px;
         background-color: var(--rouge); /* Rouge pour le bouton */
         color: white;
         padding: 8px 14px;
@@ -175,7 +175,7 @@ if (!isset($_SESSION['user_id'])) {
       display: block;
       margin: 30px auto;
       padding: 12px 24px;
-      background-color: var(--bleu);
+      background-color: var(--rouge);
       color: white;
       border: none;
       border-radius: 6px;
