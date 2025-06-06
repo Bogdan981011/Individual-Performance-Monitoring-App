@@ -1,0 +1,192 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Arial', sans-serif;
+
+  background-image: url('../Images/background.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.5);
+  overflow-x: hidden;
+  position: fixed;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.207);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Logo ASBH en haut */
+.asbh-section {
+  position: fixed;  /* Fixe le logo en haut */
+  top: 5vh;  /* Assure qu'il est bien en haut */
+  left: 50%;
+  transform: translateX(-50%);  /* Centré horizontalement */
+  z-index: 3;  /* S'assurer qu'il est au-dessus du reste */
+  text-align: center;
+  margin-top: 0; /* Assurez-vous qu'il n'y a pas de marge ajoutée */
+}
+
+.asbh-section .logo {
+  width: 40vw; /* Ajuste la taille du logo ASBH */
+  max-width: 160px;
+  height: auto;
+}
+
+/* Conteneur pour le logo central et le bouton de connexion */
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 90%;
+  max-width: 50vw;
+}
+
+/* Logo central (milieu de la page) */
+.central-logo {
+  width: 50%;
+  max-width: 40vw;
+  margin-top: 5vh; /* Si nécessaire, pour ajuster l'espacement avec le logo ASBH */
+}
+
+/* Section logo (centrée) */
+.logo-section {
+  position: relative;
+  top: -5vh; /* Réduis cette valeur pour faire monter le logo */
+  z-index: 2;
+}
+
+/* Logo principal central */
+.logo-section .logo {
+  width: 50%; /* Ajuste la taille du logo central */
+  max-width: 40vw;
+  height: auto;
+  margin-top: 20vh;
+
+}
+
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  text-align: center;
+  width: 90%;
+  max-width: 50vw;
+}
+
+/* Espacement ajusté entre le bouton et les crédits */
+.connect-btn {
+  display: inline-block;
+  margin-top: 20vh;  /* Réduit la marge pour plus de proximité avec les crédits */
+  background-color: #190C63;
+  color: white;
+  border: none;
+  padding: 1.2em 2.5em;
+  font-size: 2.2vh;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  text-decoration: none;
+}
+
+.credits {
+  margin-top: 2vh;  /* Espacement juste en dessous du bouton */
+  font-size: 1rem;
+  text-align: center;
+}
+
+.credits a {
+  color: #0d171e;  /* Couleur du lien */
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.credits a:hover {
+  text-decoration: underline;
+  color: #e42a09; /* Couleur du lien au survol */
+}
+
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 3vh;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+  padding: 0; /* Retire le padding horizontal */
+  z-index: 2;
+}
+
+.footer-img {
+  height: 3vh;  /* Taille raisonnable */
+  width: auto;
+  max-width: 20vw; /* Pour éviter que ça devienne trop large sur petits écrans */
+  flex-shrink: 0; /* Empêche les images de se rétrécir si trop d’éléments */
+  opacity: 0.85;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.footer-img:hover {
+  transform: scale(1.1);
+  opacity: 1;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 90vw;
+  }
+
+  .logo {
+    width: 70%;
+    max-width: 60vw;
+  }
+
+  .connect-btn {
+    font-size: 2.2vh;
+    padding: 2vh 8vw;
+    border-radius: 8vw;
+  }
+
+  .footer-img {
+    height: 4vh;
+    max-width: 25vw;
+  }
+
+  footer {
+    gap: 2vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-img:nth-child(n+4) {
+    display: none;
+  }
+  .credits {
+    font-size: 0.7rem;
+    padding: 2vh 10vw 3vh;
+  }
+}

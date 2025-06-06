@@ -1,0 +1,421 @@
+/* ============================ Style général ============================ */
+.page-title {
+    text-align: center;
+    margin-top: 10vh;
+    font-size: 2rem;
+    color: #CC0A0A;
+    font-weight: bold;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ffffff, #fbe3e3, #f6d4d4);
+    background-repeat: no-repeat;
+    background-size: cover; /* Couvre l'intégralité de la page */
+    background-attachment: fixed; /* Empêche le fond de se déplacer */
+    width: 100%; /* Assure que le body prend toute la largeur */
+   
+}
+
+
+
+
+
+.joueurs-container {
+    width: 90vw;
+    max-width: 800px;
+    margin: 5vh auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3vh;
+}
+
+.joueur-card {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f8f8f8;
+    padding: 2vh 2vw;
+    border-radius: 1vw;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.nom-joueur {
+    font-size: 1.2rem;
+    color: #333;
+    flex: 1 1 100%;
+    margin-bottom: 1vh;
+}
+
+
+
+
+.joueur-card .btn-container {
+    display: flex;
+    gap: 1.5vw;  /* plus d’espace entre les boutons */
+    flex-wrap: wrap;  /* boutons peuvent passer à la ligne */
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.btn-formulaire {
+    background-color: #CC0A0A;
+    color: white;
+    padding: 1.5vh 2vw;
+    border-radius: 0.5vw;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+    margin-left: 0; /* on gère l’espace avec gap du container */
+    min-width: 120px;
+    padding: 1.5vh 2vw;
+    text-align: center;
+}
+
+.btn-formulaire:hover {
+    background-color: #d93e00;
+    transform: scale(1.05);
+}
+
+/* ============================ Bouton retour ============================ */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    padding: 2vh 2vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    background-color: #fff;
+    
+    
+}
+
+
+/* Ruban fixe en haut */
+.header-ruban {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 55px;
+    background: linear-gradient(to right, #CC0A0A, #a40808);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.2rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 99;
+}
+
+/* Section du ruban pour les liens */
+.ruban-section {
+    display: flex;
+    justify-content: space-around; /* Espacement uniforme entre les sections */
+    width: 80%; /* Largeur du ruban */
+}
+
+/* Style des liens du ruban */
+.ruban-link {
+    font-family: 'Bebas Neue', sans-serif;
+    color: rgba(255, 255, 255, 0.666);
+    text-decoration: none;
+    padding: 10px 20px;
+    text-align: center;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.ruban-link:hover {
+    background-color: #a40808;
+    transform: scale(1.05);
+}
+
+/* Style pour la section active (grisée) */
+.ruban-link.active {
+    text-decoration: underline;
+    color: #aaa; /* Texte plus clair */
+    pointer-events: none;
+}
+
+
+
+.btn-retour {
+    font-family: Arial, sans-serif;
+    font-size: 14px; /* plus petit */
+    font-weight: normal; /* pas en gras */
+    background-color: #CC0A0A;
+    color: #f9f9f9; /* blanc légèrement adouci */
+    padding: 10px 20px; /* légèrement réduit */
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.btn-retour:hover {
+    background-color: #d93e00;
+    transform: scale(1.05);
+}
+
+
+/* ============================ Barre de recherche ============================ */
+.search-container {
+    width: 90%;
+    max-width: 500px;
+    margin: 3vh auto;
+    display: flex;
+    align-items: center;
+    border: none; 
+    border-radius: 25px;
+    padding: 0.5vh;
+    background-color: white; /* ✅ Tout blanc à l’intérieur */
+    box-sizing: border-box;
+}
+
+
+
+.search-bar {
+    flex: 1; /* prend tout l’espace disponible */
+    padding: 1vh 1vw;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    outline: none;
+    width: 100%;
+    box-sizing: border-box; /* évite que le padding agrandisse l'élément */
+}
+
+.search-btn {
+    background-color: transparent;
+    border: none;
+    padding: 1vh 1vw;
+    cursor: pointer;
+    color: #CC0A0A;
+    font-size: 1.2rem;
+}
+
+.search-btn:hover {
+    color: #d93e00;
+}
+
+.search-btn i {
+    font-size: 1.5rem;
+}
+/* Icône d'ouverture du chatbot */
+#chatbot-toggle {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 70px;
+  height: 70px;
+  background-color: #f5f7f9; /* Couleur sombre (ton neutre) */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Nouveau style pour l'image dans le bouton */
+#chatbot-toggle img {
+  width: 40px;  /* Ajuste la taille de l'image */
+  height: 40px; /* Ajuste la taille de l'image */
+  object-fit: cover; /* Assure que l'image ne se déforme pas et couvre le cercle */
+}
+
+/* Effet au survol du bouton */
+#chatbot-toggle:hover {
+  transform: scale(1.1) rotate(5deg); /* effet de rotation */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+
+
+#chatbot-toggle i {
+  color: white;
+  font-size: 32px;
+}
+
+/* Bulle de chat (élément interne) */
+#chat-bubble {
+  position: absolute;
+  bottom: -5px;
+  right: -5px;
+  width: 30px;
+  height: 30px;
+  background: #f04a00; /* Couleur d’accent */
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+#chat-bubble i {
+  font-size: 16px;
+}
+
+/* Conteneur du chatbot */
+#chat-container {
+  position: fixed;
+  bottom: 100px;
+  right: 20px;
+  width: 350px;
+  height: 400px;
+  background: linear-gradient(135deg, #ecf0f1, #bdc3c7); /* dégradé moderne et doux */
+  border: 1px solid #7f8c8d;
+  border-radius: 10px;
+  display: none;
+  z-index: 9999;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Contenu du chat */
+#chat-box {
+  height: 300px;
+  overflow-y: auto;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Messages du chatbot */
+#chat-content {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#chat-content p {
+  padding: 10px;
+  border-radius: 15px;
+  background-color: #ecf0f1; /* Couleur claire pour les messages */
+  max-width: 80%;
+  margin: 10px auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #34495e; /* Couleur plus foncée pour le texte */
+}
+
+/* Messages du bot avec une couleur différente */
+#chat-content .bot-message {
+  background-color: #bdc3c7;
+  color: #2c3e50;
+}
+
+#chat-content .user-message {
+  background-color: #f04a00;
+  color: white;
+  align-self: flex-end; /* Messages de l'utilisateur alignés à droite */
+}
+
+/* Champ de texte pour l'utilisateur */
+#chat-input {
+  width: 75%;
+  padding: 10px;
+  border: none;
+  border-top: 1px solid #ddd;
+  font-size: 1rem;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  background-color: #f8f8f8; /* Fond clair pour l'input */
+  color: #34495e;
+}
+
+/* Bouton d'envoi */
+#chat-container button {
+  width: 25%;
+  padding: 10px;
+  background: #f04a00;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  border-radius: 5px;
+}
+
+#chat-container button:hover {
+  background: #e74c3c;
+  transform: scale(1.05);
+}
+
+#chat-container button:focus {
+  outline: none;
+  border: 2px solid #d04a00;
+}
+
+@media (max-width: 768px) {
+
+    body.section-equipe .header {
+        position: static;
+        justify-content: flex-start;
+        padding: 2vh 5vw;
+    }
+
+    body.section-equipe .btn-retour {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+        margin-top: 2vh;
+        align-self: flex-start;
+    }
+
+    .ruban-section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* Deux colonnes de taille égale */
+        width: 100%;
+    }
+    .ruban-link {
+        font-size: 0.85rem;
+        padding: 5px;
+        text-align: center;
+        
+    }
+
+
+    .joueurs-container {
+        width: 95vw;
+    }
+
+    .btn-formulaire {
+        font-size: 0.9rem;
+        padding: 1vh 3vw;
+        margin-left: 0;
+        margin-top: 1vh;
+        width: 100%;  /* Fixe tous les boutons à occuper toute la largeur du conteneur */
+        max-width: 300px; /* Limite la largeur à 300px pour que les boutons ne soient pas trop larges */
+    }
+
+    .joueur-card .btn-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Aligne les boutons au centre */
+        width: 100%;
+        margin-top: 1vh;
+    }
+
+    .joueur-card a.btn-formulaire {
+        margin: 0.5vh 0;
+        width: 100%; /* Forcer tous les boutons à avoir la même largeur */
+        max-width: 300px; /* Limite à une largeur maximale */
+    }
+
+    .nom-joueur {
+        font-size: 1rem;
+    }
+}

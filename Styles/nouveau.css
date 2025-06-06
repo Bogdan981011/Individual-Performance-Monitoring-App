@@ -1,0 +1,156 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* Fixe l'image de fond sans qu'elle ne défile */
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../Images/background.svg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    z-index: -1;
+}
+
+
+/* Empêche le contenu d'être affecté par le position: fixed du background */
+body {
+    position: relative;
+}
+
+
+/* Style du texte "Connexion" */
+h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2em;
+    text-align: center;
+    color: #1D1442;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0.10vw 0.10vw 0.31vw rgba(0, 0, 0, 0.5);
+    margin-top: 2.22vh;
+}
+h2{
+    color: rgb(7, 7, 120);
+    font-family: 'Bebas Neue', sans-serif;
+    text-transform: uppercase;
+}
+/* Texte centré */
+p {
+    text-align: center;
+    color: black;
+    font-size: 1.2em;
+    margin-bottom: 2.22vh;
+}
+
+.form-container {
+    background-color: #fff;
+    border-radius: 0.92vw;
+    box-shadow: 0 0.21vw 0.42vw rgba(0, 0, 0, 0.2);
+    width: 28.83vw; 
+    margin: 4vh auto; 
+    padding: 3vh;
+    text-align: center;
+}
+
+.form-container h1,
+.form-container p {
+    text-align: center;
+    margin-bottom: 1.67vh;
+}
+
+/* Champs de formulaire */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: calc(100% - 1.04vw); /* 20px */
+    padding: 1.11vh;
+    margin: 1.11vh 0;
+    border: 0.05vw solid #ddd;
+    border-radius: 0.26vw;
+    font-size: 1em;
+    display: block;
+    box-sizing: border-box;
+}
+
+/* Bouton d'envoi */
+input[type="submit"] {
+    background-color: #CC0A0A;
+    color: white;
+    font-size: 1.1em;
+    padding: 1.11vh;
+    border: none;
+    border-radius: 0.26vw;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1.11vh;
+}
+
+/* Style bouton au survol */
+input[type="submit"]:hover {
+    background-color: #CC0A0A;
+}
+
+/* Liens */
+a {
+    color: #CC0A0A;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Conteneur de la barre (en haut à droite) */
+.header {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end; /* Cela pousse le bouton à droite */
+    padding: 10px 20px;
+    position: fixed;
+    top: 0; /* Positionné en haut de la page */
+    right: 0; /* Assure qu'il est à droite de l'écran */
+    background-color: transparent;
+    z-index: 10; /* Assure que le bouton est au-dessus des autres éléments */
+}
+
+/* Style du bouton retour */
+.btn-retour {
+    background-color: #CC0A0A;
+    color: white;
+    padding: 1.5vh 2vw;
+    border-radius: 0.5vw;
+    text-decoration: none; /* Empêche le soulignement du lien */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 1rem;
+    position: fixed; /* Le bouton reste fixe quand on fait défiler la page */
+    top: 20px; /* Ajuste selon l'endroit où tu veux le placer verticalement */
+    right: 4vw; /* Le bouton est fixé à droite avec un léger décalage */
+    z-index: 1000; /* Assure-toi qu'il soit au-dessus des autres éléments */
+}
+
+.btn-retour:hover {
+    background-color: #d93e00;
+    transform: scale(1.05); /* Effet de zoom au survol */
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        width: 80vw;
+        margin: 16vh auto; /* auto centre horizontalement */
+        padding: 4vh 4vw;
+        border-radius: 4vw;
+        box-shadow: 0 0 4vw rgba(0, 0, 0, 0.2);
+    }
+}
+
+

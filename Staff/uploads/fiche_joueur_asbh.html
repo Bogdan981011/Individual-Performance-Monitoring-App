@@ -1,0 +1,134 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fiche Joueur ASBH</title>
+  <style>
+    /* Général */
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
+      color: #1a1a1a;
+    }
+
+    /* Header */
+    .header {
+      background: linear-gradient(to right, #002766, #d72638);
+      color: white;
+      padding: 30px 0;
+    }
+
+    .container {
+      display: flex;
+      align-items: center;
+      margin: 0 20px; /* Marge pour que le header soit de la même largeur que .card */
+      max-width: 1200px; /* Limite de largeur pour garder l'aspect harmonieux */
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .container img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 3px solid white;
+      margin-right: 20px;
+    }
+
+    .player-name {
+      font-size: 28px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .container div {
+      text-align: right;
+      flex: 1;
+    }
+
+    /* Card */
+    .card {
+      background-color: #fff;
+      border-radius: 20px;
+      margin: 10px 20px;
+      padding: 15px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      font-size: 18px;
+      color: #002766;
+      margin-bottom: 8px;
+    }
+
+    /* Navigation */
+    .nav {
+      display: flex;
+      justify-content: center;
+      padding: 10px 0;
+      background-color: #fff;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: #555;
+      padding: 10px 20px;
+    }
+
+    .nav button.active {
+      color: #d72638;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="container">
+      <img src="player.jpg" alt="Photo du joueur" />
+      <div>
+        <p class="player-name">Julien Durant</p>
+        <p><strong>ASBH</strong> - Équipe</p>
+        <p><strong>Flanker</strong> - Poste</p>
+        <p><strong>01/01/1999</strong> - Naissance</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Section Infos Générales -->
+  <div id="infos" class="section active">
+    <div class="card">
+      <h3>Profil Physique</h3>
+      <div class="physique-row">
+        <p><strong>Âge :</strong> 25 ans</p>
+        <p><strong>Poids :</strong> 88 kg</p>
+        <p><strong>Taille :</strong> 1.88 m</p>
+        <p><strong>IMG :</strong> 12%</p>
+        <p><strong>GMC :</strong> 34</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <div class="nav">
+    <button onclick="showSection('infos')" class="active">Infos</button>
+  </div>
+
+  <script>
+    function showSection(id) {
+      document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.nav button').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      document.querySelector(`.nav button[onclick="showSection('${id}')"]`).classList.add('active');
+    }
+  </script>
+
+</body>
+</html>

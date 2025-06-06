@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crédits – ASBH</title>
+  <link rel="stylesheet" href="Styles/acceuil.css">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    body {
+      background: url('background.jpg') no-repeat center center/cover;
+      font-family: 'Segoe UI', sans-serif;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .credit-container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 40px 20px;
+      text-align: center;
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 15px;
+      margin-top: 30px;
+    }
+
+    h1, h2 {
+      color: #091e63;
+    }
+
+    .developers {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 25px;
+      margin-top: 30px;
+    }
+
+    .dev-card {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      padding: 25px;
+      width: 230px;
+      transition: transform 0.3s ease;
+    }
+
+    .dev-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .dev-card h3 {
+      margin-bottom: 10px;
+    }
+
+    .dev-card a {
+      text-decoration: none;
+      color: #002a44;
+      font-weight: bold;
+      display: inline-block;
+    }
+
+    .dev-card a:hover {
+      color: #0077b6;
+    }
+
+    .linkedin-icon {
+      font-size: 1.5em;
+      color: #0077b5;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .linkedin-icon:hover {
+      color: #005582;
+    }
+    .back-wrapper {
+        margin-top: 30px;
+        text-align: center;
+    }
+
+    .back-link {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #091e63;
+        color: white;
+        border-radius: 25px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .back-link:hover {
+        background-color: #005288;
+        transform: translateY(-2px);
+    }
+
+
+  </style>
+</head>
+<body>
+
+<div class="credit-container">
+    <h1>À propos du projet</h1>
+    <p>Ce site a été réalisé dans le cadre d’un stage universitaire à DELL Technologies.</p>
+
+    <h2>Université Paul-Valéry</h2>
+    <p>Fondée en 1970, l’université Paul-Valéry Montpellier 3 est une université centrée sur les sciences humaines et sociales, les lettres, les langues et les arts.</p>
+
+    <h2>Licence MIASHS</h2>
+    <p>MIASHS signifie Mathématiques et Informatique Appliquées aux Sciences Humaines et Sociales. Cette licence permet d’acquérir des compétences transversales entre la technique (maths, info, data) et les sciences humaines (économie, psycho, cognition...).</p>
+
+    <h2>Les développeurs</h2>
+    <div class="developers">
+      <div class="dev-card">
+        <h3><a href="https://www.linkedin.com/in/rawendzaier" target="_blank">Rawend Zaier</a></h3>
+        <p>Étudiante en MIASHS</p>
+        <a href="https://www.linkedin.com/in/rawendzaier" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div class="dev-card">
+        <h3><a href="https://www.linkedin.com/in/melaniegomis" target="_blank">Mélanie Gomis</a></h3>
+        <p>Étudiante en MIASHS</p>
+        <a href="https://www.linkedin.com/in/melaniegomis" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+      </div>
+      <div class="dev-card">
+        <h3><a href="https://www.linkedin.com/in/bogdaniordache" target="_blank">Bogdan Iordache</a></h3>
+        <p>Étudiant en MIASHS</p>
+        <a href="https://www.linkedin.com/in/bogdaniordache" target="_blank" class="linkedin-icon"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+    <div class="back-wrapper">
+        <a href="accueil.html" class="back-link">Retour à l’accueil</a>
+    </div>
+
+  
+</body>
+</html>
