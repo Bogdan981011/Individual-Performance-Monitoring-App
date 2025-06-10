@@ -2,7 +2,7 @@
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
     // L'utilisateur n'est pas connecté, on le redirige
-    header("Location: /vizia/accueil.php");
+    header("Location: /vizia/accueil.html");
     exit;
 }
 
