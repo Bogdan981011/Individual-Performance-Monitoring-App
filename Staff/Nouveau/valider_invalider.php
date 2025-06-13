@@ -80,28 +80,33 @@ if ($type === 'joueur') {
     <meta charset="UTF-8">
     <title>Liste des Membres</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background-color: #f2f4f8; color: #333; }
-        h1 { text-align: center; margin-bottom: 30px; color: #222; }
+        body { font-family: 'Segoe UI', 
+            sans-serif; padding: 30px; 
+            background: url('../../Images/background.svg') no-repeat center center fixed;
+            background-size: cover;
+        }
+        h1 { text-align: center; margin-bottom: 30px; color: white; }
         .selector { text-align: center; margin-bottom: 30px; }
         select, input[type="text"], button {
             padding: 8px 12px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc;
         }
-        button { background-color: #0066cc; color: white; border: none; cursor: pointer; }
+        button { background-color:rgb(197, 0, 0); color: white; border: none; cursor: pointer; }
         .searchbar { margin-top: 15px; }
         .columns { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
         .column {
-            flex: 1; min-width: 300px; max-width: 500px; background-color: #fff;
+            flex: 1; min-width: 300px; max-width: 500px; background-color: white;
             padding: 20px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+            opacity: 0.95;
         }
-        h2 { text-align: center; color: #0066cc; margin-top: 0; }
+        h2 { text-align: center; color:rgb(204, 0, 0); margin-top: 0; }
         .card {
-            background: #f9fafc; border: 1px solid #e1e5ec; padding: 15px; margin: 10px 0;
+            background:rgb(232, 39, 0); border: 1px solid white(225, 229, 236, 0.63); padding: 15px; margin: 10px 0;
             border-radius: 8px; transition: background 0.2s, border 0.2s; cursor: pointer;
         }
-        .card:hover { background: #eef3f8; }
-        .card.selected { border: 2px solid #007bff; background-color: #dceeff; }
-        .card strong { font-size: 17px; color: #222; }
-        .card em { color: #666; font-size: 14px; }
+        .card:hover { background:rgb(145, 6, 6); }
+        .card.selected { border: 5px solid black; background-color:rgb(145, 6, 6); }
+        .card strong { font-size: 17px; color: white; }
+        .card em { color: rgb(255,255,255); font-size: 14px; }
         .actions { text-align: center; margin-top: 30px; }
         @media (max-width: 768px) {
             .columns { flex-direction: column; gap: 20px; }
@@ -130,7 +135,7 @@ if ($type === 'joueur') {
 </head>
 <body>
     <div class="return-btn-container">
-        <a href="../accueil_staff.php" class="btn-retour">Retour à l'accueil</a>
+        <a href="../accueil_staff.php" class="return-btn">Retour à l'accueil</a>
     </div>
 
     <h1>Liste des <?= $type === 'staff' ? 'Membres du Staff' : 'Joueurs' ?></h1>

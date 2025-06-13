@@ -67,23 +67,35 @@ $data_filtered = $type === 'joueur' ? filterByName($players, $search) : filterBy
     <meta charset="UTF-8">
     <title>Supprimer un Membre</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background-color: #f8f9fb; color: #333; }
-        h1 { text-align: center; margin-bottom: 30px; color: #b00020; }
+        body { font-family: 'Segoe UI', sans-serif; padding: 30px; background: url('../../Images/background.svg') no-repeat center center fixed;
+            background-size: cover; }
+        h1 { text-align: center; margin-bottom: 30px; color:rgb(255, 255, 255); }
         .selector { text-align: center; margin-bottom: 30px; }
         select, input[type="text"], button {
             padding: 8px 12px; font-size: 16px; border-radius: 6px; border: 1px solid #ccc;
         }
         button { background-color: #b00020; color: white; border: none; cursor: pointer; }
+        button:hover {background-color: rgb(139, 27, 27);}
         .searchbar { margin-top: 15px; }
-        .cards { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; }
+        .cards {background:rgba(255, 255, 255, 0.71);              /* white background */
+                padding: 20px;                    /* inner spacing */
+                border-radius: 12px;              /* rounded corners */
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* soft drop-shadow */
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 20px;
+                opacity : 0.98
+            }
         .card {
-            background: #fff; border: 1px solid #e1e5ec; padding: 15px;
+            background: rgb(232, 16, 16); border: 1px solid rgb(255, 0, 0); padding: 15px;
             border-radius: 8px; width: 280px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;
+             opacity: 0.95;
         }
-        .card:hover { background: #fff2f2; }
-        .card.selected { border: 2px solid #b00020; background-color: #ffe6e6; }
-        .card strong { font-size: 17px; color: #222; }
-        .card em { color: #666; font-size: 14px; }
+        .card:hover { background:rgb(185, 6, 6); }
+        .card.selected { border: 5px solid rgb(67, 0, 12); background-color:rgb(149, 17, 17); }
+        .card strong { font-size: 17px; color: white; }
+        .card em { color: white; font-size: 14px; }
         .actions { text-align: center; margin-top: 30px; }
         @media (max-width: 768px) {
             .cards { flex-direction: column; align-items: center; }
@@ -110,7 +122,7 @@ $data_filtered = $type === 'joueur' ? filterByName($players, $search) : filterBy
 <body>
 
     <div class="return-btn-container">
-        <a href="../accueil_staff.php" class="btn-retour">Retour à l'accueil</a>
+        <a href="../accueil_staff.php" class="return-btn">Retour à l'accueil</a>
     </div>
 
     <h1>Supprimer <?= $type === 'staff' ? 'un Membre du Staff' : 'un Joueur' ?></h1>
