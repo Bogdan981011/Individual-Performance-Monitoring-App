@@ -55,8 +55,8 @@ if (strlen($reprise) > 500) {
     exit;
 }
 
-if (strpos($dateInput, '/') !== false) {
-    $parts = explode('/', $dateInput);
+if (strpos($date, '/') !== false) {
+    $parts = explode('/', $date);
     if (count($parts) === 3) {
         $date = sprintf('%04d-%02d-%02d', $parts[2], $parts[1], $parts[0]);
     } else {
@@ -64,9 +64,8 @@ if (strpos($dateInput, '/') !== false) {
         echo "Format de date invalide.";
         exit;
     }
-} else {
-    $date = $dateInput;
 }
+
 
 // Vérification que la date est bien une date valide
 if (!strtotime($date)) {

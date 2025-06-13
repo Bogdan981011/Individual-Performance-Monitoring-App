@@ -41,6 +41,7 @@ try {
     <title>Derniers RPE Joueurs</title>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="reponse_rpe.css">
+<<<<<<< HEAD
     <style>
         /* Styles minimalistes pour le modal, adapte avec ton CSS */
         .modal-overlay {
@@ -78,6 +79,8 @@ try {
             white-space: pre-wrap;
         }
     </style>
+=======
+>>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
 </head>
 <body>
     <div class="back-button-container">

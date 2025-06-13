@@ -38,31 +38,38 @@ if (!isset($_SESSION['user_id'])) {
       color: var(--rouge);
     }
 
-    /* Style du bouton retour */
     .return-btn {
-        position: fixed; /* Reste fixe même lors du défilement */
-        top: 20px; /* Positionne le bouton à 20px du haut */
-        right: 20px;
-        background-color: var(--rouge); /* Rouge pour le bouton */
-        color: white;
-        padding: 8px 14px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-        text-decoration: none; /* Enlève le soulignement */
-        transition: background-color 0.3s;
-        z-index: 1000; /* S'assure que le bouton soit au-dessus des autres éléments */
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background-color: var(--rouge);
+      color: white;
+      padding: 8px 14px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
     }
 
     .return-btn:hover {
-        background-color: #0e0640; /* Changement de couleur au survol */
+      background-color: #0e0640;
     }
 
+    .date-section .row {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+    }
 
-    .date-section {
-      margin-bottom: 20px;
-      text-align: center;
+    .date-section .input-group {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 150px;
     }
 
     table {
@@ -143,7 +150,7 @@ if (!isset($_SESSION['user_id'])) {
       .error-message { font-size: 10px; }
     }
   </style>
-  <script src="testfonctionnel.js"></script>
+  <script src="perf_globale.js"></script>
 </head>
 <body>
   <?php
@@ -160,30 +167,53 @@ if (!isset($_SESSION['user_id'])) {
   $result = $stmt->fetch(PDO::FETCH_ASSOC);
   ?>
 
-  <a href="../../sectiontests.php?id_eq=<?= $id_equipe ?>" class="return-btn">Retour à la selection du test</a>
+  <a href="../../section_perf_globale.php?id_eq=<?= $id_equipe ?>" class="return-btn">Retour à la section</a>
 
-  <h1>Tableau de Tests Fonctionnels</h1>
+  <h1>Performance de l'équipe <br><?= htmlspecialchars($result['nom_equipe']) ?></h1>
 
-  <h2><?= htmlspecialchars($result['nom_equipe']) ?></h2>
-
-  <form method="post" action="enregistrer_fonctionnel.php">
+  <form method="post" action="save_perf.php?id_eq=<?= $id_equipe ?>">
     <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
 
     <div class="date-section">
-      <label for="date">Date :</label>
-      <input type="date" id="date" name="date" required><div class="error-message"></div>
-    </div>
+      <div class="row">
+        <div class="input-group">
+          <label for="eq_advers">Nom Équipe Adversaire :</label>
+          <input type="text" id="eq_advers" name="eq_advers" required>
+          <div class="error-message"></div>
+        </div>
+        <div class="input-group">
+          <label for="lieu_match">Lieu Match :</label>
+          <input type="text" id="lieu_match" name="lieu_match" required>
+          <div class="error-message"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-group">
+          <label for="date_match">Date du match :</label>
+          <input type="date" id="date_match" name="date_match" required>
+          <div class="error-message"></div>
+        </div>
+        <div class="input-group">
+          <label for="sc_eq_asbh">Score Equipe ASBH :</label>
+          <input type="number" id="sc_eq_asbh" name="sc_eq_asbh" min="0" required>
+          <div class="error-message"></div>
+        </div>
+        <div class="input-group">
+          <label for="sc_eq_adv">Score Adversaire :</label>
+          <input type="number" id="sc_eq_adv" name="sc_eq_adv" min="0" required>
+          <div class="error-message"></div>
+        </div>
+      </div>
+    </div>  
+
 
     <table>
       <thead>
         <tr>
           <th>Nom</th>
           <th>Prénom</th>
-          <th>Squat d'Arraché</th>
-          <th>ISO Leg Curl</th>
-          <th>Souplesse Chaîne Postérieure</th>
-          <th>Flamant Rose / Équilibre</th>
-          <th>Souplesse Membres Supérieurs</th>
+          <th>Minutes Joués</th>
         </tr>
       </thead>
       <tbody>
@@ -199,44 +229,22 @@ if (!isset($_SESSION['user_id'])) {
           $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
           foreach ($joueurs as $joueur) {
-            if($joueur['validite']) {
+            if ($joueur['validite'])
             ?>
-              <tr>
-                <td style="display: none;">
-                  <input type="hidden" class="id_joueur" name="id_joueur" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
-                </td>
+            <tr>
+              <td style="display: none;">
+                <input type="hidden" class="id_joueur" name="id_joueur[]" value="<?= htmlspecialchars($joueur['id_joueur']) ?>">
+              </td>
 
-                <td> <span class="fakeinput"><?= htmlspecialchars($joueur['nom']) ?></span></td>
+              <td><?= htmlspecialchars($joueur['nom']) ?></td>
 
-                <td><span class="fakeinput"><?= htmlspecialchars($joueur['prenom']) ?></span></td>
+              <td><?= htmlspecialchars($joueur['prenom']) ?></td>
 
-                <td>
-                  <input type="text" name="squat" class="note">
-                  <div class="error-message"></div>
-                </td>
-
-                <td>
-                  <input type="text" name="iso" class="note">
-                  <div class="error-message"></div>
-                </td>
-
-                <td>
-                  <input type="text" name="souplesse" class="note">
-                  <div class="error-message"></div>
-                </td>
-
-                <td>
-                  <input type="text" name="flamant" class="note">
-                  <div class="error-message"></div>
-                </td>
-
-                <td>
-                  <input type="text" name="haut" class="note">
-                  <div class="error-message"></div>
-                </td>
-              </tr>
-              <?php
-            }
+              <td>
+                <input type="number" id="mins" name="mins_played[]" min="0" placeholder="0 si pas marqué" style ="text-align: center"><div class="error-message"></div>
+              </td>
+            </tr>
+            <?php
           }
 
         } catch (PDOException $e) {
@@ -252,6 +260,5 @@ if (!isset($_SESSION['user_id'])) {
       <button type="submit">Enregistrer</button>
     </div>
   </form>
-
 </body>
 </html>

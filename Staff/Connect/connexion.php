@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
    // Préparer la requête pour récupérer l'utilisateur basé sur l'e-mail
     try {
-        $stmt = $pdo->prepare("SELECT id_staff, mdp, role FROM Staff WHERE email = :email");
+        $stmt = $pdo->prepare("SELECT id_staff, mdp, role, validite FROM Staff WHERE email = :email");
         $stmt->bindParam(':email', $email, PDO::PARAM_STR);
         $stmt->execute();
 
@@ -35,19 +35,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $hashed_password = $user['mdp'];
             $user_id = $user['id_staff'];
             $role = $user['role'];
+            $validite = $user['validite'];
 
             // Vérifier le mot de passe
             if (password_verify($password, $hashed_password)) {
-                // Si le mot de passe est correct, créer une session
-                $_SESSION['user_id'] = $user_id;
-                $_SESSION['user_email'] = $email;
-                $_SESSION['role'] = $role;
-                $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 
-                echo 'ok';
+                if($validite) {
+                    // Si le mot de passe est correct, créer une session
+                    $_SESSION['user_id'] = $user_id;
+                    $_SESSION['user_email'] = $email;
+                    $_SESSION['role'] = $role;
+                    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+                    echo 'ok';
+                } else {
+                    echo 'Compte soumis à une invalidation.';
+                }
             } else {
                 // Si le mot de passe est incorrect
-                echo "email ou mot de passe incorrect.";
+                echo "Email ou mot de passe incorrect.";
             }
         } else {
             // Si l'utilisateur n'existe pas

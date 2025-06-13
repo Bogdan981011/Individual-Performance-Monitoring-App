@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="modif_joueur.js"></script>
 </head>
 <body>
-    <a  id="btn-retour" class="btn-retour" href="../accueil_staff.html">Retour</a>
+    <a  id="btn-retour" class="btn-retour" href="../accueil_staff.php">Retour</a>
 
 <div class="form-container">
     <?php
@@ -27,7 +27,7 @@ if (!isset($_SESSION['user_id'])) {
         $id_joueur = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
         if ($id_joueur === false) {
             echo "<p>Une erreur est survenue. Redirection...</p>";
-            echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.html', 1000);</script>";
+            echo "<script>setTimeout(() => window.location.href = '../../accueil_staff.php', 1000);</script>";
             exit;
         }
 

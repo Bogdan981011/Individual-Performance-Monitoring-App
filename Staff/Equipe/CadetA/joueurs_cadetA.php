@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
 <?php 
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
@@ -45,7 +48,7 @@ if (!isset($_SESSION['user_id'])) {
 
     try {
         $stmt = $pdo->prepare("
-          SELECT nom, prenom, id_joueur
+          SELECT nom, prenom, id_joueur, validite
           FROM joueur
           JOIN equipe ON joueur.id_equipe = equipe.id_equipe
           WHERE equipe.nom_equipe = :nom_equipe
@@ -54,19 +57,21 @@ if (!isset($_SESSION['user_id'])) {
         $stmt->execute(['nom_equipe' => 'Cadets A']);
         $joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         foreach ($joueurs as $joueur) {
+          if($joueur['validite']) {
           ?>
-          <div class="joueur-card">
-            <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
-            <div class="btn-container">
+            <div class="joueur-card">
+              <span class="nom-joueur"><?= htmlspecialchars($joueur['prenom']) . " " . htmlspecialchars($joueur['nom']) ?></span>
+              <div class="btn-container">
 
-              <a href="../../Modification/modif_joueur.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire"> Modifier les informations</a>
-              <a href="../../../Joueur/Fiche_joueur/performance.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Tests et Performance</a>
-              <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'kine' || $_SESSION['role'] === 'admin')): ?>
+                <a href="../../Modification/modif_joueur.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire"> Modifier les informations</a>
+                <a href="../../../Joueur/Fiche_joueur/performance.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Tests et Performance</a>
+                <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'kine' || $_SESSION['role'] === 'admin')): ?>
                   <a href="../../Formulaire/Medical/formmedical.php?id=<?= $joueur['id_joueur'] ?>&eq=A" class="btn-formulaire">Formulaire médical</a>
-              <?php endif; ?>
+                <?php endif; ?>
+              </div>
             </div>
-          </div>
           <?php
+          }
         }
 
     } catch (PDOException $e) {

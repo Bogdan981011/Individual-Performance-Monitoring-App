@@ -53,7 +53,7 @@ try {
     $joueurs = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Tests fonctionnels
-    $stmt = $pdo->prepare("SELECT squat_arrache, iso_leg_curl, souplesse_chaine_post, flamant_rose, souplesse_membres_supérieurs, date_test FROM tests_fonctionnnels WHERE id_joueur = :id ORDER BY date_test DESC");
+    $stmt = $pdo->prepare("SELECT squat_arrache, iso_leg_curl, souplesse_chaine_post, flamant_rose, souplesse_membres_supérieurs, date_test FROM tests_fonctionnels WHERE id_joueur = :id ORDER BY date_test DESC");
     $stmt->execute(['id' => $user_id]);
     $tests = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -142,3 +142,4 @@ foreach ($mesures_all as $m) {
     $historique_mesures[$type]['valeurs'][] = $valeur;
 }
 ?>
+

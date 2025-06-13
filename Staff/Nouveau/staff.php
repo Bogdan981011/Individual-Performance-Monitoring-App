@@ -74,7 +74,7 @@ if (!isset($_SESSION['user_id'])) {
 </head>
 <body>
     <div class="header">
-        <a href="../accueil_staff.html" class="btn-retour">Retour à l'accueil</a>
+        <a href="../accueil_staff.php" class="btn-retour">Retour à l'accueil</a>
     </div>
     <h2>Création de Compte - Staff</h2>
 

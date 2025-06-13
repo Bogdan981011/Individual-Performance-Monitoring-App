@@ -1,3 +1,12 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -15,8 +24,8 @@
             <a href="../CadetA/cadetA.php" class="ruban-link" id="cadetsA">CADETS A</a>
             <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
             <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
+            <a href="../../accueil_staff.php" class="btn-retour">Accueil</a>
         </div>
-        <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
     
@@ -40,7 +49,7 @@
         ?>
 
         <div class="option-section">
-            <a href="../../perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>            <a href="joueurs_crabos.php" class="btn-option">Liste des joueurs</a>
+            <a href="../../section_perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>            <a href="joueurs_crabos.php" class="btn-option">Liste des joueurs</a>
             <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>
             <a href="../../FormulaireReponses/choix_formulaire.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Réponses aux formulaires</a>
         </div>

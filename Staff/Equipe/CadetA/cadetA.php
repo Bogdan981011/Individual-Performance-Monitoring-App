@@ -23,8 +23,8 @@ if (!isset($_SESSION['user_id'])) {
             <a href="cadetA.php" class="ruban-link active" id="cadetsA">CADETS A</a>
             <a href="../CadetB/cadetB.php" class="ruban-link" id="cadetsB">CADETS B</a>
             <a href="../Espoirs/espoirs.php" class="ruban-link" id="espoirs">ESPOIRS</a>
+            <a href="../../accueil_staff.php" class="btn-retour">Accueil</a>
         </div>
-        <a href="../../accueil_staff.html" class="btn-retour">Accueil</a>
     </div>
 
     <div class="container">
@@ -46,7 +46,7 @@ if (!isset($_SESSION['user_id'])) {
         ?>
 
         <div class="option-section">
-            <a href="../../perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>
+            <a href="../../section_perf_globale.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Performance Globale</a>
             <a href="joueurs_cadetA.php" class="btn-option">Liste des joueurs</a>
             <?php if (isset($_SESSION['role']) && ($_SESSION['role'] === 'pp' || $_SESSION['role'] === 'admin')): ?>
                 <a href="../../sectiontests.php?id_eq=<?= $result['id_equipe'] ?>" class="btn-option">Tests</a>

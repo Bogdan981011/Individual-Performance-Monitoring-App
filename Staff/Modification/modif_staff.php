@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     <script src="modif.js"></script>
 </head>
 <body>
-    <a id="btn-retour" class="btn-retour" href="../accueil_staff.html">Retour</a>
+    <a id="btn-retour" class="btn-retour" href="../accueil_staff.php">Retour</a>
 
 <div class="form-container">
     

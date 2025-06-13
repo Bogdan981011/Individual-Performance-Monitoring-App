@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     }else if (equipe === "E") {
                         window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
                     } else {
-                        window.location.href = `/vizia/Staff/accueil_staff.html`;
+                        window.location.href = `/vizia/Staff/accueil_staff.php`;
                     }
                 }, 1000); // Redirection après succès
             } else {

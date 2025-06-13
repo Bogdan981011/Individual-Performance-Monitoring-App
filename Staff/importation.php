@@ -99,7 +99,7 @@ unset($_SESSION['message']);
 </head>
 <body>
     <div class="header">
-        <a href="sectiontests.html" class="btn-retour">⬅ Retour</a>
+        <a href="sectiontests.php" class="btn-retour">⬅ Retour</a>
     </div>
 
     <div class="logo-section">

@@ -259,7 +259,7 @@ if (userRole) {
       retourURL = "/vizia/Staff/accueil_staff.html";
   }
 } else {
-  retourURL = '../accueil_joueur.html'; // ✅ Correction ici
+  retourURL = '../accueil_joueur.php'; // ✅ Correction ici
 }
 
 document.getElementById('btn-retour').href = retourURL;
@@ -272,3 +272,4 @@ document.getElementById('btn-retour').href = retourURL;
 
 </body>
 </html>
+

@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             if (data.includes("ok")) {
                 afficherSucces("Mot de passe modifié avec succès.");
-                setTimeout(() => { window.location.href =`../accueil_joueur.html`}, 1000);
+                setTimeout(() => { window.location.href =`../accueil_joueur.php`}, 1000);
             } else {
                 afficherErreur("Erreur : " + data);
             }

@@ -1,3 +1,28 @@
+<?php 
+session_start(); 
+if (!isset($_SESSION['user_id'])) {
+    // L'utilisateur n'est pas connecté, on le redirige
+    header("Location: /vizia/accueil.html");
+    exit;
+}
+
+require_once '../bd.php';
+
+try {
+    $stmt = $pdo->prepare("
+        SELECT nom, prenom
+        FROM joueur
+        WHERE id_joueur = :id_staff
+    ");
+
+    $stmt->execute(['id_staff' => $_SESSION['user_id'] ]);
+    $staff = $stmt->fetch(PDO::FETCH_ASSOC);
+
+} catch (PDOException $e) {
+    echo "Erreur : " . $e->getMessage();
+}
+?>
+<?php include('../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -23,7 +48,7 @@
         </div>
 
         <!-- Message de bienvenue avec effet pop-up -->
-        <h2 class="welcome-message">Félicitations, vous êtes maintenant connecté !</h2>
+        <h2 class="welcome-message">Bienvenue <?= $staff['prenom'] . ' ' . $staff['nom'] ?></h2>
 
         <!-- Section des options -->
         <div class="option-section">

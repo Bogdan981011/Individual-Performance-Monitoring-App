@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function () {
         .then(data => {
             if (data.includes("ok")) {
                 afficherSuccès("Connexion réussie !");
-                setTimeout(() => window.location.href = '../accueil_joueur.html', 1000);
+                setTimeout(() => window.location.href = '../accueil_joueur.php', 1000);
             } else {
                 afficherErreur("Erreur : " + data);
             }
