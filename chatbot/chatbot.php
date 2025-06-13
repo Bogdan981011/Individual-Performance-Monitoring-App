@@ -1,9 +1,10 @@
 <?php
-include(__DIR__ . '/../bd.php');
+include( '../bd.php');
  // Assure-toi que ce fichier contient bien la connexion PDO : $conn
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
 
 
 if (!isset($_SESSION['user_id'])) {

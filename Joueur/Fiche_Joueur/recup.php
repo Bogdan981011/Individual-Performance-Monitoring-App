@@ -1,6 +1,7 @@
 <?php
-session_start();
-$host = 'localhost';
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}$host = 'localhost';
 $dbname = 'vizia';
 $username = 'root';
 $password = 'root';
