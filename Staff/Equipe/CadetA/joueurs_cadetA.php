@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
 <?php 
 session_start(); 
 if (!isset($_SESSION['user_id'])) {
@@ -10,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
-
+<?php include('../../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

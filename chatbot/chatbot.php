@@ -1,32 +1,3 @@
-<?php
-include( '../bd.php');
- // Assure-toi que ce fichier contient bien la connexion PDO : $conn
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-
-
-if (!isset($_SESSION['user_id'])) {
-    // Rediriger ou bloquer l'accès
-    die("Accès non autorisé.");
-}
-
-$userId = $_SESSION['user_id'];
-
-// Déterminer le rôle si pas encore défini
-if (!isset($_SESSION['role'])) {
-    $stmt = $pdo->prepare("SELECT role FROM staff WHERE id_staff = ?");
-
-    $stmt->execute([$userId]);
-    $staff = $stmt->fetch();
-
-    $_SESSION['role'] = $staff ? 'staff' : 'joueur';
-}
-
-$role = $_SESSION['role'];
-?>
-
 <style>
     #chatbot-toggle {
         position: fixed;
@@ -99,34 +70,37 @@ $role = $_SESSION['role'];
 <!-- Overlay pour fermer le chatbot -->
 <div id="chat-overlay"></div>
 
-<!-- Conteneur iframe du chatbot --> 
+<!-- Conteneur iframe du chatbot -->
 <div id="chat-container">
-    <iframe src="http://127.0.0.1:7860?userId=<?php echo urlencode($userId); ?>&role=<?php echo urlencode($role); ?></iframe>
+    <iframe src="http://127.0.0.1:7860"></iframe>
 </div>
 
-
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const toggleButton = document.getElementById('chatbot-toggle');
-    const chatContainer = document.getElementById('chat-container');
-    const chatOverlay = document.getElementById('chat-overlay');
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleButton = document.getElementById('chatbot-toggle');
+        const chatContainer = document.getElementById('chat-container');
+        const chatOverlay = document.getElementById('chat-overlay');
 
-    // Masquer le chatbot au démarrage
-    if (chatContainer) chatContainer.style.display = 'none';
-    if (chatOverlay) chatOverlay.style.display = 'none';
+        // Forcer la fermeture au départ
+        chatContainer.style.display = 'none';
+        chatOverlay.style.display = 'none';
 
-    if (toggleButton && chatContainer && chatOverlay) {
-        toggleButton.addEventListener('click', () => {
-            const isVisible = chatContainer.style.display === 'block';
-            chatContainer.style.display = isVisible ? 'none' : 'block';
-            chatOverlay.style.display = isVisible ? 'none' : 'block';
-        });
+        if (toggleButton && chatContainer && chatOverlay) {
+            toggleButton.addEventListener('click', () => {
+                const isVisible = chatContainer.style.display === 'block';
+                chatContainer.style.display = isVisible ? 'none' : 'block';
+                chatOverlay.style.display = isVisible ? 'none' : 'block';
+            });
 
-        chatOverlay.addEventListener('click', () => {
-            chatContainer.style.display = 'none';
-            chatOverlay.style.display = 'none';
-        });
-    }
-});
+            chatOverlay.addEventListener('click', () => {
+                chatContainer.style.display = 'none';
+                chatOverlay.style.display = 'none';
+            });
+        }
+    });
+
 </script>
+
+
+
 

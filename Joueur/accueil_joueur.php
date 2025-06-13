@@ -33,8 +33,9 @@ try {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     
 </head>
-<body>
 
+<body>
+    <?php include __DIR__ . '/../chatbot/chatbot.php'; ?>
     <!-- Bouton retour -->
     <div class="header">
         <a href="../deconnexion.php" class="btn-retour">Déconnexion</a>
@@ -59,61 +60,8 @@ try {
         </div>
     </div>
 
-    <!-- Overlay pour flouter le fond (optionnel) -->
-    <div id="chat-overlay"></div>
+  
 
-    <!-- Chatbot button -->
-    <div id="chatbot-toggle">
-        <img src="../Images/logochatbot.png" alt="Chatbot Rugby Ball" id="chatbot-image">
-    </div>
-
-    <!-- Container du chatbot -->
-    <div id="chat-container">
-        <iframe 
-            src="http://127.0.0.1:7861"
-            width="100%" 
-            height="100%" 
-            style="border: none;">
-        </iframe>
-    </div>
-
-    <script>
-        const toggleButton = document.getElementById('chatbot-toggle');
-        const chatContainer = document.getElementById('chat-container');
-
-        // Forcer fermeture au départ
-        chatContainer.style.display = 'none';
-
-        toggleButton.addEventListener('click', () => {
-            if (chatContainer.style.display === 'none' || chatContainer.style.display === '') {
-                chatContainer.style.display = 'block';
-            } else {
-                chatContainer.style.display = 'none';
-            }
-        });
-
-
-       function sendMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
-            if (message === '') return;
-
-            const chatContent = document.getElementById('chat-content');
-            const userMessage = document.createElement('p');
-            userMessage.innerHTML = `<strong>Vous :</strong> ${message}`;
-            chatContent.appendChild(userMessage);
-
-            // Simuler une réponse automatique du bot
-            const botMessage = document.createElement('p');
-            botMessage.innerHTML = `<strong>JobBot :</strong> Merci pour votre message, nous reviendrons vers vous rapidement.`;
-            chatContent.appendChild(botMessage);
-
-            // Scroll vers le bas pour voir le dernier message
-            chatContent.scrollTop = chatContent.scrollHeight;
-
-            input.value = ''; // Effacer l'input
-        }
-    </script>
 
 </body>
 </html>
