@@ -88,10 +88,10 @@ $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
         .stats { display: flex; justify-content: space-around; margin-bottom: 30px; }
         .stat-box {
             background: white;
-            padding: 20px;
+            padding: 1vw;
             border-radius: 12px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            width: 200px;
+            width: 20vw;
             text-align: center;
         }
         table {
@@ -102,7 +102,7 @@ $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
         th, td {
-            padding: 12px;
+            padding: 2vh 5vw;
             border: 1px solid #ccc;
         }
         th {
