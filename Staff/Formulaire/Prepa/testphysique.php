@@ -21,11 +21,7 @@ if (!isset($_SESSION['user_id'])) {
 
     body {
       font-family: Arial, sans-serif;
-<<<<<<< HEAD
-      background-color: var(--gris);
-=======
       background-color: #FBEAEA;
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
       margin: 0;
       padding: 0;
       display: flex;
@@ -38,21 +34,13 @@ if (!isset($_SESSION['user_id'])) {
 
     h1 {
       text-align: center;
-<<<<<<< HEAD
-      color: var(--bleu);
-=======
       color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
     }
 
     h2 {
       text-transform: uppercase;
       text-align: center;
-<<<<<<< HEAD
-      color: var(--bleu);
-=======
       color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
     }
 
     .search-bar {
@@ -83,11 +71,7 @@ if (!isset($_SESSION['user_id'])) {
     }
 
     th {
-<<<<<<< HEAD
-      background-color: var(--bleu);
-=======
       background-color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
       color: white;
     }
 
@@ -114,11 +98,7 @@ if (!isset($_SESSION['user_id'])) {
 
     .btn-option {
       display: block;
-<<<<<<< HEAD
-      background-color: var(--bleu);
-=======
       background-color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
       color: white;
       padding: 10px;
       margin-bottom: 10px;
@@ -136,11 +116,7 @@ if (!isset($_SESSION['user_id'])) {
     .return-btn {
         position: fixed; /* Reste fixe même lors du défilement */
         top: 20px; /* Positionne le bouton à 20px du haut */
-<<<<<<< HEAD
-        left: 20px; /* Positionne le bouton à 20px du côté gauche */
-=======
         right: 20px;
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
         background-color: var(--rouge); /* Rouge pour le bouton */
         color: white;
         padding: 8px 14px;
@@ -199,11 +175,7 @@ if (!isset($_SESSION['user_id'])) {
       display: block;
       margin: 30px auto;
       padding: 12px 24px;
-<<<<<<< HEAD
-      background-color: var(--bleu);
-=======
       background-color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
       color: white;
       border: none;
       border-radius: 6px;
