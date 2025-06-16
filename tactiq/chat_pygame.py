@@ -843,14 +843,17 @@ def text_input_to_players_with_ball(text):
             current_player.actions.append({"type": "possess_ball", "wait": wait})
 
         elif line.startswith("- pass to"):
-            match = re.search(r'Player\s+(\d+)', line, re.IGNORECASE)
+            print(match)
             speed_match = re.search(r'speed\s+(\d+)', line)
             wait_match = re.search(r'wait\s+(\d+)', line)
             if match:
-                target_id = int(match.group(1))
-                speed = int(speed_match.group(1)) if speed_match else 10
-                wait = int(wait_match.group(1)) if wait_match else 0
-                current_player.actions.append(("pass_to", target_id, speed, wait))
+                target_label = match.group(1).strip()
+                target_player = next((p for p in players if p.label == target_label), None)
+                if target_player:
+                    speed = int(speed_match.group(1)) if speed_match else 10
+                    wait = int(wait_match.group(1)) if wait_match else 0
+                    current_player.actions.append(("pass_to", target_player.id, speed, wait))
+
 
         elif line.startswith("- kick to"):
             match = re.search(r'\((\d+),\s*(\d+)\)', line)
@@ -1146,30 +1149,31 @@ def _on_send(message, history, model, prompt):
     return fn(message, history, prompt)
 
 dsl_commands = {
-    "player_block": "Player <name>:",
-    "player_position": "- at (x, y)",
-    "player_label": "- label <string>",
-    "player_color": "- color (r, g, b)",
-    "player_move": "- move to (x, y), wait <int>, speed <int>, color (r, g, b)",
-    "player_possess_ball": "- possess ball [wait <int>]",
-    "player_pass": "- pass to Player <id>, wait <int>, speed <int>",
-    "player_kick": "- kick to (x, y), wait <int>, speed <int>",
-    "player_trail": "- trails true/false",
-    "player_arrow": "- arrow true/false",
-    "player_card": "- card warning/yellow/red",
-    "player_max_speed": "- max_speed <int>",
-    "player_foul": "- foul on Player <id> card <warning|yellow|red>",
+    "Débute un bloc de définition pour un joueur": "Player <name>: \n - at (x, y)",
+    "Positionne initialement le joueur aux coordonnées (x, y)": "- at (x, y)",
+    "Définit un label personnalisé pour le joueur": "- label <string>",
+    "Spécifie la couleur RGB du joueur": "- color (r, g, b)",
+    "Ajoute un déplacement avec délai, vitesse et couleur": "- move to (x, y), wait <int>, speed <int>, color (r, g, b)",
+    "Fait prendre possession du ballon par le joueur après un éventuel délai": "- possess ball [wait <int>]",
+    "Fait une passe au joueur ciblé": "- pass to Player <label>, wait <int>, speed <int>",
+    "Frapper vers une position ciblé": "- kick to (x, y), wait <int>, speed <int>",
+    "Active ou désactive la traînée du déplacement": "- trails true/false",
+    "Active ou désactive la flèche de direction et de vitesse": "- arrow true/false",
+    "Attribue un carton (warning, yellow, red) au joueur": "- card warning/yellow/red",
+    "Spécifie la vitesse maximale autorisée pour le joueur": "- max_speed <int>",
+    "Déclare une faute sur un autre joueur avec sanction": "- foul on Player <id> card <warning|yellow|red>",
 
-    "formation_generate": "Generate <n> players in formation <line|circle> from (x1, y1) to (x2, y2) center(x, y) radius(r) color(r, g, b) speed <int> prefix(name)",
+    "Génère plusieurs joueurs selon une formation en ligne ou circulaire": "Generate <n> players in formation <line|circle> from (x1, y1) to (x2, y2) center(x, y) radius(r) color(r, g, b) speed <int> prefix(name)",
 
-    "ball_block": "Ball:",
-    "ball_at": "- at (x, y)",
+    "Débute un bloc de définition pour un ballon": "Ball:",
+    "Positionne le ballon aux coordonnées (x, y)": "- at (x, y)",
 
-    "zone_define": "- zone name <label> at (x, y) size (w, h) appear <int> disappear <int>",
+    "Définit une zone avec nom, position, taille, et durée d'affichage": "- zone name <label> at (x, y) size (w, h) appear <int> disappear <int>",
 
-    "phase_header": "Phase <n>",
-    "reset_frame": "resetAtFrame <int>",
+    "Démarre une nouvelle phase de jeu": "Phase <int>",
+    "Déclenche le changement de phase à une frame donnée": "resetAtFrame <int>",
 }
+
 
 
 
@@ -1177,31 +1181,74 @@ dsl_commands = {
 
 system_prompt = f"""
 
-VOUS ÊTES : un parseur de tactiques de rugby strict et infaillible.  
-VOTRE UNIQUE TÂCHE est de convertir une description en français d’un jeu en notre DSL d’animation.  
+VOUS ÊTES : un parseur de tactiques de rugby **strict** et **infaillible**.  
+VOTRE UNIQUE TÂCHE : convertir une description en français d’une phase de jeu en notre DSL d’animation personnalisée.
 
-#### RÈGLES INDISCUTABLES  
-1. **Sortie brute uniquement** : renvoyez **exclusivement** des lignes DSL, une commande par ligne, sans explication, sans préfixe, sans guillemets, sans bloc de code (autre que celui-ci pour le JSON).  
-2. **Ne produisez aucun code** : pas de ```python```, pas de balises Markdown, pas de JSON en sortie — seulement du DSL.  
-3. **Respectez à la lettre le schéma** suivant des commandes autorisées : {dsl_commands}
+---
+
+### 🎯 RÈGLES INDISCUTABLES
+
+1. **Sortie brute uniquement**  
+   → Ne retournez que des **lignes DSL valides**, **une commande par ligne**, sans aucun commentaire ni explication.
+
+2. **Zéro formatage ou code**  
+   ❌ Pas de ```python```, pas de balises Markdown, pas de JSON, pas de bloc de code.
+
+3. **Strict respect du schéma autorisé**  
+   ✅ Toutes les commandes doivent correspondre exactement à celles ci-dessous :  
+   {dsl_commands}
+
+4. Tout joueur à qui un carton (- card) est attribué doit avoir une position définie avec - at (x, y).
+
+5. Toute commande `- move to` doit inclure un `wait` strictement supérieur à 5 (`wait > 5`).
+
+6. Avant toute faute (`- foul on Player <id>`), les deux joueurs concernés (celui qui fait la faute et celui qui la subit) doivent être entièrement définis avec un bloc `Player`, incluant chacun une position (`- at (x, y)`).
+
+7. Le joueur qui commet la faute doit se déplacer vers la position de la cible à l’aide d’une commande `- move to`, avec `wait > 5`, juste avant `- foul on`.
+
+8. Toute commande * - pass to * doit être placée dans le bloc du joueur qui effectue la passe.
 
 
-EXAMPLES:
-1) Demande: Je veux un joueur qui bouge sur le terrain 
-   Réponse:
-        Player 1:
-        - at (200, 200)
-        - move to (400, 400), wait 5
+---
 
-2) Demande: Donne moi un joueur qui possede le ballon
-   Réponse:
-        Player 1:
-        - at (300, 400)
-        - possess ball
+### 🧪 EXEMPLES
 
-Maintenant, convertissez la consigne suivante en DSL :
+1) Demande : Je veux un joueur qui bouge sur le terrain  
+   Réponse :  
+       Player 1:  
+       - at (200, 200)  
+       - move to (400, 400), wait 5
 
+2) Demande : Donne moi un joueur qui possède le ballon  
+   Réponse :  
+       Player 1:  
+       - at (300, 400)  
+       - possess ball
+
+3) Demande : Tom va passer au Bog
+   Réponse : 
+        Player Bog:  
+       - at (100, 200)  
+        Player Tom:  
+       - at (300, 400)  
+       - possess ball
+       - pass to Player Bog, wait 5
+
+4) Demande : Jane va faire un faute sur Mick
+   Réponse : 
+        Player Jane:  
+       - at (300, 400)  
+       - move to (100, 200)
+       - foul on Player Mick
+       Player Mick:  
+       - at (100, 200)  
+       
+
+---
+
+Maintenant, **convertissez la consigne suivante en DSL** :
 """
+
 
 
 
