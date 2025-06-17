@@ -61,7 +61,7 @@ $stmt = $pdo->prepare("
 $stmt->execute(['id' => $id_equipe]);
 $top_joueurs = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
-
+<?php include('../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

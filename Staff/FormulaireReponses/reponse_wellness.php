@@ -30,6 +30,7 @@ try {
     $erreur = "Erreur de base de données : " . $e->getMessage();
 }
 ?>
+<?php include('../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

@@ -6,7 +6,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
-
+<?php include('../../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -152,6 +152,7 @@ if (!isset($_SESSION['user_id'])) {
   </style>
   <script src="perf_globale.js"></script>
 </head>
+
 <body>
   <?php
   require_once '../../../bd.php';
