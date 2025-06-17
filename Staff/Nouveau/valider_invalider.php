@@ -73,7 +73,7 @@ if ($type === 'joueur') {
     $invalid_filtered = filterByName($invalid_staff, $search);
 }
 ?>
-
+<?php include('../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

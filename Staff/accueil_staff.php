@@ -52,7 +52,7 @@ try {
             <a href="Equipe/CadetA/cadetA.php" class="btn-option">CADETS A</a>
             <a href="Equipe/CadetB/cadetB.php" class="btn-option">CADETS B</a>
             <a href="Equipe/Espoirs/espoirs.php" class="btn-option">ESPOIRS</a>
-            <a href="Nouveau/creer.html" class="btn-option">Gérer les accès</a>
+            <a href="Nouveau/creer.php" class="btn-option">Gérer les accès</a>
             <a href="Modification/modif_staff.php" class="btn-option">Changer de mot de passe</a>
         </div>
     </div>

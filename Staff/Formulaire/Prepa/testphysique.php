@@ -6,141 +6,43 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 ?>
-
+<?php include('../../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <title>Test Physique - ASBH</title>
-  <style> 
+  <style>
     :root {
       --bleu: #190C63;
       --rouge: #CC0A0A;
-      --gris: #f4f4f4;
+      --orange: #F9A825;
+      --vert: #00C853;
     }
 
     body {
       font-family: Arial, sans-serif;
-<<<<<<< HEAD
-      background-color: var(--gris);
-=======
       background-color: #FBEAEA;
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
-      margin: 0;
-      padding: 0;
-      display: flex;
-    }
-
-    .main-container {
-      flex: 1;
       padding: 20px;
+      position: relative;
     }
 
     h1 {
       text-align: center;
-<<<<<<< HEAD
-      color: var(--bleu);
-=======
       color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
     }
 
     h2 {
       text-transform: uppercase;
       text-align: center;
-<<<<<<< HEAD
-      color: var(--bleu);
-=======
       color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
-    }
-
-    .search-bar {
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    .search-bar input[type="text"] {
-      width: 60%;
-      padding: 8px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-
-    table {
-      width: 80%;
-      margin: 0 auto;
-      background-color: white;
-      border-collapse: collapse;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    th, td {
-      padding: 10px;
-      border: 1px solid #ddd;
-      text-align: center;
-    }
-
-    th {
-<<<<<<< HEAD
-      background-color: var(--bleu);
-=======
-      background-color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
-      color: white;
-    }
-
-    input[type="text"], input[type="number"], input[type="date"] {
-      width: 90%;
-      padding: 6px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      text-align: center;
-    }
-
-    .fakeinput{
-      padding: 4px 75px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      text-align: center;
-      font-weight: bold;
-    }
-
-    .error-message {
-      color: red;
-      font-size: 12px;
-    }
-
-    .btn-option {
-      display: block;
-<<<<<<< HEAD
-      background-color: var(--bleu);
-=======
-      background-color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
-      color: white;
-      padding: 10px;
-      margin-bottom: 10px;
-      text-align: center;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 14px;
-    }
-
-    .btn-option:hover {
-      background-color: #0e0640;
     }
 
     /* Style du bouton retour */
     .return-btn {
         position: fixed; /* Reste fixe même lors du défilement */
         top: 20px; /* Positionne le bouton à 20px du haut */
-<<<<<<< HEAD
-        left: 20px; /* Positionne le bouton à 20px du côté gauche */
-=======
         right: 20px;
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
         background-color: var(--rouge); /* Rouge pour le bouton */
         color: white;
         padding: 8px 14px;
@@ -157,95 +59,89 @@ if (!isset($_SESSION['user_id'])) {
         background-color: #0e0640; /* Changement de couleur au survol */
     }
 
-    .date-section-flex {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 20px;
+
+    .date-section {
       margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .select-test select {
-      width: 100%;
-      padding: 6px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
       text-align: center;
-      font-size: 16px;
+    }
+
+    table {
+      width: 80%;
+      border-collapse: collapse;
       background-color: white;
-      appearance: none; 
-      box-sizing: border-box;
-      background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Cpath fill='none' stroke='%23190C63' stroke-width='2' d='M1 1l6 6 6-6'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 10px center;
-      background-size: 14px 10px;
-      }
-
-    .date-field, .select-test {
-      display: flex;
-      align-items: center; 
-      flex-direction: column;
-      flex: 1;
-      min-width: 250px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin: 0 auto;
     }
 
-    .date-field input, .select-test select {
-      width: 100%;
-      box-sizing: border-box;
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
       text-align: center;
     }
 
-    .save-button {
-      display: block;
-      margin: 30px auto;
-      padding: 12px 24px;
-<<<<<<< HEAD
-      background-color: var(--bleu);
-=======
+    th {
       background-color: var(--rouge);
->>>>>>> ebb6bb0acf976b5bd17e3cf143c97f4d3fd0155d
+      color: white;
+    }
+
+    input[type="text"], input[type="date"] {
+      width: 90%;
+      padding: 4px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+    
+    .fakeinput{
+      padding: 4px 25px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .A { background-color: var(--vert); color: white; }
+    .EA { background-color: var(--orange); color: black; }
+    .NA { background-color: var(--rouge); color: white; }
+
+    .error-message {
+      color: red;
+      font-size: 12px;
+      margin-top: 4px;
+      text-align: center;
+    }
+
+    button[type="submit"] {
+      padding: 10px 20px;
+      background-color: var(--rouge);
       color: white;
       border: none;
       border-radius: 6px;
-      font-size: 16px;
-      font-weight: bold;
       cursor: pointer;
-      transition: background-color 0.3s;
+      font-weight: bold;
+      margin-top: 20px;
+      
     }
-
-    .save-button:hover {
+    button[type="submit"]:hover {
       background-color: #a10808;
     }
 
+    /* Responsive Design */
     @media (max-width: 768px) {
-      .main-container, .sidebar {
-        padding: 10px;
-      }
+      table { width: 100%; font-size: 14px; }
+      .return-btn { font-size: 12px; padding: 6px 10px; }
+      input[type="text"], input[type="date"] { width: 95%; padding: 6px; font-size: 14px; }
+      th, td { padding: 6px; }
+      h1 { font-size: 24px; }
+    }
 
-      table {
-        width: 100%;
-        font-size: 14px;
-      }
-
-      .search-bar input {
-        width: 90%;
-      }
-
-      .sidebar {
-        width: 100%;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .btn-option {
-        width: 45%;
-        margin: 5px;
-      }
-
-      body {
-        flex-direction: column;
-      }
+    @media (max-width: 480px) {
+      .return-btn { top: 10px; right: 10px; }
+      h1 { font-size: 20px; }
+      input[type="text"], input[type="date"] { font-size: 12px; }
+      table { width: 100%; font-size: 12px; }
+      .error-message { font-size: 10px; }
     }
   </style>
   <script src="testphysique.js"></script>
@@ -357,7 +253,10 @@ if (!isset($_SESSION['user_id'])) {
       </table>
 
       <!--  BOUTON ENREGISTRER -->
-      <button class="save-button">Enregistrer</button>
+      <div style="text-align: center; margin-top: 20px;">
+        <button type="submit">Enregistrer</button>
+      </div>
+
   
     </form>
   </div>

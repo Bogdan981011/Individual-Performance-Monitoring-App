@@ -35,7 +35,6 @@ try {
 </head>
 
 <body>
-    <?php include __DIR__ . '/../chatbot/chatbot.php'; ?>
     <!-- Bouton retour -->
     <div class="header">
         <a href="../deconnexion.php" class="btn-retour">Déconnexion</a>

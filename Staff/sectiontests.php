@@ -46,7 +46,7 @@
             $url_retour = '../../accueil_staff.php';
     }
 ?>
-
+<?php include('../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

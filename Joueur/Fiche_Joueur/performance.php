@@ -1,14 +1,20 @@
 <?php 
-session_start(); 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();}
 if (!isset($_SESSION['user_id'])) {
-  // L'utilisateur n'est pas connecté, on le redirige
+  var_dump($_SESSION); // TEMPORAIRE pour debug
   header("Location: /vizia/accueil.html");
   exit;
 }
 
 include_once 'recup.php'; // ou require_once 'recup.php';
 ?>
-<?php include('../../chatbot/chatbot.php'); ?>
+<?php
+if (isset($_SESSION['role'])) {
+    include('../../chatbot/chatbot.php');
+}
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -221,7 +227,6 @@ include_once 'recup.php'; // ou require_once 'recup.php';
     <button onclick="showSection('infos')" class="active"><span>📄</span>Infos</button>
     <button onclick="showSection('medical')"><span>🩺</span>Médical</button>
     <button onclick="showSection('tests')"><span>🏋️</span>Tests</button>
-    <button onclick="showSection('graphes')"><span>📊</span>Visualiser</button>
   </div>
 
   <!-- JS -->
@@ -256,7 +261,7 @@ if (userRole) {
       retourURL = "/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php";
       break;
     default:
-      retourURL = "/vizia/Staff/accueil_staff.html";
+      retourURL = "/vizia/Staff/accueil_staff.php";
   }
 } else {
   retourURL = '../accueil_joueur.php'; // ✅ Correction ici

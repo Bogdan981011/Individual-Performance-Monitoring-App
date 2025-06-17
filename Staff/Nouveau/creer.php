@@ -1,3 +1,4 @@
+<?php include('../../chatbot/chatbot.php'); ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
