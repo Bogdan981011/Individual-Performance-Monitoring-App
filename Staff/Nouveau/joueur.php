@@ -114,7 +114,8 @@ if (!isset($_SESSION['user_id'])) {
         <a href="../accueil_staff.php" class="btn-retour">Retour à l'accueil</a>
     </div>
     <h2>Création de Compte - Joueur</h2> 
-    <form method="get" action="enregistrement.php" autocomplete="off">
+    <form action="traitement_joueur.php" method="POST" enctype="multipart/form-data">
+>
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <div id="personnes">
             <!-- Une première personne affichée par défaut -->
@@ -133,19 +134,23 @@ if (!isset($_SESSION['user_id'])) {
                 </p>
                 <p>
                     <label>Nom :</label>
-                    <input type="text" name="nom"><span class="error-message"></span>
+                    <input type="text" name="nom[]"><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Prénom :</label>
-                    <input type="text" name="prenom"><span class="error-message"></span>
+                    <input type="text" name="prenom[]"><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Adresse e-mail :</label>
-                    <input type="email" name="mail"><span class="error-message"></span>
+                    <input type="email" name="email[]"><span class="error-message"></span>
                 </p>
                 <p>                    
                     <label>Mot de passe provisoire :</label>
-                    <input type="text" name="mdp"><span class="error-message"></span>
+                    <input type="text" name="mdp[]"><span class="error-message"></span>
+                </p>
+                <p>
+                    <label>Photo :</label>
+                    <input type="file" name="photo[]" accept="image/png,image/jpeg,image/webp">
                 </p>
             </div>
         </div>

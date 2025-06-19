@@ -37,6 +37,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 <label>Mot de passe provisoire :</label>
                 <input type="text" name="mdp"><span class="error-message"></span>
             </p>
+            <p>
+                <label>Photo :</label>
+                <input type="file" name="photo[]" accept="image/png,image/jpeg,image/webp">
+                <span class="error-message"></span>
+            </p>
+
     
         `;
         container.appendChild(personne);
@@ -185,18 +191,28 @@ document.addEventListener('DOMContentLoaded', function () {
                 mdp
             });
         });
+        const formData = new FormData();
+        formData.append('csrf_token', csrfToken);
 
+        personnes.forEach((personne, index) => {
+            formData.append('nom[]', personne.querySelector('input[name="nom"]').value.trim());
+            formData.append('prenom[]', personne.querySelector('input[name="prenom"]').value.trim());
+            formData.append('email[]', personne.querySelector('input[name="email"]').value.trim());
+            formData.append('equipe[]', personne.querySelector('select[name="equipe"]').value);
+            formData.append('mdp[]', personne.querySelector('input[name="mdp"]').value.trim());
+
+            const fileInput = personne.querySelector('input[type="file"]');
+            if (fileInput.files.length > 0) {
+                formData.append('photo[]', fileInput.files[0]);
+            } else {
+                formData.append('photo[]', ''); // vide si aucune photo
+            }
+        });
         fetch('save_joueur.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-           
-            body: JSON.stringify({ 
-                joueurs: joueurs, 
-                csrf_token: csrfToken  
-            })
+            body: formData
         })
+
         .then(response => response.text())
         .then(data => {
             if (data.includes("ok")) {
