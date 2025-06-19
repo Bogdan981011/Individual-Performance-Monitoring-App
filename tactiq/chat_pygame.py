@@ -843,7 +843,7 @@ def text_input_to_players_with_ball(text):
             current_player.actions.append({"type": "possess_ball", "wait": wait})
 
         elif line.startswith("- pass to"):
-            print(match)
+            match = re.search(r'Player\s+([\w\-]+)', line, re.IGNORECASE)
             speed_match = re.search(r'speed\s+(\d+)', line)
             wait_match = re.search(r'wait\s+(\d+)', line)
             if match:
@@ -886,7 +886,7 @@ def text_input_to_players_with_ball(text):
 
 
         elif line.startswith("- foul on"):
-            match = re.search(r'Player\s+(\d+)', line, re.IGNORECASE)
+            match = re.search(r'Player\s+([\w\-]+)', line, re.IGNORECASE)
             card_match = re.search(r'card\s+(warning|yellow|red)', line, re.IGNORECASE)
             if match:
                 target_id = int(match.group(1))
@@ -1115,10 +1115,12 @@ def generate_multi_action_animation(user_input, duration):
 
 
 models = {
-    "codellama": chat_with_codellama,
+    "codellama:7b-instruct": chat_with_codellama,
     "tinyllama": chat_with_tinyllama,
     "gemma": chat_with_gemma,
     "phi": chat_with_phi,
+    "mistral:7b-instruct" : chat_with_mistral,
+    "llama3" : chat_with_llama3
 }
 
 legend = """
@@ -1202,11 +1204,9 @@ VOTRE UNIQUE TÂCHE : convertir une description en français d’une phase de je
 
 5. Toute commande `- move to` doit inclure un `wait` strictement supérieur à 5 (`wait > 5`).
 
-6. Avant toute faute (`- foul on Player <id>`), les deux joueurs concernés (celui qui fait la faute et celui qui la subit) doivent être entièrement définis avec un bloc `Player`, incluant chacun une position (`- at (x, y)`).
+6. Le joueur qui commet la faute doit se déplacer vers la position de la cible à l’aide d’une commande `- move to`, avec `wait > 5`, juste avant `- foul on`.
 
-7. Le joueur qui commet la faute doit se déplacer vers la position de la cible à l’aide d’une commande `- move to`, avec `wait > 5`, juste avant `- foul on`.
-
-8. Toute commande * - pass to * doit être placée dans le bloc du joueur qui effectue la passe.
+7. Toute commande * - pass to * doit être placée dans le bloc du joueur qui effectue la passe.
 
 
 ---
@@ -1226,23 +1226,48 @@ VOTRE UNIQUE TÂCHE : convertir une description en français d’une phase de je
        - possess ball
 
 3) Demande : Tom va passer au Bog
-   Réponse : 
+   ** Bon Réponse ** : 
         Player Bog:  
-       - at (100, 200)  
+       - at (100, 200)
+        Player Tom:  
+       - at (300, 400)  
+       - possess ball
+       - pass to Player Bog, wait 5
+    ** Mauvaise Réponse 1 ** : 
+        Player Tom:  
+       - at (300, 400)  
+       - possess ball
+       - pass to Player Bog, wait 5
+       Player Bog:  
+       - at (100, 200)
+    ** Mauvaise Réponse 2 ** : 
         Player Tom:  
        - at (300, 400)  
        - possess ball
        - pass to Player Bog, wait 5
 
 4) Demande : Jane va faire un faute sur Mick
-   Réponse : 
+   ** Bon Réponse ** : 
+        Player Mick:  
+       - at (100, 200)  
         Player Jane:  
        - at (300, 400)  
        - move to (100, 200)
        - foul on Player Mick
-       Player Mick:  
-       - at (100, 200)  
+    ** Mauvaise Réponse 1 ** :  
+        Player Jane:  
+       - at (300, 400)  
+       - move to (100, 200)
+       - foul on Player Mick
+        Player Mick:  
+       - at (100, 200)
+    ** Mauvaise Réponse 2 ** :  
+        Player Jane:  
+       - at (300, 400)  
+       - move to (100, 200)
+       - foul on Player Mick 
        
+
 
 ---
 
@@ -1332,7 +1357,6 @@ what i have :
     
 
     ** Fri **
-    - review all the small points
     - give a rag to a llm
     - link the llm with the animation system
 """

@@ -1,33 +1,42 @@
 import ollama
+from ordering_dsl import *
 
 """
 =======================================
         -- General Function --
 =======================================
 """
-def build_chat(model_name, message, history, prompt=""):
+def build_chat(model_name, message, history, prompt="", temperature=0.0, top_p=0.9, max_tokens=512):
     if history is None:
         history = []
 
-    # Convert history to OpenAI-style message list
     messages = [{"role": "system", "content": prompt}]
     for user_msg, bot_msg in history:
         messages.append({"role": "user", "content": user_msg})
         messages.append({"role": "assistant", "content": bot_msg})
-
     messages.append({"role": "user", "content": message})
 
-    # Get response from Ollama
     try:
-        response = ollama.chat(model=model_name, messages=messages)
+        response = ollama.chat(
+            model=model_name,
+            messages=messages,
+            options={
+                "temperature": temperature,
+                "top_p": top_p,
+                "num_predict": max_tokens,
+                "stop" : ["###"]
+            }
+        )
         reply = response["message"]["content"]
+
+        # Verifier text
+        ordered_reply = process_dsl_pipeline(reply)
     except Exception as e:
         reply = f"❌ Error: {e}"
 
-    # Append to Gradio history as (user, assistant)
-    history.append((message, reply))
+    history.append((message, ordered_reply))
+    return history, history
 
-    return history, history  # Gradio expects (chatbot_output, state)
 
 
 """
@@ -47,4 +56,10 @@ def chat_with_gemma(message, history, prompt=""):
 
 def chat_with_phi(message, history, prompt=""):
     return build_chat("phi", message, history, prompt=prompt)
+
+def chat_with_mistral(message, history, prompt=""):
+    return build_chat("mistral:7b-instruct", message, history, prompt=prompt)
+
+def chat_with_llama3(message, history, prompt=""):
+    return build_chat("llama3", message, history, prompt=prompt)
 
