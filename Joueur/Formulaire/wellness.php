@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_id'])) {
 <body>
     <!-- Bouton retour -->
     <div class="header">
-        <a href="formulaires.html" class="btn-retour">Retour à l'acceuil</a>
+        <a href="formulaires.html" class="btn-retour">Retour à l'accueil</a>
     </div>
   <div class="form-container">
     <h1><img src="../../Images/asbh.svg" class="logo-asbh" alt="ASBH">WELLNESS</h1>
