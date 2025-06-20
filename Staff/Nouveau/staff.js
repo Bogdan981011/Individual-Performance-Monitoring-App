@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (data.includes("ok")) {
                 afficherSuccès("Réponses envoyées avec succès.");
                 setTimeout(() => {
-                    window.location.href = `/vizia/Staff/Nouveau/creer.html`;
+                    window.location.href = `/vizia/Staff/Nouveau/creer.php`;
                 }, 1000);
             } else {
                 afficherErreur("Erreur serveur : " + data);

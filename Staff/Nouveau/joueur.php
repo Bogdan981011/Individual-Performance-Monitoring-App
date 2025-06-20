@@ -15,44 +15,6 @@ if (!isset($_SESSION['user_id'])) {
     <link rel="stylesheet" href="../../Styles/nouveau.css" type="text/css" media="screen" />
     <title>Nouveau</title>
     <script src="joueur.js"></script>
-    <script>
-        // Fonction pour ajouter une section "personne"
-        function ajouterPersonne() {
-            const container = document.getElementById('personnes');
-            const index = container.children.length + 1;
-            const personne = document.createElement('div');
-            personne.className = 'form-container personne';
-
-            personne.innerHTML = `
-                <button type="button" class="supprimer" onclick="this.parentElement.remove()">− Supprimer</button>
-                <h2>Personne ${index}</h2>
-                <p>
-                    <label>Equipe :</label>
-                    <select name="n[]">
-                        <option value="crabos">CRABOS</option>
-                        <option value="cadetsa">CADETS A</option>
-                        <option value="cadetsb">CADETS B</option>
-                        <option value="espoirs">ESPOIRS</option>
-                    </select>
-                </p>
-                <p>
-                    <label>Nom :</label>
-                    <input type="text" name="p[]">
-                </p>
-                
-                <p>
-                    <label>Prénom :</label>
-                    <input type="text" name="p[]">
-                </p>
-                <p>
-                    <label>Adresse e-mail :</label>
-                    <input type="email" name="mail[]">
-                </p>
-        
-            `;
-            container.appendChild(personne);
-        }
-    </script>
     <style>
         /* Tu peux ajouter ceci directement dans ton CSS existant */
         .supprimer {
@@ -114,8 +76,7 @@ if (!isset($_SESSION['user_id'])) {
         <a href="../accueil_staff.php" class="btn-retour">Retour à l'accueil</a>
     </div>
     <h2>Création de Compte - Joueur</h2> 
-    <form action="traitement_joueur.php" method="POST" enctype="multipart/form-data">
->
+    <form>
         <input type="hidden" name="csrf_token" value="<?= htmlspecialchars($_SESSION['csrf_token']) ?>">
         <div id="personnes">
             <!-- Une première personne affichée par défaut -->
@@ -133,24 +94,32 @@ if (!isset($_SESSION['user_id'])) {
                     <span class="error-message"></span>
                 </p>
                 <p>
+                    <label for="annee">Date de naissance :</label>
+                    <input type="date" name="annee" id="annee"><span class="error-message"></span>
+                </p>
+                <p>
                     <label>Nom :</label>
-                    <input type="text" name="nom[]"><span class="error-message"></span>
+                    <input type="text" name="nom"><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Prénom :</label>
-                    <input type="text" name="prenom[]"><span class="error-message"></span>
+                    <input type="text" name="prenom"><span class="error-message"></span>
+                </p>
+                <p>
+                    <label for="poste">Poste :</label>
+                    <input type="text" name="poste" id="poste"><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Adresse e-mail :</label>
-                    <input type="email" name="email[]"><span class="error-message"></span>
+                    <input type="email" name="mail"><span class="error-message"></span>
                 </p>
                 <p>                    
                     <label>Mot de passe provisoire :</label>
-                    <input type="text" name="mdp[]"><span class="error-message"></span>
+                    <input type="text" name="mdp"><span class="error-message"></span>
                 </p>
                 <p>
                     <label>Photo :</label>
-                    <input type="file" name="photo[]" accept="image/png,image/jpeg,image/webp">
+                    <input type="file" name="photo" accept="image/png,image/jpeg,image/webp">
                 </p>
             </div>
         </div>

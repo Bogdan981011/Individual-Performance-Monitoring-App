@@ -22,12 +22,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 <span class="error-message"></span>
             </p>
             <p>
+                <label for="annee">Date de naissance :</label>
+                <input type="date" name="annee" id="annee"><span class="error-message"></span>
+            </p>
+            <p>
                 <label>Nom :</label>
                 <input type="text" name="nom"><span class="error-message"></span>
             </p>
             <p>
                 <label>Prénom :</label>
                 <input type="text" name="prenom"><span class="error-message"></span>
+            </p>
+            <p>
+                <label for="poste">Poste :</label>
+                <input type="text" name="poste" id="poste"><span class="error-message"></span>
             </p>
             <p>
                 <label>Adresse e-mail :</label>
@@ -39,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
             </p>
             <p>
                 <label>Photo :</label>
-                <input type="file" name="photo[]" accept="image/png,image/jpeg,image/webp">
+                <input type="file" name="photo" accept="image/png,image/jpeg,image/webp">
                 <span class="error-message"></span>
             </p>
 
@@ -71,6 +79,30 @@ document.addEventListener('DOMContentLoaded', function () {
         resultat.innerHTML = `<p style="color: green; text-align: center; font-weight: bold; border: 1px solid green">${message}</p>`;
     }
 
+    function dateOk(dateString, input) {
+        const dateParts = dateString.split('-');
+        const day = parseInt(dateParts[2], 10);
+        const month = parseInt(dateParts[1], 10) - 1; // Les mois sont indexés à partir de 0
+        const year = parseInt(dateParts[0], 10);
+
+        const annee = new Date(year, month, day);
+        const valid = annee.getDate() === day && annee.getMonth() === month && annee.getFullYear() === year;
+        if (valid) {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (annee > today) {
+                showError(input, "L'année ne peut pas être dans le futur.");
+                return false;
+            }
+        } else {
+            showError(input, "Le format de la date est invalide.");
+            return false;
+        }
+        clearError(input);
+        return true;
+    }
+
     // Fonction pour valider l'email
     function validerEmail(input) {
         const email = input.value.trim();
@@ -83,7 +115,10 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // Fonction pour attacher les écouteurs de validation à un bloc .personne
-    function attacherValidation(personne) {
+    function attacherValidation(personne) {        
+        const dateInput = personne.querySelector('input[name="annee"]');
+        dateInput.addEventListener('input', () => dateOk(dateInput.value, dateInput));
+
         const emailInput = personne.querySelector('input[name="mail"]');
         emailInput.addEventListener('input', () => validerEmail(emailInput));
     }
@@ -112,6 +147,8 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = personne.querySelector('input[name="mail"]');
             const equipe = personne.querySelector('select[name="equipe"]');
             const mdp = personne.querySelector('input[name="mdp"]');
+            const poste = personne.querySelector('input[name="poste"]');
+            const annee = personne.querySelector('input[name="annee"]');
             
             // Vérifier que tous les champs sont remplis
             if (!nom.value.trim()) {
@@ -128,12 +165,29 @@ document.addEventListener('DOMContentLoaded', function () {
                 clearError(prenom);
             }
 
+            if (!poste.value.trim()) {
+                showError(poste, 'Le poste est obligatoire.');
+                isValid = false;
+            } else {
+                clearError(poste);
+            }
+
             if (!email.value.trim()) {
                 showError(email, 'L\'adresse e-mail est obligatoire.');
                 isValid = false;
             } else {
                 validerEmail(email);
                 if (email.parentElement.querySelector(".error-message").textContent) {
+                    isValid = false;
+                }
+            }
+
+            if (!annee.value.trim()) {
+                showError(annee, 'L\'année est obligatoire.');
+                isValid = false;
+            } else {
+                dateOk(annee.value, annee);
+                if (annee.parentElement.querySelector(".error-message").textContent) {
                     isValid = false;
                 }
             }
@@ -173,6 +227,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Si tout est OK, on envoie les données par AJAX
         const joueurs = [];
+        const fichiers = []
         const personnes = document.querySelectorAll('.personne');
         const csrfToken = form.querySelector('input[name="csrf_token"]').value;
 
@@ -182,44 +237,60 @@ document.addEventListener('DOMContentLoaded', function () {
             const email = personne.querySelector('input[name="mail"]').value.trim();
             const equipe = personne.querySelector('select[name="equipe"]').value;
             const mdp = personne.querySelector('input[name="mdp"]').value.trim();
-
+            const annee = personne.querySelector('input[name="annee"]').value.trim();
+            const poste = personne.querySelector('input[name="poste"]').value.trim();
+            
             joueurs.push({
                 nom,
                 prenom,
                 email,
                 equipe, 
-                mdp
+                mdp,
+                annee,
+                poste
             });
-        });
-        const formData = new FormData();
-        formData.append('csrf_token', csrfToken);
-
-        personnes.forEach((personne, index) => {
-            formData.append('nom[]', personne.querySelector('input[name="nom"]').value.trim());
-            formData.append('prenom[]', personne.querySelector('input[name="prenom"]').value.trim());
-            formData.append('email[]', personne.querySelector('input[name="email"]').value.trim());
-            formData.append('equipe[]', personne.querySelector('select[name="equipe"]').value);
-            formData.append('mdp[]', personne.querySelector('input[name="mdp"]').value.trim());
-
+            
             const fileInput = personne.querySelector('input[type="file"]');
-            if (fileInput.files.length > 0) {
-                formData.append('photo[]', fileInput.files[0]);
-            } else {
-                formData.append('photo[]', ''); // vide si aucune photo
-            }
+            fichiers.push(fileInput.files[0] || null);
         });
+
         fetch('save_joueur.php', {
             method: 'POST',
-            body: formData
+            headers: {
+                'Content-Type': 'application/json'
+            },
+           
+            body: JSON.stringify({ 
+                joueurs: joueurs, 
+                csrf_token: csrfToken  
+            })
         })
+        .then(res  => res.json())
+        .then(async response  => {
+            if (response.status === "ok") {
+                const ids = response.ids;
+                const formData = new FormData();
 
-        .then(response => response.text())
-        .then(data => {
-            if (data.includes("ok")) {
-                afficherSuccès("Réponses envoyées avec succès.");
-                setTimeout(() => {
-                    window.location.href = `/vizia/Staff/Nouveau/creer.html`;
-                }, 1000);
+                ids.forEach((id, i) => {
+                    if (fichiers[i]) {
+                        formData.append('photo[]', fichiers[i]);
+                        formData.append('id_joueur[]', id);
+                    }
+                });
+
+                const uploadResponse = await fetch('save_image.php', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (uploadResponse.ok) {
+                    afficherSuccès("Joueurs créés avec succès !");
+                    setTimeout(() => {
+                        window.location.href = `/vizia/Staff/Nouveau/creer.php`;
+                    }, 1000);
+                } else {
+                    afficherErreur("Erreur lors de l'upload des fichiers.");
+                }
             } else {
                 afficherErreur("Erreur serveur : " + data);
             }

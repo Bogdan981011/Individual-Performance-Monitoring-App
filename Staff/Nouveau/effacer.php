@@ -16,12 +16,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['selected'])) {
 
         if ($entryType === 'joueur') {
             $stmt = $pdo->prepare("DELETE FROM joueur WHERE id_joueur = :id");
+            $uploadDir = __DIR__ . '/../../Image_joueur/';
+            $allowedExtensions = ['jpg', 'jpeg', 'png', 'webp', 'tiff', 'tif', 'heic', 'heif', 'raw', 'bmp', 'pdf'];
+
+            foreach ($allowedExtensions as $ext) {
+                $oldFile = $uploadDir . $id . '.' . $ext;
+                if (file_exists($oldFile)) {
+                    unlink($oldFile);
+                }
+            }
         } else {
             $stmt = $pdo->prepare("DELETE FROM staff WHERE id_staff = :id");
         }
         $stmt->execute(['id' => $id]);
     }
-
     header("Location: " . strtok($_SERVER["REQUEST_URI"], '?') . '?' . http_build_query($_GET));
     exit;
 }
@@ -65,7 +73,7 @@ $data_filtered = $type === 'joueur' ? filterByName($players, $search) : filterBy
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Supprimer un Membre</title>
+    <title>Supprimer un membre</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; padding: 30px; background: url('../../Images/background.svg') no-repeat center center fixed;
             background-size: cover; }
@@ -125,7 +133,7 @@ $data_filtered = $type === 'joueur' ? filterByName($players, $search) : filterBy
         <a href="../accueil_staff.php" class="return-btn">Retour à l'accueil</a>
     </div>
 
-    <h1>Supprimer <?= $type === 'staff' ? 'un Membre du Staff' : 'un Joueur' ?></h1>
+    <h1>Supprimer <?= $type === 'staff' ? 'un membre du staff' : 'un joueur' ?></h1>
 
     <div class="selector">
         <form method="GET">

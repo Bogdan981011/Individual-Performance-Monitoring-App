@@ -25,12 +25,18 @@ if (isset($_SESSION['role'])) {
   <link rel="stylesheet" href="perf.css">
 </head>
 <body>
+  <?php
+    $chemin_fichier_serveur = $_SERVER['DOCUMENT_ROOT'] . $joueurs['photo_url'];
+    if (empty($joueurs['photo_url']) || !file_exists($chemin_fichier_serveur)){
+      $joueurs['photo_url'] = '/vizia/Image_joueur/image_pers.png';
+    }    
+  ?>
 
     <!-- Header ASBH -->
     <div class="header">
         <div class="header-box">
         <div class="container">
-            <img src="player.jpg" alt="Photo du joueur" />
+            <img src="<?= htmlspecialchars($joueurs['photo_url']) ?>" alt="Photo du joueur" />
             <div>
             <p class="player-name"><?= $joueurs['prenom'] . ' ' . $joueurs['nom']; ?></p>
             <p><strong><?= $joueurs['poste'] ?></strong> - Poste</p>

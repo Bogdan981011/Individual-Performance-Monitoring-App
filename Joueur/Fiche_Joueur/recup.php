@@ -1,17 +1,8 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}$host = 'localhost';
-$dbname = 'vizia';
-$username = 'root';
-$password = 'root';
-
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-} catch (PDOException $e) {
-    die("Erreur de connexion à la base de données : " . $e->getMessage());
 }
+require_once '../../bd.php';
 
 if (isset($_SESSION['role'])) {
     
@@ -34,7 +25,7 @@ if (isset($_SESSION['role'])) {
                     }else if (equipe === "E") {
                         window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
                     } else {
-                        window.location.href = `/vizia/Staff/accueil_staff.html`;
+                        window.location.href = `/vizia/Staff/accueil_staff.php`;
                     }
                 }, 1000); // Fermer setTimeout ici
         </script>';
@@ -46,7 +37,7 @@ if (isset($_SESSION['role'])) {
 try {
     // Données joueur
     $stmt = $pdo->prepare("
-        SELECT nom, prenom, poste, annee
+        SELECT nom, prenom, poste, annee, photo_url
         FROM joueur
         WHERE id_joueur = :id
     ");

@@ -15,11 +15,11 @@ document.addEventListener('DOMContentLoaded', function() {
         const annee = form.annee.value.trim() || form.annee.value.trim();
         const nom_equipe = form.nom_equipe.value;
 
-
         const params = new URLSearchParams(window.location.search);
         const idJoueur = params.get('id');
         const equipe = params.get('eq');
-        const csrfToken = form.querySelector('input[name="csrf_token"]').value;
+        const csrfToken = form.querySelector('input[name="csrf_token"]').value;        
+        const fileInput = form.querySelector('input[type="file"]');
         
 
         // Validation email
@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return annee.getDate() === day && annee.getMonth() === month && annee.getFullYear() === year;
         }
         
-        console.log(annee);
         // Si tout est OK, on envoie les données par AJAX
         const formData = new FormData();
         formData.append('nom', nom );
@@ -72,23 +71,54 @@ document.addEventListener('DOMContentLoaded', function() {
             body: formData
         })
         .then(response => response.text())
-        .then(data => {
-            console.log("Réponse PHP :", data); // Tu verras ici l’erreur ou "OK"
+        .then(async data => {
             if (data.includes("ok")) {
-                afficherSuccès("Modifications enregistrées avec succès.");
-                setTimeout(() => {
-                    if (equipe === "A") {
-                        window.location.href = `/vizia/Staff/Equipe/CadetA/joueurs_cadetA.php`;
-                    } else if (equipe === "B") {
-                        window.location.href = `/vizia/Staff/Equipe/CadetB/joueurs_cadetB.php`;
-                    } else if (equipe === "C") {
-                        window.location.href = `/vizia/Staff/Equipe/Crabos/joueurs_crabos.php`;
-                    }else if (equipe === "E") {
-                        window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
+                const formDataPhoto = new FormData();
+                
+                if (fileInput && fileInput.files.length > 0) {
+                    formDataPhoto.append('photo', fileInput.files[0]);
+                    formDataPhoto.append('photo', fileInput);
+                    formDataPhoto.append('id_joueur', idJoueur);
+
+                    const uploadResponse = await fetch('change_image.php', {
+                        method: 'POST',
+                        body: formDataPhoto
+                    });
+
+                    if (uploadResponse.ok) {
+                        afficherSuccès("Modifications enregistrées avec succès.");
+                        setTimeout(() => {
+                            if (equipe === "A") {
+                                window.location.href = `/vizia/Staff/Equipe/CadetA/joueurs_cadetA.php`;
+                            } else if (equipe === "B") {
+                                window.location.href = `/vizia/Staff/Equipe/CadetB/joueurs_cadetB.php`;
+                            } else if (equipe === "C") {
+                                window.location.href = `/vizia/Staff/Equipe/Crabos/joueurs_crabos.php`;
+                            }else if (equipe === "E") {
+                                window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
+                            } else {
+                                window.location.href = `/vizia/Staff/accueil_staff.php`;
+                            }
+                        }, 1000); // Redirection après succès
                     } else {
-                        window.location.href = `/vizia/Staff/accueil_staff.php`;
+                        afficherErreur("Erreur lors de l'upload des fichiers.");
                     }
-                }, 1000); // Redirection après succès
+                } else {
+                    afficherSuccès("Modifications enregistrées avec succès.");
+                        setTimeout(() => {
+                            if (equipe === "A") {
+                                window.location.href = `/vizia/Staff/Equipe/CadetA/joueurs_cadetA.php`;
+                            } else if (equipe === "B") {
+                                window.location.href = `/vizia/Staff/Equipe/CadetB/joueurs_cadetB.php`;
+                            } else if (equipe === "C") {
+                                window.location.href = `/vizia/Staff/Equipe/Crabos/joueurs_crabos.php`;
+                            }else if (equipe === "E") {
+                                window.location.href = `/vizia/Staff/Equipe/Espoirs/joueurs_espoirs.php`;
+                            } else {
+                                window.location.href = `/vizia/Staff/accueil_staff.php`;
+                            }
+                        }, 1000); // Redirection après succès
+                }
             } else {
                 afficherErreur("Erreur serveur : " + data);
             }

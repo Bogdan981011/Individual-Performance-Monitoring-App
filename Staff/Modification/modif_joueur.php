@@ -104,7 +104,10 @@ if (!isset($_SESSION['user_id'])) {
             <label for="mdp">Mot de passe provisoire :</label>
             <input type="password" name="mdp" id="mdp">
         </p>
-
+        <p>
+            <label>Photo :</label>
+            <input type="file" name="photo" accept="image/png,image/jpeg,image/webp">
+        </p>
         <p>
             <input type="submit" value="Ajouter">
         </p>
