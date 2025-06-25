@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:3306
--- Généré le : ven. 20 juin 2025 à 07:30
+-- Généré le : mer. 25 juin 2025 à 13:05
 -- Version du serveur : 5.7.24
 -- Version de PHP : 8.3.1
 
@@ -4319,6 +4319,13 @@ CREATE TABLE `staff` (
   `validite` tinyint(1) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Déchargement des données de la table `staff`
+--
+
+INSERT INTO `staff` (`id_staff`, `nom`, `prenom`, `role`, `email`, `mdp`, `validite`) VALUES
+(1, 'Sempere', 'Landry', 'admin', 'ladnry@test.fr', '$2y$10$WtkX4KeSIpEQnK1jDqzNjOAfwTPrdynECZv/KstHc3zjBtMzyq8p6', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -8048,7 +8055,7 @@ ALTER TABLE `rpe_form`
 -- AUTO_INCREMENT pour la table `staff`
 --
 ALTER TABLE `staff`
-  MODIFY `id_staff` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_staff` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `tests_fonctionnels`
