@@ -120,7 +120,10 @@ try {
     }
 
     $pdo->commit();
-    echo "<p>✅ Match enregistré avec succès !</p>";
+    header("Location: ../../section_perf_globale.php?id_eq=" . urlencode($id_equipe) . "&success=1");
+    exit;
+
+
 } catch (PDOException $e) {
     if ($pdo->inTransaction()) {
         $pdo->rollBack();
