@@ -1,6 +1,11 @@
 <?php
 
   session_start(); 
+
+  if (isset($_GET['success']) && $_GET['success'] == 1) {
+    echo "<p style='color: green;'>✅ Match enregistré avec succès !</p>";
+  }
+
   if (!isset($_SESSION['user_id'])) {
     // L'utilisateur n'est pas connecté, on le redirige
     header("Location: /vizia/accueil.html");
