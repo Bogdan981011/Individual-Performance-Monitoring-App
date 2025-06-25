@@ -49,12 +49,11 @@ $stats['nuls'] = $stmt->fetchColumn();
 
 // Moyenne de minutes jouées par joueur
 $stmt = $pdo->prepare("
-    SELECT j.nom, j.prenom, AVG(a.minutes_joues) AS avg_minutes
-    FROM joueur j
-    JOIN analyse_joueur_match a ON j.id_joueur = a.id_joueur
-    JOIN info_match m ON a.id_match = m.id_match
-    WHERE m.id_equipe = :id AND j.validite = 1
-    GROUP BY j.id_joueur
+    SELECT joueur.nom, joueur.prenom, AVG(analyse_joueur_match.minutes_joues) AS avg_minutes
+    FROM joueur, analyse_joueur_match
+    WHERE joueur.id_equipe = :id AND joueur.validite = 1
+    AND joueur.id_joueur = analyse_joueur_match.id_joueur
+    GROUP BY joueur.id_joueur
     ORDER BY avg_minutes DESC
     LIMIT 5
 ");
